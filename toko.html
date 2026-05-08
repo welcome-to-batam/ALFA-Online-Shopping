@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Toko Online</title>
+  <style>
+    body { font-family: Arial; background: #f5f5f5; margin: 0; }
+    header { background: #0000FF; color: white; padding: 15px; text-align: center; }
+    .container { padding: 20px; }
+    .product { background: white; padding: 15px; margin-bottom: 15px; border-radius: 10px; }
+    button { background: green; color: white; padding: 10px; border: none; border-radius: 5px; }
+    .cart { background: white; padding: 15px; border-radius: 10px; }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>ALFA</h1>
+    <h1>Online Shopping</h1>
+
+  <p>Order via WhatsApp</p>
+</header>
+
+<div class="container">
+
+ <div class="product">
+   <img src="https://i.postimg.cc/9QY8Y6nM/celana-training.jpg" width="250">
+   <h3>Celana Panjang</h3>
+    <p>Rp40.000</p>
+    <button onclick="addToCart('Celana Panjang',40000)">Tambah</button>
+  </div>
+  
+  <div class="cart">
+    <h3>Keranjang</h3>
+    <ul id="cart-list"></ul>
+    <p>Total: Rp<span id="total">0</span></p>
+    <button onclick="checkoutWA()">Checkout via WhatsApp</button>
+  </div>
+
+</div>
+
+<script>
+let total = 0;
+let items = [];
+
+function addToCart(name, price) {
+  let list = document.getElementById('cart-list');
+  let item = document.createElement('li');
+  item.textContent = name + ' - Rp' + price;
+  list.appendChild(item);
+
+  items.push({name, price});
+  total += price;
+  document.getElementById('total').textContent = total;
+}
+
+function checkoutWA() {
+  if (items.length === 0) {
+    alert('Keranjang masih kosong!');
+    return;
+  }
+
+  let pesan = 'Halo, saya ingin pesan:\n';
+  items.forEach((item, index) => {
+    pesan += (index + 1) + '. ' + item.name + ' - Rp' + item.price + '\n';
+  });
+  pesan += '\nTotal: Rp' + total;
+
+  let nomor = '6285765850084'; // ganti nomor kamu
+
+  let url = 'https://wa.me/' + nomor + '?text=' + encodeURIComponent(pesan);
+
+  window.location.href = url;
+}
+</script>
+
+</body>
+</html>
