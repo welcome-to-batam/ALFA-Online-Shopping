@@ -1,89 +1,100 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Toko Online</title>
-  <style>
-    body { font-family: Arial; background: #f5f5f5; margin: 0; }
-    header { background: #0000FF; color: white; padding: 15px; text-align: center; }
-    .container { padding: 20px; }
-    .product { background: white; padding: 15px; margin-bottom: 15px; border-radius: 10px; }
-    button { background: green; color: white; padding: 10px; border: none; border-radius: 5px; }
-    .cart { background: white; padding: 15px; border-radius: 10px; }
-  </style>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>ALFA Online Shopping</title>
+   <link rel="icon" type="image/png" href="logo.png">
+   <style>
+      body { 
+         font-family: Arial, sans-serif; 
+         margin: 0; 
+         background-color: #f4f4f4; 
+      }
+      header { 
+         background-color: #0052cc; 
+         color: white; 
+         padding: 20px 15px; 
+         text-align: center; 
+      }
+      .logo { 
+         width: 60px; 
+         height: 60px; 
+         border-radius: 50%; 
+         border: 2px solid white; 
+         margin-bottom: 10px;
+      }
+      .container { 
+         max-width: 600px; 
+         margin: 20px auto; 
+         padding: 0 15px; 
+      }
+      .product { 
+         background: white; 
+         border-radius: 12px; 
+         padding: 15px; 
+         margin-bottom: 20px; 
+         box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+         text-align: center;
+      }
+      .product img { 
+         width: 100%; 
+         max-width: 250px; 
+         border-radius: 8px; 
+         margin-bottom: 10px;
+      }
+      .btn-wa {
+         background-color: #25D366; 
+         color: white; 
+         padding: 12px 25px; 
+         text-decoration: none; 
+         border-radius: 8px; 
+         display: inline-block; 
+         font-weight: bold;
+         margin-top: 10px;
+      }
+      h3 { margin: 10px 0 5px 0; }
+      p { margin: 5px 0; color: #555; }
+   </style>
 </head>
 <body>
 
-<header>
-        <img src="logo ijo.jpg" width="80" height="80" style="border-radius: 50%; border: 2px solid red;">
-   <h1>ALFA</h1>
-    <h1>Online Shopping</h1>
+   <header>
+      <img src="logo.png" alt="Logo ALFA" class="logo">
+      <h1 style="margin: 5px 0;">ALFA</h1>
+      <p style="margin: 0;">Online Shopping</p>
+      <small style="opacity: 0.8;">Order via WhatsApp</small>
+   </header>
 
-  <p>Order via WhatsApp</p>
+   <div class="container">
+      
+      <!-- PRODUK 1: CELANA PENDEK -->
+      <div class="product">
+         <img src="celana-pendek.jpg" alt="Celana Pendek DANDANA">
+         <h3>Celana Pendek</h3>
+         <p><strong>Harga: Rp35.000</strong></p>
+         
+         <a href="https://wa.me/6285765850084?text=Halo%20ALFA%20Shop%2C%20saya%20mau%20order%3A%0A%0AProduk%3A%20Celana%20Pendek%20DANDANA%0AHarga%3A%20Rp35.000%0AJumlah%3A%201%20pcs%0A%0AMohon%20info%20stok%20%26%20ongkir%20ya%20kak" 
+            target="_blank"
+            class="btn-wa">
+            🛒 Pesan via WhatsApp
+         </a>
+      </div>
 
-</header>
+      <!-- PRODUK 2: CELANA PANJANG -->
+      <div class="product">
+         <img src="celana-panjang.jpg" alt="Celana Panjang DANDANA">
+         <h3>Celana Panjang</h3>
+         <p><strong>Harga: Rp40.000</strong></p>
+         
+         <a href="https://wa.me/6285765850084?text=Halo%20ALFA%20Shop%2C%20saya%20mau%20order%3A%0A%0AProduk%3A%20Celana%20Panjang%20DANDANA%0AHarga%3A%20Rp40.000%0AJumlah%3A%201%20pcs%0A%0AMohon%20info%20stok%20%26%20ongkir%20ya%20kak" 
+            target="_blank"
+            class="btn-wa">
+            🛒 Pesan via WhatsApp
+         </a>
+      </div>
 
-<div class="container">
-  
-<div class="product">
-   <img src="celanapendek1.jpg" width="250">
-   <h3>Celana Pendek</h3>
-     <h4>Harga Satuan</h4>
-    <p>Rp35.000</p>
-    <button onclick="addToCart('Celana Pendek',35000)">Tambah</button>
-</div>
-  
- <div class="product">
-   <img src="training merah.jpg" width="250">
-   <h3>Celana Panjang</h3>
-    <p>Rp40.000</p>
-    <button onclick="addToCart('Celana Panjang',40000)">Tambah</button>
-  </div>
-  
-  <div class="cart">
-    <h3>Keranjang</h3>
-    <ul id="cart-list"></ul>
-    <p>Total: Rp<span id="total">0</span></p>
-    <button onclick="checkoutWA()">Checkout via WhatsApp</button>
-  </div>
-
-</div>
-
-<script>
-let total = 0;
-let items = [];
-
-function addToCart(name, price) {
-  let list = document.getElementById('cart-list');
-  let item = document.createElement('li');
-  item.textContent = name + ' - Rp' + price;
-  list.appendChild(item);
-
-  items.push({name, price});
-  total += price;
-  document.getElementById('total').textContent = total;
-}
-
-function checkoutWA() {
-  if (items.length === 0) {
-    alert('Keranjang masih kosong!');
-    return;
-  }
-
-  let pesan = 'Halo, saya ingin pesan:\n';
-  items.forEach((item, index) => {
-    pesan += (index + 1) + '. ' + item.name + ' - Rp' + item.price + '\n';
-  });
-  pesan += '\nTotal: Rp' + total;
-
-  let nomor = '6285765850084'; // ganti nomor kamu
-
-  let url = 'https://wa.me/' + nomor + '?text=' + encodeURIComponent(pesan);
-
-  window.location.href = url;
-}
-</script>
+   </div>
 
 </body>
 </html>
