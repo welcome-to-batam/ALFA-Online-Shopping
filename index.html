@@ -1,122 +1,294 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-   <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>ALFA Online Shopping</title>
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
-   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
-   <style>
-      body { 
-         font-family: Arial, sans-serif; 
-         margin: 0; 
-         background-color: #f4f4f4; 
-      }
-      header { 
-         background-color: #0052cc; 
-         color: white; 
-         padding: 20px 15px; 
-         text-align: center; 
-      }
-      .logo { 
-         width: 60px; 
-         height: 60px; 
-         border-radius: 50%; 
-         border: 2px solid white; 
-         margin-bottom: 10px;
-      }
-   .container {
-   display: grid;
-   grid-template-columns: 1fr 1fr;
-   gap: 15px;
-   padding: 15px;
-   max-width: 600px;
-   margin: 0 auto;
-   }
-      .product { 
-         background: white; 
-         border-radius: 12px; 
-         padding: 15px; 
-         margin-bottom: 20px; 
-         box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-         text-align: center;
-      }
-      .product img { 
-         width: 100%; 
-         max-width: 250px; 
-         border-radius: 8px; 
-         margin-bottom: 10px;
-      }
-      .btn-wa {
-         background-color: #25D366; 
-         color: white; 
-         padding: 12px 25px; 
-         text-decoration: none; 
-         border-radius: 8px; 
-         display: inline-block; 
-         font-weight: bold;
-         margin-top: 10px;
-      }
-      h3 { margin: 10px 0 5px 0; }
-      p { margin: 5px 0; color: #555; }
-   </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ALFA - Online Shopping</title>
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background-color: #f4f4f4;
+    }
+    header {
+      background-color: #0052cc;
+      color: white;
+      padding: 20px 15px;
+      text-align: center;
+    }
+    .logo {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      border: 2px solid white;
+      margin-bottom: 10px;
+    }
+    header h1 {
+      margin: 5px 0;
+      font-size: 24px;
+    }
+    header p {
+      margin: 0;
+      font-size: 14px;
+    }
+    
+    /* LAYOUT 2 KOLOM */
+    .container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+      padding: 15px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    .product {
+      background: white;
+      border-radius: 10px;
+      padding: 15px;
+      text-align: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    
+    /* WRAPPER BUAT TOMBOL INFO */
+    .product-img-wrap {
+      position: relative;
+    }
+    
+    .product img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+    
+    .product h3 {
+      margin: 10px 0 5px 0;
+      font-size: 16px;
+    }
+    
+    .product p {
+      margin: 5px 0;
+      color: #333;
+      font-size: 14px;
+    }
+    
+    .btn-wa {
+      display: inline-block;
+      background: #25D366;
+      color: white;
+      padding: 10px 15px;
+      text-decoration: none;
+      border-radius: 5px;
+      margin-top: 10px;
+      font-size: 14px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    
+    /* TOMBOL INFO DI POJOK GAMBAR */
+    .btn-info {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background: rgba(0,0,0,0.6);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 28px;
+      height: 28px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    
+    /* JENDELA MODAL DESKRIPSI */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 999;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.5);
+    }
+    
+    .modal-content {
+      background-color: white;
+      margin: 40% auto;
+      padding: 20px;
+      border-radius: 10px;
+      width: 80%;
+      max-width: 320px;
+      text-align: left;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    }
+    
+    .modal-content h4 {
+      margin-top: 0;
+      color: #0052cc;
+      text-align: center;
+    }
+    
+    .modal-content p {
+      margin: 8px 0;
+      font-size: 14px;
+    }
+    
+    .close-btn {
+      background: #0052cc;
+      color: white;
+      border: none;
+      padding: 10px;
+      border-radius: 5px;
+      margin-top: 15px;
+      width: 100%;
+      cursor: pointer;
+      font-size: 16px;
+    }
+  </style>
 </head>
 <body>
 
-   <header>
-      <img src="logoijo.jpg" alt="Logo ALFA" class="logo">
-      <h1 style="margin: 5px 0;">ALFA</h1>
-      <p style="margin: 0; color: white;">Online Shopping</p>
-      <small style="opacity: 0.8;">Order via WhatsApp</small>
-   </header>
+  <header>
+    <img src="favicon-32x32.png" alt="Logo ALFA" class="logo">
+    <h1>ALFA</h1>
+    <p>Online Shopping</p>
+    <p>Order via WhatsApp</p>
+  </header>
 
-   <div class="container">
-      
-      <!-- PRODUK 1: CELANA PENDEK -->
-      <div class="product">
-         <img src="celanapendek1.jpg" alt="Celana Pendek DANDANA">
-         <h3>Celana Pendek</h3>
-         <p><strong>Harga: Rp35.000</strong></p>
-         
-         <a href="https://wa.me/6285765850084?text=Halo%20ALFA%20Shop%2C%20saya%20mau%20order%3A%0A%0AProduk%3A%20Celana%20Pendek%20DANDANA%0AHarga%3A%20Rp35.000%0AJumlah%3A%201%20pcs%0A%0AMohon%20info%20stok%20%26%20ongkir%20ya%20kak" 
-            target="_blank"
-            class="btn-wa">
-            🛒 Pesan via WhatsApp
-         </a>
+  <div class="container">
+    
+    <!-- PRODUK 1 -->
+    <div class="product">
+      <div class="product-img-wrap">
+        <img src="celana-pendek.jpg" alt="Celana Pendek">
+        <button class="btn-info" onclick="bukaModal('modal1')">ℹ️</button>
       </div>
+      <h3>Celana Pendek</h3>
+      <p><strong>Harga: Rp35.000</strong></p>
+      <a href="https://wa.me/6285765850084?text=Halo%20ALFA%20Shop,%20saya%20mau%20order%20Celana%20Pendek" 
+         target="_blank"
+         class="btn-wa">
+         🛒 Pesan via WhatsApp
+      </a>
+    </div>
 
-      <!-- PRODUK 2: CELANA PANJANG -->
-      <div class="product">
-         <img src="training biru.jpg" alt="Celana Panjang DANDANA">
-         <h3>Celana Panjang</h3>
-         <p><strong>Harga: Rp40.000</strong></p>
-         
-         <a href="https://wa.me/6285765850084?text=Halo%20ALFA%20Shop%2C%20saya%20mau%20order%3A%0A%0AProduk%3A%20Celana%20Panjang%20DANDANA%0AHarga%3A%20Rp40.000%0AJumlah%3A%201%20pcs%0A%0AMohon%20info%20stok%20%26%20ongkir%20ya%20kak" 
-            target="_blank"
-            class="btn-wa">
-            🛒 Pesan via WhatsApp
-         </a>
+    <!-- PRODUK 2 -->
+    <div class="product">
+      <div class="product-img-wrap">
+        <img src="celana-panjang.jpg" alt="Celana Panjang">
+        <button class="btn-info" onclick="bukaModal('modal2')">ℹ️</button>
       </div>
-<div class="product">
-         <img src="kaospoloshitam.jpg" alt="Kaos Polos Hitam DANDANA">
-         <h3>Kaos Polos Hitam</h3>
-         <p><strong>Harga: Rp25.000</strong></p>
-         
-         <a href="https://wa.me/6285765850084?text=Halo%20ALFA%20Shop%2C%20saya%20mau%20order%3A%0A%0AProduk%3A%20Celana%20Pendek%20DANDANA%0AHarga%3A%20Rp35.000%0AJumlah%3A%201%20pcs%0A%0AMohon%20info%20stok%20%26%20ongkir%20ya%20kak" 
-            target="_blank"
-            class="btn-wa">
-            🛒 Pesan via WhatsApp
-         </a>
-</div>
-      <div class="product">
-         <img src="kaostudung.jpg" alt="Kaos Tudung DANDANA">
-         <h3>Kaos Tudung</h3>
-         <p><strong>Harga: Rp25.000</strong></p>
-         
-         <a href="https://wa.me/6285765850084?text=Halo%20ALFA%20Shop%2C%20saya%20mau%20order%3A%0A%0AProduk%3A%20Celana%20Pendek%20DANDANA%0AHarga%3A%20Rp35.000%0AJumlah%3A%201%20pcs%0A%0AMohon%20info%20stok%20%26%20ongkir%20ya%20kak" 
-            target="_blank"
-            class="btn-wa">
-            🛒 Pesan via WhatsApp
-         </a>
-</div>
-   </div>
+      <h3>Celana Panjang</h3>
+      <p><strong>Harga: Rp40.000</strong></p>
+      <a href="https://wa.me/6285765850084?text=Halo%20ALFA%20Shop,%20saya%20mau%20order%20Celana%20Panjang" 
+         target="_blank"
+         class="btn-wa">
+         🛒 Pesan via WhatsApp
+      </a>
+    </div>
+
+    <!-- PRODUK 3 -->
+    <div class="product">
+      <div class="product-img-wrap">
+        <img src="kaos-hitam.jpg" alt="Kaos Polos Hitam">
+        <button class="btn-info" onclick="bukaModal('modal3')">ℹ️</button>
+      </div>
+      <h3>Kaos Polos Hitam</h3>
+      <p><strong>Harga: Rp25.000</strong></p>
+      <a href="https://wa.me/6285765850084?text=Halo%20ALFA%20Shop,%20saya%20mau%20order%20Kaos%20Polos%20Hitam" 
+         target="_blank"
+         class="btn-wa">
+         🛒 Pesan via WhatsApp
+      </a>
+    </div>
+
+    <!-- PRODUK 4 -->
+    <div class="product">
+      <div class="product-img-wrap">
+        <img src="kaos-tudung.jpg" alt="Kaos Tudung">
+        <button class="btn-info" onclick="bukaModal('modal4')">ℹ️</button>
+      </div>
+      <h3>Kaos Tudung</h3>
+      <p><strong>Harga: Rp25.000</strong></p>
+      <a href="https://wa.me/6285765850084?text=Halo%20ALFA%20Shop,%20saya%20mau%20order%20Kaos%20Tudung" 
+         target="_blank"
+         class="btn-wa">
+         🛒 Pesan via WhatsApp
+      </a>
+    </div>
+
+  </div> <!-- PENUTUP .container -->
+
+  <!-- MODAL DESKRIPSI PRODUK 1 -->
+  <div id="modal1" class="modal">
+    <div class="modal-content">
+      <h4>Detail Celana Pendek</h4>
+      <p><strong>Bahan:</strong> Baby Terry Premium</p>
+      <p><strong>Ukuran:</strong> M, L, XL</p>
+      <p><strong>Warna:</strong> Hitam</p>
+      <p><strong>Motif:</strong> Saku samping + Logo</p>
+      <button class="close-btn" onclick="tutupModal('modal1')">TUTUP</button>
+    </div>
+  </div>
+
+  <!-- MODAL DESKRIPSI PRODUK 2 -->
+  <div id="modal2" class="modal">
+    <div class="modal-content">
+      <h4>Detail Celana Panjang</h4>
+      <p><strong>Bahan:</strong> Diadora Premium</p>
+      <p><strong>Ukuran:</strong> M, L, XL, XXL</p>
+      <p><strong>Warna:</strong> Hitam List Biru</p>
+      <p><strong>Motif:</strong> Saku resleting</p>
+      <button class="close-btn" onclick="tutupModal('modal2')">TUTUP</button>
+    </div>
+  </div>
+
+  <!-- MODAL DESKRIPSI PRODUK 3 -->
+  <div id="modal3" class="modal">
+    <div class="modal-content">
+      <h4>Detail Kaos Polos Hitam</h4>
+      <p><strong>Bahan:</strong> Cotton Combed 30s</p>
+      <p><strong>Ukuran:</strong> M, L, XL</p>
+      <p><strong>Warna:</strong> Hitam</p>
+      <p><strong>Sablon:</strong> DTF Premium Anti Luntur</p>
+      <button class="close-btn" onclick="tutupModal('modal3')">TUTUP</button>
+    </div>
+  </div>
+
+  <!-- MODAL DESKRIPSI PRODUK 4 -->
+  <div id="modal4" class="modal">
+    <div class="modal-content">
+      <h4>Detail Kaos Tudung</h4>
+      <p><strong>Bahan:</strong> Cotton Combed 30s</p>
+      <p><strong>Ukuran:</strong> All Size Fit to L</p>
+      <p><strong>Warna:</strong> Abu-abu</p>
+      <p><strong>Model:</strong> Lengan panjang + Tudung</p>
+      <button class="close-btn" onclick="tutupModal('modal4')">TUTUP</button>
+    </div>
+  </div>
+
+  <!-- JAVASCRIPT BUAT BUKA TUTUP MODAL -->
+  <script>
+    function bukaModal(id) {
+      document.getElementById(id).style.display = 'block';
+    }
+    function tutupModal(id) {
+      document.getElementById(id).style.display = 'none';
+    }
+    // Klik di luar modal buat nutup
+    window.onclick = function(event) {
+      if (event.target.classList.contains('modal')) {
+        event.target.style.display = 'none';
+      }
+    }
+  </script>
+
+</body>
+</html>
