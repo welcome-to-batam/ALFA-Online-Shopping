@@ -170,8 +170,47 @@
   font-size: 14px;
   color: #333;
 }
+    /* Lightbox / Zoom Foto */
+.lightbox {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.9);
+  justify-content: center;
+  align-items: center;
+}
+
+.lightbox img {
+  max-width: 95%;
+  max-height: 95%;
+  object-fit: contain;
+}
+
+.lightbox .close-lightbox {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  color: white;
+  font-size: 40px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.product-img-wrap img {
+  cursor: zoom-in;
+}
   </style>
 </head>
+  <!-- LIGHTBOX UNTUK ZOOM FOTO -->
+<div id="lightbox" class="lightbox" onclick="tutupLightbox()">
+  <span class="close-lightbox">&times;</span>
+  <img id="lightbox-img" src="">
+</div>
+
 <body>
 
   <header>
@@ -322,6 +361,16 @@ BB : 30 - 55 KG dan XL</p>
       if (event.target.classList.contains('modal')) {
         event.target.style.display = 'none';
       }
+    }
+    // Fungsi Lightbox Zoom Foto
+function bukaLightbox(src) {
+  document.getElementById('lightbox-img').src = src;
+  document.getElementById('lightbox').style.display = 'flex';
+  document.body.style.overflow = 'hidden'; // Kunci scroll
+}
+function tutupLightbox() {
+  document.getElementById('lightbox').style.display = 'none';
+  document.body.style.overflow = 'auto'; // Buka scroll lagi
     }
   </script>
 
