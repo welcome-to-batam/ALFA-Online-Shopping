@@ -346,7 +346,13 @@ BB : 30 - 55 KG dan XL</p>
   <!-- JAVASCRIPT BUAT BUKA TUTUP MODAL -->
   <script>
     function bukaModal(id) {
-  document.getElementById(id).style.display = 'flex'; // <-- ganti block jadi flex
+  // Tutup semua modal dulu
+  document.querySelectorAll('.modal').forEach(modal => {
+    modal.style.display = 'none';
+  });
+  
+  // Baru buka modal yang diklik
+  document.getElementById(id).style.display = 'flex';
     }
     function tutupModal(id) {
       document.getElementById(id).style.display = 'none';
