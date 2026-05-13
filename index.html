@@ -10,6 +10,54 @@
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
 
   <style>
+    .hero {
+  position: relative;
+  background-image: url('jembatanbarelang.jpg'); /* ganti nama file sesuai gambar kamu */
+  background-size: cover;
+  background-position: center;
+  height: 280px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+  padding: 20px;
+}
+
+/* Layer gelap biar tulisan kebaca */
+.hero::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.45);
+  z-index: 1;
+}
+
+/* Biar logo & teks ada di atas layer gelap */
+.hero .logo,
+.hero h1,
+.hero p {
+  position: relative;
+  z-index: 2;
+}
+
+.hero h1 {
+  font-size: 42px;
+  margin: 10px 0 5px;
+}
+
+.hero p {
+  font-size: 16px;
+  margin: 2px 0;
+}
+
+.hero .logo {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 3px solid white;
+}
     body {
       font-family: Arial, sans-serif;
       margin: 0;
@@ -214,13 +262,12 @@
 </div>
 
 <body>
-
-  <header>
+  
+ <header class="hero">
   <img src="logoijo.jpg" alt="Logo ALFA" class="logo">
   <h1>ALFA</h1>
   <p>Online Shopping</p>
   <p>Order via WhatsApp</p>
-  </header>
   </header>
 
 <div class="info-box">
