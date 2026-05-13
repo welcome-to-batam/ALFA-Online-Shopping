@@ -253,6 +253,78 @@
 .product-img-wrap img {
   cursor: zoom-in;
 }
+    /* === HEADER HERO === */
+.hero {
+  position: relative;
+  background-image: url('jembatanbarelang.jpg'); /* ganti nama file sesuai gambar kamu */
+  background-size: cover;
+  background-position: center;
+  height: 280px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+  padding: 20px;
+}
+
+/* Layer gelap biar tulisan kebaca */
+.hero::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.45);
+  z-index: 1;
+}
+
+/* Biar logo & teks ada di atas layer gelap */
+.hero .logo,
+.hero h1,
+.hero p {
+  position: relative;
+  z-index: 2;
+}
+
+.hero h1 {
+  font-size: 42px;
+  margin: 10px 0 5px;
+  font-weight: 700;
+}
+
+.hero p {
+  font-size: 16px;
+  margin: 2px 0;
+}
+
+.hero .logo {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 3px solid white;
+  object-fit: cover;
+}
+
+/* === RESPONSIF UNTUK HP KECIL === */
+@media (max-width: 480px) {
+  .hero {
+    height: 220px;
+    padding: 15px;
+  }
+
+  .hero h1 {
+    font-size: 32px;
+  }
+
+  .hero p {
+    font-size: 14px;
+  }
+
+  .hero .logo {
+    width: 65px;
+    height: 65px;
+  }
+}
   </style>
 </head>
   <!-- LIGHTBOX UNTUK ZOOM FOTO -->
