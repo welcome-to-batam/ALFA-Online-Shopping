@@ -348,7 +348,7 @@
   height: 100%;
   object-fit: contain; /* Biar nggak gepeng */
 }
-    
+
     .lightbox {
   display: none;
   position: fixed;
@@ -356,9 +356,10 @@
   top: 0; left: 0;
   width: 100%; height: 100%;
   background: rgba(0,0,0,0.9);
+  display: flex; /* TAMBAH BARIS INI */
   align-items: center;
   justify-content: center;
-}
+    }
     
 .lightbox .swiper {
   width: 90%;
@@ -453,7 +454,7 @@ function tutupLightbox(e) {
     <!-- PRODUK 1 -->
     <div class="product">
       <div class="product-img-wrap">
-  <img src="twsbirufarpeak.jpg" alt="TWS" onclick="bukaLightbox(this.src)">
+        <img src="twsbirufarpeak.jpg" alt="TWS" onclick="bukaLightbox(0)">
         <button class="btn-info" onclick="bukaModal('modal1')">ℹ️</button>
       </div>
       <h3>TWS Warna Biru KOSONG</h3>
