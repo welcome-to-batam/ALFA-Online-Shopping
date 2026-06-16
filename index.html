@@ -348,14 +348,82 @@
   height: 100%;
   object-fit: contain; /* Biar nggak gepeng */
 }
+    
+    .lightbox {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.9);
+  align-items: center;
+  justify-content: center;
+}
+    
+.lightbox .swiper {
+  width: 90%;
+  height: 80%;
+}
+    
+.swiper-zoom-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+    
+.swiper-zoom-container img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+    
+.close-lightbox {
+  position: absolute;
+  top: 20px; right: 35px;
+  color: #fff; font-size: 40px;
+  font-weight: bold; cursor: pointer;
+  z-index: 10000;
+}
+    
   </style>
-</head>
-  <!-- LIGHTBOX UNTUK ZOOM FOTO -->
-<div id="lightbox" class="lightbox" onclick="tutupLightbox()">
-  <span class="close-lightbox">&times;</span>
-  <img id="lightbox-img" src="">
-</div>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script>
+const mySwiper = new Swiper(".mySwiper", {
+  zoom: true,
+  pagination: { el: ".swiper-pagination", clickable: true },
+});
 
+function bukaLightbox() {
+  document.getElementById('lightbox').style.display = 'flex';
+}
+function tutupLightbox(e) {
+  if(e.target.classList.contains('lightbox') || e.target.classList.contains('close-lightbox')) {
+    document.getElementById('lightbox').style.display = 'none';
+  }
+}
+</script>
+</head>
+  
+<!-- LIGHTBOX UNTUK SWIPER 10 FOTO -->
+<div id="lightbox" class="lightbox" onclick="tutupLightbox(event)">
+  <span class="close-lightbox">&times;</span>
+  
+  <div class="swiper mySwiper">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide"><div class="swiper-zoom-container"><img src="twsbirufarpeak.jpg" /></div></div>
+      <div class="swiper-slide"><div class="swiper-zoom-container"><img src="twsbiru1.jpg" /></div></div>
+      <div class="swiper-slide"><div class="swiper-zoom-container"><img src="twsbiru2.jpg" /></div></div>
+      <div class="swiper-slide"><div class="swiper-zoom-container"><img src="twsbiru3.jpg" /></div></div>
+      <div class="swiper-slide"><div class="swiper-zoom-container"><img src="twsbiru4.jpg" /></div></div>
+      <div class="swiper-slide"><div class="swiper-zoom-container"><img src="twsbiru5.jpg" /></div></div>
+      <div class="swiper-slide"><div class="swiper-zoom-container"><img src="twsbiru6.jpg" /></div></div>
+      <div class="swiper-slide"><div class="swiper-zoom-container"><img src="twsbiru7.jpg" /></div></div>
+      <div class="swiper-slide"><div class="swiper-zoom-container"><img src="twsbiru8.jpg" /></div></div>
+      <div class="swiper-slide"><div class="swiper-zoom-container"><img src="twswarnakulit.jpg" /></div></div>
+    </div>
+    <div class="swiper-pagination"></div>
+  </div>
+</div>
 <body>
   
  <header class="hero">
