@@ -388,12 +388,16 @@
   </style>
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script>
-const swiper = new Swiper(".mySwiper", {  // baris 391
-  zoom: true,
+  
+const swiper = new Swiper(".mySwiper", {
+  zoom: {
+    enabled: true,
+    maxRatio: 3
+  },
   pagination: { el: ".swiper-pagination", clickable: true }
 });
 
-function bukaLightbox(index) {  // baris 396
+window.bukaLightbox = function(index) {  // baris 396
   document.getElementById('lightbox').style.display = 'flex';
   swiper.slideTo(index, 0);  // baris baru
 }
