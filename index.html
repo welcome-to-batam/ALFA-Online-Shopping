@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ALFA - Online Shopping</title>
@@ -362,9 +363,23 @@
     <!-- PRODUK 1 -->
     <div class="product">
       <div class="product-img-wrap">
-  <img src="twsbirufarpeak.jpg" alt="TWS Warna Biru" onclick="bukaLightbox(this.src)">
+  <div class="swiper mySwiper">
+  <div class="swiper-wrapper">
+    <div class="swiper-slide"><div class="swiper-zoom-container"><img src="twsbirufarpeak.jpg" /></div></div>
+    <div class="swiper-slide"><div class="swiper-zoom-container"><img src="twsbiru1.jpg" /></div></div>
+    <div class="swiper-slide"><div class="swiper-zoom-container"><img src="twspala.jpg" /></div></div>
+    <div class="swiper-slide"><div class="swiper-zoom-container"><img src="twshitam.jpg" /></div></div>
+    <div class="swiper-slide"><div class="swiper-zoom-container"><img src="twswarnakulit.jpg" /></div></div>
+    <div class="swiper-slide"><div class="swiper-zoom-container"><img src="twsungu.jpg" /></div></div>
+    <div class="swiper-slide"><div class="swiper-zoom-container"><img src="twsputih.jpg" /></div></div>
+    <div class="swiper-slide"><div class="swiper-zoom-container"><img src="twspala1.jpg" /></div></div>
+    <div class="swiper-slide"><div class="swiper-zoom-container"><img src="twsbirufarpeak.jpg" /></div></div>
+    <div class="swiper-slide"><div class="swiper-zoom-container"><img src="twswarnakulit1.jpg" /></div></div>
+  </div>
+  <div class="swiper-pagination"></div>
+  </div>
         <button class="btn-info" onclick="bukaModal('modal1')">ℹ️</button>
-      </div>
+      </button>
       <h3>TWS Warna Biru KOSONG</h3>
       <p><strong>Harga: Rp55.000</strong></p>
     </div>
@@ -771,6 +786,15 @@ function tutupLightbox() {
   document.body.style.overflow = 'auto'; // Buka scroll lagi
     }
   </script>
-
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script>
+  var swiper = new Swiper(".mySwiper", {
+    zoom: true,
+    pagination: {
+      el: ".swiper-pagination",
+      clickable: true,
+    },
+  });
+</script>
 </body>
 </html>
