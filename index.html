@@ -388,14 +388,16 @@
   </style>
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script>
-const mySwiper = new Swiper(".mySwiper", {
+const swiper = new Swiper(".mySwiper", {  // baris 391
   zoom: true,
-  pagination: { el: ".swiper-pagination", clickable: true },
+  pagination: { el: ".swiper-pagination", clickable: true }
 });
 
-function bukaLightbox() {
+function bukaLightbox(index) {  // baris 396
   document.getElementById('lightbox').style.display = 'flex';
+  swiper.slideTo(index, 0);  // baris baru
 }
+  
 function tutupLightbox(e) {
   if(e.target.classList.contains('lightbox') || e.target.classList.contains('close-lightbox')) {
     document.getElementById('lightbox').style.display = 'none';
