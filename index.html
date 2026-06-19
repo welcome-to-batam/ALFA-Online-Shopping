@@ -775,44 +775,59 @@ function tutupModal(id) {
       }
     }
     
-// Fungsi Lightbox Pintar (Bisa Gambar & Video)
+// Fungsi Lightbox Pintar Gambar & Video (Fix Layar Hitam)
 function bukaLightbox(fileSumber) {
     var lightbox = document.getElementById('lightbox');
     var imgPlayer = document.getElementById('lightbox-img');
     var videoPlayer = document.getElementById('lightbox-video');
     var videoSource = document.getElementById('lightbox-video-source');
 
-    // Cek apakah file yang diklik adalah video (.mp4)
+    // Memastikan elemen ditemukan agar tidak memicu error
+    if (!lightbox || !imgPlayer || !videoPlayer || !videoSource) return;
+
+    // Cek apakah file yang diklik berakhiran .mp4 (Kasus Produk 1)
     if (fileSumber.toLowerCase().endsWith('.mp4')) {
-        imgPlayer.style.display = 'none'; // Sembunyikan tempat gambar
-        videoPlayer.style.display = 'block'; // Munculkan tempat video
+        imgPlayer.style.display = 'none'; // Sembunyikan gambar
         
         videoSource.src = fileSumber;
-        videoPlayer.load(); 
-        videoPlayer.play(); 
+        videoPlayer.style.display = 'block'; // Tampilkan video terlebih dahulu
+        videoPlayer.load(); // Paksa muat ulang data video
+        
+        // Pemicu putar otomatis yang aman untuk Google Chrome HP
+        var playPromise = videoPlayer.play();
+        if (playPromise !== undefined) {
+            playPromise.then(_ => {
+                // Video berhasil berputar dengan visual
+            }).catch(error => {
+                console.log("Autoplay diblokir browser, mencoba memutar ulang...");
+                videoPlayer.muted = true;
+                videoPlayer.play();
+            });
+        }
     } else {
-        // Jika yang diklik adalah gambar biasa (Produk 2 - 6)
-        videoPlayer.pause(); 
-        videoPlayer.style.display = 'none'; // Sembunyikan tempat video
-        imgPlayer.style.display = 'block'; // Munculkan tempat gambar
+        // Jika yang diklik adalah foto biasa (Kasus Produk 2-6)
+        videoPlayer.pause();
+        videoPlayer.style.display = 'none';
         
         imgPlayer.src = fileSumber;
+        imgPlayer.style.display = 'block';
     }
 
     lightbox.style.display = 'flex'; 
     document.body.style.overflow = 'hidden'; 
 }
 
-// Fungsi untuk menutup Lightbox
 function tutupLightbox() {
     var lightbox = document.getElementById('lightbox');
     var videoPlayer = document.getElementById('lightbox-video');
 
     if (videoPlayer) {
-        videoPlayer.pause(); // Pastikan video mati saat ditutup
+        videoPlayer.pause(); // Matikan video saat ditutup
     }
     
-    lightbox.style.display = 'none'; 
+    if (lightbox) {
+        lightbox.style.display = 'none';
+    }
     document.body.style.overflow = 'auto'; 
     }
     
@@ -828,18 +843,18 @@ function tutupLightbox() {
   });
 </script>
   
-  <!-- Wadah Hitam Besar untuk Zoom (Lightbox) - SUDAH DIPERBAIKI -->
-<div id="lightbox" onclick="tutupLightbox()" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 9999; justify-content: center; align-items: center;">
+<!-- Wadah Hitam Besar untuk Zoom (Lightbox) - REVISI TOTAL -->
+<div id="lightbox" onclick="tutupLightbox()" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 9999; justify-content: center; align-items: center;">
     
-    <!-- 1. Tempat menampilkan Gambar Biasa (Produk 2 - 6) -->
-    <img id="lightbox-img" src="" style="display: none; max-width: 90%; max-height: 90%; border-radius: 8px; object-fit: contain;">
+    <!-- 1. Tempat Menampilkan Gambar (Untuk Produk 2-6) -->
+    <img id="lightbox-img" src="" style="display: none; width: auto; height: auto; max-width: 90%; max-height: 80vh; border-radius: 8px; object-fit: contain;">
 
-    <!-- 2. Tempat memutar Video Otomatis (Produk 1) -->
-    <video id="lightbox-video" controls autoplay loop style="display: none; max-width: 90%; max-height: 90%; border-radius: 8px;">
+    <!-- 2. Tempat Memutar Video (Untuk Produk 1) -->
+    <video id="lightbox-video" controls autoplay loop muted playsinline style="display: none; width: 90%; height: auto; max-height: 80vh; border-radius: 8px; background: #000; object-fit: contain;">
         <source id="lightbox-video-source" src="" type="video/mp4">
     </video>
     
 </div>
-
+  
 </body>
 </html>
