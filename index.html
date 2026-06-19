@@ -774,29 +774,46 @@ function tutupModal(id) {
         event.target.style.display = 'none';
       }
     }
-// Fungsi untuk memunculkan video zoom saat foto diklik
-function bukaLightbox(namaFileVideo) {
+    
+// Fungsi Lightbox Pintar (Bisa Gambar & Video)
+function bukaLightbox(fileSumber) {
     var lightbox = document.getElementById('lightbox');
+    var imgPlayer = document.getElementById('lightbox-img');
     var videoPlayer = document.getElementById('lightbox-video');
     var videoSource = document.getElementById('lightbox-video-source');
 
-    // Masukkan nama file video (contoh: 'tws.mp4') ke dalam pemutar
-    videoSource.src = namaFileVideo;
-    videoPlayer.load(); // Muat ulang video dengan file baru
-    videoPlayer.play(); // Putar otomatis
+    // Cek apakah file yang diklik adalah video (.mp4)
+    if (fileSumber.toLowerCase().endsWith('.mp4')) {
+        imgPlayer.style.display = 'none'; // Sembunyikan tempat gambar
+        videoPlayer.style.display = 'block'; // Munculkan tempat video
+        
+        videoSource.src = fileSumber;
+        videoPlayer.load(); 
+        videoPlayer.play(); 
+    } else {
+        // Jika yang diklik adalah gambar biasa (Produk 2 - 6)
+        videoPlayer.pause(); 
+        videoPlayer.style.display = 'none'; // Sembunyikan tempat video
+        imgPlayer.style.display = 'block'; // Munculkan tempat gambar
+        
+        imgPlayer.src = fileSumber;
+    }
 
-    lightbox.style.display = 'flex'; // Munculkan layar zoom hitam
-    document.body.style.overflow = 'hidden'; // Kunci scroll layar utama
+    lightbox.style.display = 'flex'; 
+    document.body.style.overflow = 'hidden'; 
 }
 
-// Fungsi untuk menutup video zoom
+// Fungsi untuk menutup Lightbox
 function tutupLightbox() {
     var lightbox = document.getElementById('lightbox');
     var videoPlayer = document.getElementById('lightbox-video');
 
-    videoPlayer.pause(); // Matikan video saat ditutup
-    lightbox.style.display = 'none'; // Sembunyikan layar zoom
-    document.body.style.overflow = 'auto'; // Buka kembali scroll layar
+    if (videoPlayer) {
+        videoPlayer.pause(); // Pastikan video mati saat ditutup
+    }
+    
+    lightbox.style.display = 'none'; 
+    document.body.style.overflow = 'auto'; 
     }
     
     </script>
@@ -811,15 +828,18 @@ function tutupLightbox() {
   });
 </script>
   
-  <!-- Wadah Hitam Besar untuk Zoom (Lightbox) -->
-<div id="lightbox" onclick="tutupLightbox()" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 9999; justify-content: center; align-items: center;">
+  <!-- Wadah Hitam Besar untuk Zoom (Lightbox) - SUDAH DIPERBAIKI -->
+<div id="lightbox" onclick="tutupLightbox()" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 9999; justify-content: center; align-items: center;">
     
-    <!-- Tempat memutar video zoom otomatis -->
-    <video id="lightbox-video" controls autoplay loop style="max-width: 90%; max-height: 90%; border-radius: 8px;">
+    <!-- 1. Tempat menampilkan Gambar Biasa (Produk 2 - 6) -->
+    <img id="lightbox-img" src="" style="display: none; max-width: 90%; max-height: 90%; border-radius: 8px; object-fit: contain;">
+
+    <!-- 2. Tempat memutar Video Otomatis (Produk 1) -->
+    <video id="lightbox-video" controls autoplay loop style="display: none; max-width: 90%; max-height: 90%; border-radius: 8px;">
         <source id="lightbox-video-source" src="" type="video/mp4">
     </video>
     
 </div>
-  
+
 </body>
 </html>
