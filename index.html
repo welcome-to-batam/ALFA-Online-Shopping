@@ -362,7 +362,7 @@
     <!-- PRODUK 1 -->
     <div class="product">
       <div class="product-img-wrap">
-          <img src="twsbirufarpeak.jpg" alt="TWS" onclick="bukaLightbox('tws.mp4')">
+          <img src="twsbirufarpeak.jpg" alt="TWS" onclick="bukaLightboxVideo()">
         <button class="btn-info" onclick="bukaModal('modal1')">ℹ️</button>
       </div>
       <h3>TWS STOK KOSONG</h3>
@@ -775,63 +775,39 @@ function tutupModal(id) {
       }
     }
     
-// Fungsi Lightbox Pintar Gambar & Video (Fix Layar Hitam)
-function bukaLightbox(fileSumber) {
-    var lightbox = document.getElementById('lightbox');
-    var imgPlayer = document.getElementById('lightbox-img');
-    var videoPlayer = document.getElementById('lightbox-video');
-    var videoSource = document.getElementById('lightbox-video-source');
-
-    // Memastikan elemen ditemukan agar tidak memicu error
-    if (!lightbox || !imgPlayer || !videoPlayer || !videoSource) return;
-
-    // Cek apakah file yang diklik berakhiran .mp4 (Kasus Produk 1)
-    if (fileSumber.toLowerCase().endsWith('.mp4')) {
-        imgPlayer.style.display = 'none'; // Sembunyikan gambar
-        
-        videoSource.src = fileSumber;
-        videoPlayer.style.display = 'block'; // Tampilkan video terlebih dahulu
-        videoPlayer.load(); // Paksa muat ulang data video
-        
-        // Pemicu putar otomatis yang aman untuk Google Chrome HP
-        var playPromise = videoPlayer.play();
-        if (playPromise !== undefined) {
-            playPromise.then(_ => {
-                // Video berhasil berputar dengan visual
-            }).catch(error => {
-                console.log("Autoplay diblokir browser, mencoba memutar ulang...");
-                videoPlayer.muted = true;
-                videoPlayer.play();
-            });
-        }
-    } else {
-        // Jika yang diklik adalah foto biasa (Kasus Produk 2-6)
-        videoPlayer.pause();
-        videoPlayer.style.display = 'none';
-        
-        imgPlayer.src = fileSumber;
-        imgPlayer.style.display = 'block';
-    }
-
-    lightbox.style.display = 'flex'; 
-    document.body.style.overflow = 'hidden'; 
+// Fungsi standar untuk Produk 2-6 (Gambar)
+function bukaLightbox(src) {
+    document.getElementById('lightbox-img').src = src;
+    document.getElementById('lightbox').style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+}
+function tutupLightbox() {
+    document.getElementById('lightbox').style.display = 'none';
+    document.body.style.overflow = 'auto';
 }
 
-function tutupLightbox() {
-    var lightbox = document.getElementById('lightbox');
-    var videoPlayer = document.getElementById('lightbox-video');
-
-    if (videoPlayer) {
-        videoPlayer.pause(); // Matikan video saat ditutup
-    }
+// Fungsi Baru Khusus Video Produk 1 (Sangat Ringan & Anti Gagal)
+function bukaLightboxVideo() {
+    var wadahVideo = document.getElementById('lightbox-khusus-video');
+    var pemutarVideo = document.getElementById('video-zoom-utama');
     
-    if (lightbox) {
-        lightbox.style.display = 'none';
-    }
-    document.body.style.overflow = 'auto'; 
-    }
+    wadahVideo.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+    
+    pemutarVideo.currentTime = 0;
+    pemutarVideo.play(); // Putar otomatis saat wadah terbuka
+}
+function tutupLightboxVideo() {
+    var wadahVideo = document.getElementById('lightbox-khusus-video');
+    var pemutarVideo = document.getElementById('video-zoom-utama');
+    
+    pemutarVideo.pause(); // Matikan suara & video saat ditutup
+    wadahVideo.style.display = 'none';
+    document.body.style.overflow = 'auto';
+}
     
     </script>
+  
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script>
   var swiper = new Swiper(".mySwiper", {
@@ -843,18 +819,22 @@ function tutupLightbox() {
   });
 </script>
   
-<!-- Wadah Hitam Besar untuk Zoom (Lightbox) - REVISI TOTAL -->
-<div id="lightbox" onclick="tutupLightbox()" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 9999; justify-content: center; align-items: center;">
-    
-    <!-- 1. Tempat Menampilkan Gambar (Untuk Produk 2-6) -->
-    <img id="lightbox-img" src="" style="display: none; width: auto; height: auto; max-width: 90%; max-height: 80vh; border-radius: 8px; object-fit: contain;">
-
-    <!-- 2. Tempat Memutar Video (Untuk Produk 1) -->
-    <video id="lightbox-video" controls autoplay loop muted playsinline style="display: none; width: 90%; height: auto; max-height: 80vh; border-radius: 8px; background: #000; object-fit: contain;">
-        <source id="lightbox-video-source" src="" type="video/mp4">
-    </video>
-    
+<!-- Wadah Zoom Khusus Gambar (Produk 2-6) -->
+<div id="lightbox" onclick="tutupLightbox()" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 9999; justify-content: center; align-items: center;">
+    <img id="lightbox-img" src="" style="max-width: 90%; max-height: 80vh; border-radius: 8px;">
 </div>
-  
+
+<!-- Wadah Zoom Khusus Video (Produk 1) - Dibuat mandiri seperti Kotak Deskripsi -->
+<div id="lightbox-khusus-video" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 10000; justify-content: center; align-items: center;">
+    <div style="position: relative; width: 85%;">
+        <!-- Tombol Tutup Silang di atas Video -->
+        <button onclick="tutupLightboxVideo()" style="position: absolute; top: -40px; right: 0; background: none; border: none; color: white; fontSize: 30px; cursor: pointer;">✕</button>
+        
+        <!-- Video dimasukkan secara permanen di sini (Pasti Berhasil) -->
+        <video id="video-zoom-utama" controls style="width: 100%; border-radius: 8px; background: #000;">
+            <source src="tws.mp4" type="video/mp4">
+        </video>
+    </div>
+</div>
 </body>
 </html>
