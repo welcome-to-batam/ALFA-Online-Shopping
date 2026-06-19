@@ -746,35 +746,27 @@ Nikmati berbagai penawaran & fitur terbaik:
   
   <!-- JAVASCRIPT BUAT BUKA TUTUP MODAL -->
   <script>
-            function bukaModal(id) {
-            // // Tutup semua modal dulu
-            document.querySelectorAll('.modal').forEach(modal => {
-                modal.style.display = 'none';
-            });
 
-            // // Baru buka modal yang diklik
-            document.getElementById(id).style.display = 'flex';
-            
-            // TAMBAHAN: Otomatis putar video jika modal1 dibuka
-            if (id === 'modal1') {
-                var video = document.getElementById('videoModal1');
-                if (video) {
-                    video.currentTime = 0; // Mulai dari awal
-                    video.play();
-                }
-            }
-        }
-        function tutupModal(id) {
-            document.getElementById(id).style.display = 'none';
-            
-            // TAMBAHAN: Otomatis matikan video jika modal1 ditutup
-            if (id === 'modal1') {
-                var video = document.getElementById('videoModal1');
-                if (video) {
-                    video.pause();
-                }
-            }
-        }
+    function bukaModal(id) {
+    // Tutup semua modal dulu
+    document.querySelectorAll('.modal, .nodal').forEach(modal => {
+        modal.style.display = 'none';
+    });
+    
+    // Baru buka modal yang diklik
+    var modalTarget = document.getElementById(id);
+    if (modalTarget) {
+        modalTarget.style.display = 'flex';
+    }
+}
+
+function tutupModal(id) {
+    var modalTarget = document.getElementById(id);
+    if (modalTarget) {
+        modalTarget.style.display = 'none';
+    }
+          }
+    
     
     // Klik di luar modal buat nutup
     window.onclick = function(event) {
