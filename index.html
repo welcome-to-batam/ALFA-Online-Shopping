@@ -362,7 +362,7 @@
     <!-- PRODUK 1 -->
     <div class="product">
       <div class="product-img-wrap">
-          <img src="twsbirufarpeak.jpg" alt="TWS" onclick="bukaLightbox(this.src)">
+          <img src="twsbirufarpeak.jpg" alt="TWS" onclick="bukaLightbox('tws.mp4')">
         <button class="btn-info" onclick="bukaModal('modal1')">ℹ️</button>
       </div>
       <h3>TWS STOK KOSONG</h3>
@@ -782,16 +782,31 @@ Nikmati berbagai penawaran & fitur terbaik:
         event.target.style.display = 'none';
       }
     }
-    // Fungsi Lightbox Zoom Foto
-function bukaLightbox(src) {
-  document.getElementById('lightbox-img').src = src;
-  document.getElementById('lightbox').style.display = 'flex';
-  document.body.style.overflow = 'hidden'; // Kunci scroll
+// Fungsi untuk memunculkan video zoom saat foto diklik
+function bukaLightbox(namaFileVideo) {
+    var lightbox = document.getElementById('lightbox');
+    var videoPlayer = document.getElementById('lightbox-video');
+    var videoSource = document.getElementById('lightbox-video-source');
+
+    // Masukkan nama file video (contoh: 'tws.mp4') ke dalam pemutar
+    videoSource.src = namaFileVideo;
+    videoPlayer.load(); // Muat ulang video dengan file baru
+    videoPlayer.play(); // Putar otomatis
+
+    lightbox.style.display = 'flex'; // Munculkan layar zoom hitam
+    document.body.style.overflow = 'hidden'; // Kunci scroll layar utama
 }
+
+// Fungsi untuk menutup video zoom
 function tutupLightbox() {
-  document.getElementById('lightbox').style.display = 'none';
-  document.body.style.overflow = 'auto'; // Buka scroll lagi
+    var lightbox = document.getElementById('lightbox');
+    var videoPlayer = document.getElementById('lightbox-video');
+
+    videoPlayer.pause(); // Matikan video saat ditutup
+    lightbox.style.display = 'none'; // Sembunyikan layar zoom
+    document.body.style.overflow = 'auto'; // Buka kembali scroll layar
     }
+    
     </script>
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script>
@@ -803,5 +818,16 @@ function tutupLightbox() {
     },
   });
 </script>
+  
+  <!-- Wadah Hitam Besar untuk Zoom (Lightbox) -->
+<div id="lightbox" onclick="tutupLightbox()" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 9999; justify-content: center; align-items: center;">
+    
+    <!-- Tempat memutar video zoom otomatis -->
+    <video id="lightbox-video" controls autoplay loop style="max-width: 90%; max-height: 90%; border-radius: 8px;">
+        <source id="lightbox-video-source" src="" type="video/mp4">
+    </video>
+    
+</div>
+  
 </body>
 </html>
