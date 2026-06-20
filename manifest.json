@@ -2,21 +2,20 @@
   "name": "ALFA Online Shopping",
   "short_name": "ALFA",
   "description": "Belanja online tanpa ribet Gratis Ongkir Sekota Batam!",
-  "start_url": "/ALFA-Online-Shopping/",
+  "start_url": "/ALFA-Online-Shopping/index.html",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#000000",
   "icons": [
     {
-      "src": "logo-alfa-192.png",
+      "src": "/ALFA-Online-Shopping/logoijo.jpg",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/jpeg"
     },
     {
-      "src": "logo-alfa-512.png",
+      "src": "/ALFA-Online-Shopping/logomerahmuda.jpg",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/jpeg"
     }
   ]
 }
-
