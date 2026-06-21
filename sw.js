@@ -9,7 +9,7 @@ const assets = [
   '/ALFA-Online-Shopping/logomerahmuda.jpg',
   '/ALFA-Online-Shopping/jembatanbarelang.jpg',
   '/ALFA-Online-Shopping/qrcode.png',
-  '/ALFA-Online-Shopping/twsproduk1.jpg',
+  '/ALFA-Online-Shopping/twshitam.jpg',
   '/ALFA-Online-Shopping/twsproduk1.mp4'
 ];
 
