@@ -753,15 +753,27 @@ Nikmati berbagai penawaran & fitur terbaik:
   </div>
   </div>
 
-  <!-- Video Produk -->
-    <div class="product">
-      <div class="product-img-wrap">
-          <img src="videoklik.jpg" alt="TWS" onclick="bukaLightboxVideo()">
-      </div>
-     <h3>My Video</h3>
-    </div>
+  <!-- Video Produk - Fitur Pemutar Musik Latar Melayang -->
+<div class="product" style="text-align: center; padding: 15px;">
+  <!-- Input file bawaan HP kita sembunyikan agar tidak merusak pemandangan -->
+  <input type="file" id="video-uploader" accept="video/*" onchange="putarVideoMelayang(event)" style="display: none;">
+  
+  <div class="product-img-wrap" style="margin-bottom: 10px;">
+    <!-- Ikon atau gambar pemanis yang bisa diklik pembeli -->
+    <img src="videoklik.jpg" alt="TWS" onclick="triggerUpload()" style="cursor: pointer; border-radius: 10px; max-width: 100%;">
   </div>
-
+  
+  <h3>My Video / Musik</h3>
+  
+  <!-- Tombol utama dengan desain gradasi modern -->
+  <button class="btn-music-custom" onclick="triggerUpload()">
+    🎵 Pilih Video Musik Anda
+  </button>
+  
+  <!-- Elemen video utama yang akan dipaksa melayang otomatis -->
+  <video id="hidden-video-player" controls style="display: none; width: 100%; margin-top: 10px; border-radius: 10px;"></video>
+</div>
+  
    <div class="info-box">
   <h3>Ketentuan Berlaku Di Setiap Belanja</h3>
   <p>Apakah Anda mencari pakaian terbaru dan terhebat tanpa menguras kantong? 
