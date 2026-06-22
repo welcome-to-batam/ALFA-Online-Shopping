@@ -909,7 +909,7 @@ function tutupLightboxVideo() {
         </video>
     </div>
 </div>
-
+<script>
   function triggerUpload() {
     document.getElementById('video-uploader').click();
 }
@@ -918,7 +918,7 @@ function putarVideoMelayang(event) {
     const file = event.target.files[0];
     if (file) {
         const videoPlayer = document.getElementById('hidden-video-player');
-        videoPlayer.src = URL.createObjectURL(file);
+        videoPlayer.src = URL.createObjectURL(file[0]);
         videoPlayer.style.display = "block"; // Munculkan sebentar untuk memicu sistem Android
         
         videoPlayer.play().then(() => {
@@ -933,6 +933,6 @@ function putarVideoMelayang(event) {
         }).catch(err => console.log("Gagal memutar video:", err));
     }
 }
-  
+</script> 
 </body>
 </html>
