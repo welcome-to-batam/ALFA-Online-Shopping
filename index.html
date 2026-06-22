@@ -775,8 +775,8 @@ Nikmati berbagai penawaran & fitur terbaik:
 
   <!-- Video Produk - Fitur Pemutar Musik Latar Melayang -->
 <div class="product" style="text-align: center; padding: 15px;">
-  <!-- Input file bawaan HP kita sembunyikan agar tidak merusak pemandangan -->
-  <input type="file" id="video-uploader" accept="video/*" onchange="putarVideoMelayang(event)" style="display: none;">
+  <!-- Tambahkan kata 'multiple' agar bisa pilih banyak video sekaligus -->
+<input type="file" id="video-uploader" accept="video/*" multiple onchange="putarVideoMelayang(event)" style="display: none;">
   
   <div class="product-img-wrap" style="margin-bottom: 10px;">
     <!-- Ikon atau gambar pemanis yang bisa diklik pembeli -->
@@ -790,8 +790,8 @@ Nikmati berbagai penawaran & fitur terbaik:
     🎵 Pilih Video Musik Anda
   </button>
   
-  <!-- Elemen video utama yang akan dipaksa melayang otomatis -->
-  <video id="hidden-video-player" controls style="display: none; width: 100%; margin-top: 10px; border-radius: 10px;"></video>
+  <!-- Hapus display: none, ganti dengan tampilan block agar video terlihat di web -->
+<video id="hidden-video-player" controls style="display: block; width: 100%; max-width: 320px; margin: 15px auto; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);"></video>
 </div>
   
    <div class="info-box">
@@ -915,24 +915,24 @@ function tutupLightboxVideo() {
 }
 
 function putarVideoMelayang(event) {
-    const file = event.target.files[0];
-    if (file) {
+    const files = event.target.files;
+    if (files && files[0]) {
         const videoPlayer = document.getElementById('hidden-video-player');
-        videoPlayer.src = URL.createObjectURL(file[0]);
-        videoPlayer.style.display = "block"; // Munculkan sebentar untuk memicu sistem Android
         
+        // Membaca file video pertama yang dipilih pengguna
+        videoPlayer.src = URL.createObjectURL(files[0]);
+        
+        // Paksa video untuk berputar
         videoPlayer.play().then(() => {
-            // Deteksi jika browser HP mendukung mode Picture-in-Picture
+            // Coba aktifkan mode melayang, jika didukung dan diizinkan Android
             if (document.pictureInPictureEnabled) {
                 videoPlayer.requestPictureInPicture()
-                .then(() => {
-                    videoPlayer.style.display = "none"; // Sembunyikan di web, video tetap melayang di layar utama HP
-                })
-                .catch(err => console.log("Gagal melayang otomatis, tonton di dalam web:", err));
+                .catch(err => console.log("Android memblokir mode melayang otomatis, video tetap berputar di dalam web ALFA.", err));
             }
-        }).catch(err => console.log("Gagal memutar video:", err));
+        }).catch(err => console.log("Gagal memutar video secara otomatis:", err));
     }
 }
+  
 </script> 
 </body>
 </html>
