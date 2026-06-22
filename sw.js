@@ -10,7 +10,7 @@ const assets = [
   '/ALFA-Online-Shopping/jembatanbarelang.jpg',
   '/ALFA-Online-Shopping/qrcode.png',
   '/ALFA-Online-Shopping/qrcode.png',
-  '/ALFA-Online-Shopping/twsproduk1.mp4'
+  '/ALFA-Online-Shopping/pendekar.mp4'
 ];
 
 self.addEventListener('install', e => {
