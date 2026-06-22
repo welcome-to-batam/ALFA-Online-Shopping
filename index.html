@@ -340,6 +340,26 @@
     height: 65px;
   }
 }
+
+    .btn-music-custom {
+  background: linear-gradient(135deg, #00b300, #b3b300); /* Warna khas ALFA */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 25px; /* Sudut membulat yang mewah */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+  cursor: pointer;
+  width: 100%;
+  max-width: 250px;
+  margin-top: 5px;
+  transition: transform 0.1s;
+}
+.btn-music-custom:active {
+  transform: scale(0.95); /* Efek membal saat ditekan jempol */
+}
+
   </style>
 </head>
   
@@ -889,5 +909,30 @@ function tutupLightboxVideo() {
         </video>
     </div>
 </div>
+
+  function triggerUpload() {
+    document.getElementById('video-uploader').click();
+}
+
+function putarVideoMelayang(event) {
+    const file = event.target.files[0];
+    if (file) {
+        const videoPlayer = document.getElementById('hidden-video-player');
+        videoPlayer.src = URL.createObjectURL(file);
+        videoPlayer.style.display = "block"; // Munculkan sebentar untuk memicu sistem Android
+        
+        videoPlayer.play().then(() => {
+            // Deteksi jika browser HP mendukung mode Picture-in-Picture
+            if (document.pictureInPictureEnabled) {
+                videoPlayer.requestPictureInPicture()
+                .then(() => {
+                    videoPlayer.style.display = "none"; // Sembunyikan di web, video tetap melayang di layar utama HP
+                })
+                .catch(err => console.log("Gagal melayang otomatis, tonton di dalam web:", err));
+            }
+        }).catch(err => console.log("Gagal memutar video:", err));
+    }
+}
+  
 </body>
 </html>
