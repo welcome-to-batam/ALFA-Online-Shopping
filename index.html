@@ -791,7 +791,12 @@ Nikmati berbagai penawaran & fitur terbaik:
   </button>
   
   <!-- Hapus display: none, ganti dengan tampilan block agar video terlihat di web -->
-<video id="hidden-video-player" controls style="display: block; width: 100%; max-width: 320px; margin: 15px auto; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);"></video>
+<video id="hidden-video-player" controls style="display: block; width: 100%; max-width: 320px; margin: 15px auto; border-radius: 10px;"></video>
+
+<!-- Tombol Navigasi Antrean Musik -->
+<div style="margin-top: 10px; display: flex; justify-content: center; gap: 15px;">
+  <button onclick="videoSebelumnya()" style="background: #444; color: white; border: none; padding: 8px 15px; border-radius: 15px; font-weight: bold; cursor: pointer;">⏮️ Prev</button>
+  <button onclick="videoBerikutnya()" style="background: #00b300; color: white; border: none; padding: 8px 15px; border-radius: 15px; font-weight: bold; cursor: pointer;">Next ⏭️</button>
 </div>
   
    <div class="info-box">
@@ -910,29 +915,65 @@ function tutupLightboxVideo() {
     </div>
 </div>
 <script>
-  function triggerUpload() {
+  let antreanVideo = [];
+let indeksVideoSekarang = 0;
+
+function triggerUpload() {
     document.getElementById('video-uploader').click();
 }
 
 function putarVideoMelayang(event) {
     const files = event.target.files;
-    if (files && files[0]) {
-        const videoPlayer = document.getElementById('hidden-video-player');
+    if (files && files.length > 0) {
+        antreanVideo = Array.from(files);
+        indeksVideoSekarang = 0;
         
-        // Membaca file video pertama yang dipilih pengguna
-        videoPlayer.src = URL.createObjectURL(files[0]);
-        
-        // Paksa video untuk berputar
-        videoPlayer.play().then(() => {
-            // Coba aktifkan mode melayang, jika didukung dan diizinkan Android
-            if (document.pictureInPictureEnabled) {
-                videoPlayer.requestPictureInPicture()
-                .catch(err => console.log("Android memblokir mode melayang otomatis, video tetap berputar di dalam web ALFA.", err));
-            }
-        }).catch(err => console.log("Gagal memutar video secara otomatis:", err));
+        // Memainkan video pertama
+        mainkanVideoMurni();
     }
 }
-  
+
+function mainkanVideoMurni() {
+    const videoPlayer = document.getElementById('hidden-video-player');
+    const fileVideo = antreanVideo[indeksVideoSekarang];
+    
+    videoPlayer.src = URL.createObjectURL(fileVideo);
+    
+    // Trik Terkuat: Kita hilangkan perintah .requestPictureInPicture() dari script otomatis!
+    // Kita biarkan video berputar murni di dalam web. 
+    videoPlayer.play()
+    .then(() => {
+        // Karena diputar secara murni, Android mengizinkan fitur "Auto PiP" bawaan Chrome.
+        // Begitu pengguna klik tombol Home HP atau geser ke Recent Apps, video otomatis akan mengecil melayang dengan lancar!
+        updateTombolNavigasi();
+    })
+    .catch(err => console.log("Gagal putar otomatis:", err));
+}
+
+// Fungsi tombol manual untuk pindah lagu jika bosan
+function videoBerikutnya() {
+    if (indeksVideoSekarang < antreanVideo.length - 1) {
+        indeksVideoSekarang++;
+        mainkanVideoMurni();
+    } else {
+        alert("Ini sudah video musik terakhir di antrean Anda! 🎉");
+    }
+}
+
+function videoSebelumnya() {
+    if (indeksVideoSekarang > 0) {
+        indeksVideoSekarang--;
+        mainkanVideoMurni();
+    }
+}
+
+// Otomatis pindah ke video berikutnya saat video selesai diputar
+document.getElementById('hidden-video-player').addEventListener('ended', function() {
+    if (indeksVideoSekarang < antreanVideo.length - 1) {
+        indeksVideoSekarang++;
+        mainkanVideoMurni();
+    }
+});
 </script> 
 </body>
 </html>
