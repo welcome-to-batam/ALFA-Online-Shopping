@@ -359,30 +359,33 @@
 .btn-music-custom:active {
   transform: scale(0.95); /* Efek membal saat ditekan jempol */
 }
-
-    /* Gaya Tombol Menu di Kotak Putih */
-.btn-tutup-info {
-  background: linear-gradient(135deg, #ff4d4d, #cc0000); /* Warna merah gradasi mewah */
-  color: white;
-  border: none;
-  padding: 10px 25px;
-  font-size: 14px;
-  font-weight: bold;
-  border-radius: 8px; /* Sudut membulat */
-  cursor: pointer;
-  float: right; /* Memaksa tombol bergeser ke pojok kanan bawah kotak */
-  margin-top: 15px;
-  box-shadow: 0 4px 8px rgba(204, 0, 0, 0.2);
-  transition: transform 0.1s;
-}
     
     <div style="clear: both;"></div>
 <button class="btn-tutup-info" onclick="tutupModalInfo('modal-syarat')">Tutup</button>
     
-.btn-tutup-info:active {
-  transform: scale(0.95); /* Efek membal saat ditekan */
-    }
+    /* Gaya Tombol Menu di Kotak Putih */
+  .btn-menu-info {
+  background: white;               /* Latar belakang tombol putih bersih */
+  color: #333;                    /* Warna teks abu-abu gelap agar kontras */
+  border: 1px solid #ff0000;       /* BORDER MERAH TEGAS hasil eksperimen Anda! */
+  padding: 12px 15px;             /* Jarak teks ke garis agar tombol terasa tebal */
+  font-size: 14px;                /* Ukuran huruf yang pas di mata pembeli */
+  font-weight: bold;              /* Cetak tebal pada tulisan */
+  border-radius: 10px;            /* Sudut melengkung agar tidak kaku */
+  width: 100%;                    /* Memaksa tombol memanjang penuh dari kiri ke kanan */
+  margin-bottom: 10px;            /* Jarak antar tombol agar tidak dempet */
+  cursor: pointer;
+  text-align: left;               /* Teks rata kiri agar ikon emoji rapi */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05); /* Bayangan halus di bawah tombol */
+  transition: background 0.2s, transform 0.1s;
+}
 
+/* Efek saat tombol menu Informasi diklik oleh jempol pembeli */
+.btn-menu-info:active {
+  background: #ffe6e6;            /* Berubah warna menjadi agak kemerahan saat ditekan */
+  transform: scale(0.98);         /* Sedikit mengecil untuk efek membal */
+}
+    
 /* 1. Pengaturan Latarnya (Overlay Hitam Transparan) */
 .modal-info-custom {
   position: fixed;
