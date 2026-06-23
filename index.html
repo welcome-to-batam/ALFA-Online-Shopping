@@ -360,6 +360,70 @@
   transform: scale(0.95); /* Efek membal saat ditekan jempol */
 }
 
+    /* Gaya Tombol Menu di Kotak Putih */
+.btn-menu-info {
+  background: #f8f9fa;
+  color: #333;
+  border: 1px solid #ddd;
+  padding: 12px 15px;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 10px;
+  width: 100%;
+  margin-bottom: 10px;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.2s;
+}
+.btn-menu-info:active {
+  background: #e2e6ea;
+}
+
+/* Gaya Jendela Pop-up Belakang (Overlay) */
+.modal-info-custom {
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  padding: 20px;
+}
+
+/* Kotak Konten Pop-up */
+.modal-info-content {
+  background: white;
+  padding: 20px;
+  border-radius: 15px;
+  max-width: 400px;
+  width: 100%;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  text-align: left;
+}
+.modal-info-content h3 {
+  margin-top: 0;
+  color: #00b300;
+}
+.modal-info-content p {
+  color: #555;
+  line-height: 1.5;
+  font-size: 14px;
+}
+
+/* Tombol Tutup Jendela */
+.btn-tutup-info {
+  background: #dc3545;
+  color: white;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  float: right;
+  margin-top: 10px;
+}
+
   </style>
 </head>
   
@@ -804,28 +868,49 @@ Nikmati berbagai penawaran & fitur terbaik:
 </div>
 </div>
 
-  </div>
+<!-- KOTAK MENU INFORMASI WARNA PUTIH -->
+<div class="info-menu-container" style="background: white; padding: 15px; border-radius: 15px; margin: 20px auto; max-width: 90%; box-shadow: 0 4px 10px rgba(0,0,0,0.05); text-align: center;">
   
-   <div class="info-box">
-  <h3>Ketentuan Berlaku Di Setiap Belanja</h3>
-  <p>Apakah Anda mencari pakaian terbaru dan terhebat tanpa menguras kantong? 
-    Jangan mencari lebih jauh! ALFA Online Shopping memiliki berbagai pilihan pakaian untuk semua orang, mulai dari Celana Panjang, Celana Pendek, Kaos Lengan Panjang, Kaos Lengan Pendek dengan berbagai macam ukuran untuk semua orang.
-    Dan sekarang untuk waktu yang terbatas, kami menawarkan pengiriman <strong>Gratis Ongkir se-Kota Batam untuk pembelian di atas Rp 50.000</strong>
-    Anda bisa mendapatkan pakaian yang Anda sukai tanpa khawatir tentang biaya pengiriman.
-    Jadi tunggu apa lagi? Kunjungi toko online kami hari ini dan mulailah berbelanja!
-    Penawaran ini tidak akan bertahan selamanya, jadi jangan lewatkan.
-    Terima kasih</p>
-     <h3>Install Aplikasi Website ALFA Online Shopping</h3> 
-     <p><strong>cara install di hp melalui Browser Chrome:
-Buka ALFA Online Shopping di Browser Chrome.
-Klik titik tiga di pojok kanan atas.
-Klik "Tambahkan Ke-layar Utama.
-Klik Install.
-Klik Install sekali lagi, lalu tunggu satu menit. 
-Setelah itu akan muncul pemberitahuan di atas layar hp, "ALFA Online Shopping Sekarang Aplikasi Diinstall".
-Tutup browser chrome dan kembali ke layar beranda utama Anda, cari aplikasi web bernama ALFA. 
-Setelah itu, mainkan dompet Anda.</strong></p>
-   </div>
+  <h3 style="color: #333; margin-bottom: 15px;">Informasi ALFA</h3>
+
+  <!-- Tombol 1: Syarat Belanja -->
+  <button class="btn-menu-info" onclick="bukaModalInfo('modal-syarat')">📄 Syarat Belanja</button>
+
+  <!-- Tombol 2: Tentang ALFA -->
+  <button class="btn-menu-info" onclick="bukaModalInfo('modal-tentang')">🏢 Tentang ALFA</button>
+
+  <!-- Tombol 3: Cara Install -->
+  <button class="btn-menu-info" onclick="bukaModalInfo('modal-install')">📲 Cara Install ALFA</button>
+
+</div>
+
+<!-- JENDELA POP-UP (MODAL) INFORMASI -->
+<!-- 1. Modal Syarat Belanja -->
+<div id="modal-syarat" class="modal-info-custom" style="display:none;">
+  <div class="modal-info-content">
+    <h3>Syarat Belanja Di ALFA</h3>
+    <p>Nikmati pengiriman Gratis Ongkir se-Kota Batam untuk pembelian di atas Rp 50.000! Penawaran ini terbatas, jadi jangan sampai lewatkan kesempatan ini.</p>
+    <button class="btn-tutup-info" onclick="tutupModalInfo('modal-syarat')">Tutup</button>
+  </div>
+</div>
+
+<!-- 2. Modal Tentang ALFA -->
+<div id="modal-tentang" class="modal-info-custom" style="display:none;">
+  <div class="modal-info-content">
+    <h3>Tentang ALFA Online Shopping</h3>
+    <p>ALFA Online Shopping menawarkan pengalaman belanja pakaian terbaru dan terhebat tanpa menguras kantong. Temukan berbagai macam pilihan pakaian untuk semua orang mulai dari celana panjang, celana pendek, kaos lengan panjang, dan kaos lengan pendek.</p>
+    <button class="btn-tutup-info" onclick="tutupModalInfo('modal-tentang')">Tutup</button>
+  </div>
+</div>
+
+<!-- 3. Modal Cara Install -->
+<div id="modal-install" class="modal-info-custom" style="display:none;">
+  <div class="modal-info-content">
+    <h3>Cara Install Aplikasi ALFA</h3>
+    <p>Untuk menginstal di HP melalui Browser Chrome: Klik tombol titik tiga di pojok kanan atas Chrome, lalu pilih opsi 'Instal Aplikasi' atau 'Tambahkan ke Layar Utama'.</p>
+    <button class="btn-tutup-info" onclick="tutupModalInfo('modal-install')">Tutup</button>
+  </div>
+</div>
   
   </div> <!-- PENUTUP .container -->
   
@@ -1001,6 +1086,24 @@ document.getElementById('hidden-video-player').addEventListener('ended', functio
     })
     .catch(err => console.log("Gagal memutar video produk:", err));
   }
+  
+  // Fungsi untuk memunculkan jendela info
+function bukaModalInfo(idModal) {
+    const modal = document.getElementById(idModal);
+    if (modal) {
+        modal.style.display = "flex"; // Menggunakan flex agar kotak otomatis di tengah layar
+        document.body.style.overflow = "hidden"; // Mengunci scroll halaman utama saat pop-up aktif
+    }
+}
+
+// Fungsi untuk menutup jendela info
+function tutupModalInfo(idModal) {
+    const modal = document.getElementById(idModal);
+    if (modal) {
+        modal.style.display = "none";
+        document.body.style.overflow = "auto"; // Mengaktifkan kembali scroll halaman utama
+    }
+}
   
 </script> 
 </body>
