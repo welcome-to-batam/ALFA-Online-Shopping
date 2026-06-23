@@ -364,7 +364,7 @@
 .btn-tutup-info {
   background: linear-gradient(135deg, #ff4d4d, #cc0000); /* Warna merah gradasi mewah */
   color: white;
-  border: red;
+  border: none;
   padding: 10px 25px;
   font-size: 14px;
   font-weight: bold;
@@ -375,6 +375,9 @@
   box-shadow: 0 4px 8px rgba(204, 0, 0, 0.2);
   transition: transform 0.1s;
 }
+    
+    <div style="clear: both;"></div>
+<button class="btn-tutup-info" onclick="tutupModalInfo('modal-syarat')">Tutup</button>
     
 .btn-tutup-info:active {
   transform: scale(0.95); /* Efek membal saat ditekan */
