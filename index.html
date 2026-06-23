@@ -361,23 +361,24 @@
 }
 
     /* Gaya Tombol Menu di Kotak Putih */
-.btn-menu-info {
-  background: #f8f9fa;
-  color: #333;
-  border: 1px solid red;
-  padding: 12px 15px;
+.btn-tutup-info {
+  background: linear-gradient(135deg, #ff4d4d, #cc0000); /* Warna merah gradasi mewah */
+  color: white;
+  border: none;
+  padding: 10px 25px;
   font-size: 14px;
   font-weight: bold;
-  border-radius: 10px;
-  width: 100%;
-  margin-bottom: 10px;
+  border-radius: 8px; /* Sudut membulat */
   cursor: pointer;
-  text-align: left;
-  transition: background 0.2s;
+  float: right; /* Memaksa tombol bergeser ke pojok kanan bawah kotak */
+  margin-top: 15px;
+  box-shadow: 0 4px 8px rgba(204, 0, 0, 0.2);
+  transition: transform 0.1s;
 }
-.btn-menu-info:active {
-  background: #e2e6ea;
-}
+    
+.btn-tutup-info:active {
+  transform: scale(0.95); /* Efek membal saat ditekan */
+    }
 
 /* 1. Pengaturan Latarnya (Overlay Hitam Transparan) */
 .modal-info-custom {
