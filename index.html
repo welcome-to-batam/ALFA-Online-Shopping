@@ -783,11 +783,11 @@ Nikmati berbagai penawaran & fitur terbaik:
 <input type="file" id="video-uploader" accept="video/*" multiple onchange="putarVideoMelayang(event)" style="display: none;">
   
   <div class="product-img-wrap" style="margin-bottom: 10px;">
-    <!-- Ikon atau gambar pemanis yang bisa diklik pembeli -->
-    <img src="twsproduk1.jpg" alt="TWS" onclick="triggerUpload()" style="cursor: pointer; border-radius: 10px; max-width: 100%;">
+  <!-- SEKARANG DIUBAH: Menjalankan fungsi memutar video produk bawaan -->
+  <img src="twsproduk1.jpg" alt="TWS" onclick="putarVideoBawaanToko()" style="cursor: pointer; border-radius: 10px; max-width: 100%;">
   </div>
   
-  <h3>My Video / Musik</h3>
+  <h3>Putar Musik Dari HP</h3>
   
   <!-- Tombol utama dengan desain gradasi modern -->
   <button class="btn-music-custom" onclick="triggerUpload()">
@@ -981,6 +981,27 @@ document.getElementById('hidden-video-player').addEventListener('ended', functio
         mainkanVideoMurni();
     }
 });
+
+  function putarVideoBawaanToko() {
+    const videoPlayer = document.getElementById('hidden-video-player');
+    
+    // Arahkan sumber video langsung ke file tws.mp4 yang ada di server/repo Anda
+    videoPlayer.src = "/ALFA-Online-Shopping/twsproduk1.mp4"; 
+    
+    // Tampilkan kotak pemutar videonya
+    videoPlayer.style.display = "block";
+    
+    // Jalankan videonya
+    videoPlayer.play()
+    .then(() => {
+        // Jika pengguna keluar aplikasi saat video produk berputar, video akan otomatis melayang
+        if (document.pictureInPictureEnabled) {
+            videoPlayer.requestPictureInPicture().catch(err => console.log("Auto PiP ditolak:", err));
+        }
+    })
+    .catch(err => console.log("Gagal memutar video produk:", err));
+  }
+  
 </script> 
 </body>
 </html>
