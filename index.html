@@ -441,10 +441,10 @@
   <p>2. Klik ikon Emoji 🤩 untuk Melihat Deskripsi</p>
   <p>3. Klik "Tombol WhatsApp" dibawah ini 👇 untuk Membeli</p>
   <h3>Selamat Ber Belanja</h3>
-  <a href="https://wa.me/6283879387000?text=Halo%20ALFA%20Shop,%20saya%20mau%20Membeli%20(Ketik%20Nama%20Produk%20yang%20Ingin%20Dibeli)%20Disini👉" 
-         target="_blank"
-         class="btn-wa">
-         ☎️ Pesan Via WhatsApp ☎️
+    <button onclick="checkoutWhatsApp()" 
+style="width:100%; padding:14px; background:#25D366; color:white; border:none; border-radius:12px; font-size:18px; font-weight:bold; cursor:pointer; box-shadow:0 4px 12px rgba(37,211,102,0.4)">
+  ☎️ Pesan Via WhatsApp ☎️
+    </button>
   </a>
 </div>
 
@@ -1025,6 +1025,31 @@ function hapusItem(index) {
   updateJumlahKeranjang();
   bukaKeranjang(); // refresh popup
 }
+
+    function checkoutWhatsApp() {
+  let keranjang = JSON.parse(localStorage.getItem('keranjang')) || [];
+  
+  if(keranjang.length === 0) {
+    alert('Keranjang masih kosong bro! Isi dulu 😅');
+    return;
+  }
+  
+  let pesan = 'Halo ALFA Shop, saya mau Memesan:\n\n';
+  let total = 0;
+  
+  keranjang.forEach((item, index) => {
+    pesan += (index + 1) + '. ' + item.nama + ' - Rp' + item.harga.toLocaleString('id-ID') + '\n';
+    total += item.harga;
+  });
+  
+  pesan += '\nTotal: Rp' + total.toLocaleString('id-ID');
+  pesan += '\n\nMohon info cara bayar & ongkir ya 🙏';
+  
+  let noWA = '+6283879387000'; // GANTI DENGAN NOMOR WA KAMU +62
+  let url = 'https://wa.me/' + noWA + '?text=' + encodeURIComponent(pesan);
+  
+  window.open(url, '_blank');
+    }
     
     </script>
   
