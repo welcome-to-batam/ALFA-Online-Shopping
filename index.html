@@ -429,9 +429,9 @@
   <p>💖WELCOME TO BATAM💖</p>
   </header>
 
-<div style="position:fixed; top:20px; right:20px; z-index:9999; background:white; padding:8px 12px; border-radius:50px; box-shadow:0 2px 8px rgba(0,0,0,0.2); font-size:18px">
+  <div onclick="bukaKeranjang()" style="position:fixed; top:20px; right:20px; z-index:9999; background:white; padding:8px 12px; border-radius:50px; box-shadow:0 2px 8px rgba(0,0,0,0.2); font-size:18px; cursor:pointer">
   🛒 <span id="jumlah-keranjang">0</span>
-</div>
+  </div>
   
 <div class="info-box">
   <h3>Selamat Datang di ALFA Online Shopping</h3>
@@ -989,6 +989,39 @@ function updateJumlahKeranjang() {
 
 // Jalanin pas web kebuka
 updateJumlahKeranjang();
+
+    function bukaKeranjang() {
+  let keranjang = JSON.parse(localStorage.getItem('keranjang')) || [];
+  let html = '';
+  let total = 0;
+  
+  if(keranjang.length === 0) {
+    html = 'Keranjang kosong bro 😅';
+  } else {
+    keranjang.forEach((item, i) => {
+      html += `<div style="border-bottom:1px solid #eee; padding:8px 0">
+        ${item.nama} - Rp${item.harga.toLocaleString()}
+        <button onclick="hapusItem(${i})" style="float:right; background:red; color:white; border:none; border-radius:4px; padding:2px 6px">X</button>
+      </div>`;
+      total += item.harga;
+    });
+  }
+  
+  document.getElementById('isi-keranjang').innerHTML = html;
+  document.getElementById('total-keranjang').innerText = 'Total: Rp' + total.toLocaleString();
+  document.getElementById('popup-keranjang').style.display = 'flex';
+}
+
+function tutupKeranjang() {
+  document.getElementById('popup-keranjang').style.display = 'none';
+}
+
+function hapusItem(index) {
+  keranjang.splice(index, 1);
+  localStorage.setItem('keranjang', JSON.stringify(keranjang));
+  updateJumlahKeranjang();
+  bukaKeranjang(); // refresh popup
+}
     
     </script>
   
@@ -1120,5 +1153,15 @@ function tutupModalInfo(idModal) {
 }
   
 </script> 
+
+<div id="popup-keranjang" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:10000; justify-content:center; align-items:center">
+  <div style="background:white; width:90%; max-width:400px; max-height:80%; border-radius:12px; padding:20px; overflow-y:auto">
+    <h3 style="margin-top:0">🛒 Keranjang Kamu</h3>
+    <div id="isi-keranjang">Keranjang kosong</div>
+    <div style="margin-top:15px; font-weight:bold" id="total-keranjang">Total: Rp0</div>
+    <button onclick="tutupKeranjang()" style="margin-top:10px; width:100%; padding:10px; background:red; color:white; border:none; border-radius:8px">Tutup</button>
+  </div>
+</div>
+  
 </body>
 </html>
