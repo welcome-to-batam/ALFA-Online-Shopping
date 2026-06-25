@@ -429,6 +429,10 @@
   <p>💖WELCOME TO BATAM💖</p>
   </header>
 
+<div style="position:fixed; top:20px; right:20px; z-index:9999; background:white; padding:8px 12px; border-radius:50px; box-shadow:0 2px 8px rgba(0,0,0,0.2); font-size:18px">
+  🛒 <span id="jumlah-keranjang">0</span>
+</div>
+  
 <div class="info-box">
   <h3>Selamat Datang di ALFA Online Shopping</h3>
   <p><strong>Belanja online tanpa ribet, Gratis Ongkir!</strong></p>
@@ -455,6 +459,7 @@
       <h3>TWS Warna Hitam</h3>
       <h3>Stok Tersedia</h3>
       <p><strong>Harga: Rp55.000</strong></p>
+      <button class="btn-keranjang" onclick="tambahKeranjang('TWS Hitam', 55000, 'tws-a.jpg')">Masuk Keranjang 🛒</button>
     </div>
 
   <!-- MODAL DESKRIPSI PRODUK 1 - VERSI LENGKAP -->
@@ -937,17 +942,6 @@ function tutupModal(id) {
       }
     }
     
-// Fungsi standar untuk Produk 2-6 (Gambar)
-function bukaLightbox(src) {
-    document.getElementById('lightbox-img').src = src;
-    document.getElementById('lightbox').style.display = 'flex';
-    document.body.style.overflow = 'hidden';
-}
-function tutupLightbox() {
-    document.getElementById('lightbox').style.display = 'none';
-    document.body.style.overflow = 'auto';
-}
-
 // Fungsi Baru Khusus Video Produk 1 (Sangat Ringan & Anti Gagal)
 function bukaLightboxVideo() {
     var wadahVideo = document.getElementById('lightbox-khusus-video');
@@ -967,6 +961,23 @@ function tutupLightboxVideo() {
     wadahVideo.style.display = 'none';
     document.body.style.overflow = 'auto';
 }
+
+    // Ambil keranjang dari localStorage, kalau kosong bikin array []
+let keranjang = JSON.parse(localStorage.getItem('keranjang')) || [];
+
+function tambahKeranjang(nama, harga, gambar) {
+  keranjang.push({nama: nama, harga: harga, gambar: gambar, qty: 1});
+  localStorage.setItem('keranjang', JSON.stringify(keranjang));
+  alert(nama + ' masuk keranjang! Total: ' + keranjang.length);
+  updateJumlahKeranjang();
+}
+
+function updateJumlahKeranjang() {
+  document.getElementById('jumlah-keranjang').innerText = keranjang.length;
+}
+
+// Jalanin pas web kebuka
+updateJumlahKeranjang();
     
     </script>
   
