@@ -962,6 +962,17 @@ function tutupLightboxVideo() {
     document.body.style.overflow = 'auto';
 }
 
+    // Fungsi standar untuk Produk 2-6 (Gambar)
+function bukaLightbox(src) {
+  document.getElementById('lightbox-img').src = src;
+  document.getElementById('lightbox').style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+function tutupLightbox() {
+  document.getElementById('lightbox').style.display = 'none';
+  document.body.style.overflow = 'auto';
+}
+
     // Ambil keranjang dari localStorage, kalau kosong bikin array []
 let keranjang = JSON.parse(localStorage.getItem('keranjang')) || [];
 
