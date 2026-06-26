@@ -1258,13 +1258,12 @@ function tutupModalInfo(idModal) {
   </div>
 </div>
 
-  <!-- 1. TAUTAN SCRIPT FIREBASE VERSI 8 MURNI (SUDAH ANDA GANTI) -->
-<script src="https://cloudflare.com"></script>
-<script src="https://cloudflare.com"></script>
+<script src="https://gstatic.com"></script>
+<script src="https://gstatic.com"></script>
 
 <script>
-  // 2. KUNCI KONTAK FIREBASE ANDA
-    const firebaseConfig = {
+  // KUNCI KONTAK YANG SUDAH ANDA LURUSKAN KEMARIN
+  const firebaseConfig = {
     apiKey: "AIzaSyD71_Gk4N4xdVPzp62FUH5iS4uNHQdX1h4",
     authDomain: "://firebaseapp.com",
     databaseURL: "https://firebaseio.com",
@@ -1274,13 +1273,13 @@ function tutupModalInfo(idModal) {
     appId: "1:340337147242:web:bf711d13e314f8eaa30c13"
   };
 
-  // 3. INISIALISASI VERSI 8 (TANPA COMPAT)
+  // Inisialisasi Firebase Versi 8 Aman
   if (!firebase.apps.length) {
       firebase.initializeApp(firebaseConfig);
   }
   const database = firebase.database();
 
-  // 4. FUNGSI KIRIM ULASAN
+  // Fungsi Kirim Ulasan
   function kirimUlasanKeFirebase() {
       const nama = document.getElementById('reviewer-name').value.trim();
       const bintang = document.getElementById('reviewer-rating').value;
@@ -1310,7 +1309,7 @@ function tutupModalInfo(idModal) {
       });
   }
 
-  // 5. FUNGSI MENAMPILKAN ULASAN SECARA REALTIME
+  // Fungsi Menampilkan Ulasan Realtime
   database.ref('ulasan_alfa').on('value', (snapshot) => {
       const wadahUlasan = document.getElementById('latest-reviews-container');
       wadahUlasan.innerHTML = ""; 
@@ -1340,6 +1339,7 @@ function tutupModalInfo(idModal) {
           wadahUlasan.innerHTML = `<p style="color: #888; font-size: 13px; text-align: center; font-style: italic;">Belum ada ulasan. Jadilah yang pertama memberikan ulasan! ✨</p>`;
       }
   });
-                                  </script>
-</body>
+</script>
+
+ </body>
 </html>
