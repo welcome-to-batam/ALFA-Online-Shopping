@@ -897,6 +897,41 @@ Nikmati berbagai penawaran & fitur terbaik:
 </div>
 </div>
 
+  <!-- KOTAK INPUT RATING & TESTIMONI -->
+<div class="testimoni-box" style="background: white; padding: 20px; border-radius: 15px; margin: 20px auto; max-width: 90%; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
+  
+  <h3 style="color: #333; margin-bottom: 15px; text-align: center;">Tulis Ulasan Produk</h3>
+  
+  <!-- Input Nama Pembeli -->
+  <input type="text" id="reviewer-name" placeholder="Nama Anda (Contoh: Budi)" style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px;">
+  
+  <!-- Pilihan Bintang (Rating) -->
+  <div class="rating-stars" style="margin-bottom: 15px; text-align: center;">
+    <label style="font-size: 14px; color: #555; display: block; margin-bottom: 5px;">Berikan Bintang:</label>
+    <select id="reviewer-rating" style="padding: 8px; border-radius: 8px; border: 1px solid #ddd; font-size: 16px; font-weight: bold; color: #ffcc00; width: 100%; max-width: 120px;">
+      <option value="5">⭐⭐⭐⭐⭐ 5</option>
+      <option value="4">⭐⭐⭐⭐ 4</option>
+      <option value="3">⭐⭐⭐ 3</option>
+      <option value="2">⭐⭐ 2</option>
+      <option value="1">⭐ 1</option>
+    </select>
+  </div>
+  
+  <!-- Input Teks Ulasan -->
+  <textarea id="reviewer-text" placeholder="Tulis pendapat Anda tentang produk kami di sini..." rows="3" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px; resize: none; margin-bottom: 15px;"></textarea>
+  
+  <!-- Tombol Kirim -->
+  <button onclick="kirimUlasan KeFirebase()" style="background: linear-gradient(135deg, #00b300, #b3b300); color: white; border: none; padding: 12px; font-weight: bold; border-radius: 25px; width: 100%; cursor: pointer; box-shadow: 0 4px 8px rgba(0,179,0,0.2);">🚀 Kirim Ulasan Jujur</button>
+  
+  <hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;">
+  
+  <!-- DAFTAR ULASAN DARI PEMBELI LAIN (AKAN MUNCUL DI SINI SECARA OTOMATIS) -->
+  <h4 style="color: #444; margin-bottom: 10px;">💬 Ulasan Pelanggan:</h4>
+  <div id="latest-reviews-container">
+    <p style="color: #888; font-size: 13px; text-align: center; font-style: italic;">Belum ada ulasan. Jadilah yang pertama memberikan ulasan! ✨</p>
+  </div>
+</div>
+
 <!-- KOTAK MENU INFORMASI WARNA PUTIH -->
 <div class="info-menu-container" style="background: white; padding: 15px; border-radius: 15px; margin: 20px auto; max-width: 90%; box-shadow: 0 4px 10px rgba(0,0,0,0.05); text-align: center;">
   
