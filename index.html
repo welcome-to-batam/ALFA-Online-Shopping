@@ -105,62 +105,44 @@
       position: relative;
     }
     
-    /* LAYOUT 2 KOLOM */
-    .container {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 15px;
-      padding: 15px;
-      max-width: 600px;
-      margin: 0 auto;
-    }
-    
-    .product {
-    background: #fff; /* 1. Ganti oranye jadi putih */
-    border-radius: 10px;
-    padding: 0;       /* 2. Hilangin padding biar foto mentok */
-    text-align: left; /* 3. Teks rata kiri kayak Shopee */
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    /* === LAYOUT 2 KOLOM SHOPEE === */
+.container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); 
+  gap: 8px; 
+  padding: 8px;
+  background: #f5f5f5; 
+  max-width: 600px;
+  margin: 0 auto;
 }
 
-    .product img {
-    width: 100%;
-    height: 180px;
-    object-fit: cover;
-    border-radius: 10px 10px 0 0; /* 4. Foto cuma tumpul di atas doang */
+.product {
+  background: #fff; 
+  border-radius: 8px; 
+  overflow: hidden; 
+  box-shadow: 0 1px 2px rgba(0,0,0,.05); 
+  text-decoration: none; 
+  color: inherit;
+  padding: 0; 
 }
 
-    .product h3, .product h4, .product h5, .product p, .btn-wa {
-  padding: 0 8px; /* Padding kiri-kanan doang 8px */
-    }
-    
-   .product h3, .product h4, .product h5 { margin: 4px 0; }
-    
-    .product p {
-      margin: 3px 0;
-      color: #333;
-      font-size: 14px;
-    }
-
-    .harga {
-  color: #ee4d2d; /* Merah Shopee */
-  font-weight: 700;
-  font-size: 16px;
+.product img {
+  width: 100%;
+  aspect-ratio: 1/1; 
+  object-fit: cover;
+  display: block;
+  border-radius: 0; /* Buang tumpulnya */
 }
-.terjual { font-size: 12px; color: #757575; }
-    
-    .btn-wa {
-      display: inline-block;
-      background: #ee4d2d;
-      color: white;
-      padding: 10px 15px;
-      text-decoration: none;
-      border-radius: 5px;
-      margin-top: 10px;
-      font-size: 14px;
-      width: 100%;
-      box-sizing: border-box;
-    }
+
+.product h3, .product h4, .product p {
+  padding: 0 8px; 
+  margin: 4px 0; 
+}
+
+.product h3 { font-size: 14px; font-weight: 500; height: 36px; overflow: hidden; }
+.harga { color: #ee4d2d; font-weight: 700; font-size: 16px; }
+.terjual { font-size: 12px; color: #757575; margin-bottom: 8px; }
+.btn-wa { display: none; } /* TOMBOLNYA KITA BUANG */
     
     /* TOMBOL INFO DI POJOK GAMBAR */
     .btn-info {
