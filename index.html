@@ -99,6 +99,11 @@
       margin: 0;
       font-size: 14px;
     }
+
+    /* WRAPPER BUAT TOMBOL INFO */
+    .product-img-wrap {
+      position: relative;
+    }
     
     /* LAYOUT 2 KOLOM */
     .container {
@@ -111,29 +116,24 @@
     }
     
     .product {
-      background: #fff;
-      border-radius: 10px;
-      padding: 0;
-      text-align: center;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    }
-    
-    /* WRAPPER BUAT TOMBOL INFO */
-    .product-img-wrap {
-      position: relative;
-    }
-    
+    background: #fff; /* 1. Ganti oranye jadi putih */
+    border-radius: 10px;
+    padding: 0;       /* 2. Hilangin padding biar foto mentok */
+    text-align: left; /* 3. Teks rata kiri kayak Shopee */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
     .product img {
-      width: 100%;
-      height: 180px;
-      object-fit: cover;
-      border-radius: 0;
-    }
-    
-    .product h3 {
-      margin: 10px 0 5px 0;
-      font-size: 16px;
-    }
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 10px 10px 0 0; /* 4. Foto cuma tumpul di atas doang */
+}
+
+    .product h3, .product p, .btn-wa { /* 5. Kasih padding di teks & tombol doang */
+    padding: 0 10px 10px 10px;
+}
+   .product h3 { margin: 8px 0 4px 0; }
     
     .product p {
       margin: 5px 0;
