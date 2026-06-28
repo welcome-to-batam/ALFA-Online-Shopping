@@ -166,6 +166,8 @@ document.getElementById('tambahKeranjangBtn').onclick = () => {
   keranjang.push({nama: produk.nama, harga: produk.harga, gambar: produk.gambar});
   localStorage.setItem('keranjang', JSON.stringify(keranjang));
   alert(produk.nama + ' masuk keranjang! Total: ' + keranjang.length);
+  
+  updateTombolBeliSemua(); // <-- TAMBAHIN BARIS INI DOANG BRO
 };
 
 // TOMBOL IJO: CHECKOUT SEMUA ISI KERANJANG
