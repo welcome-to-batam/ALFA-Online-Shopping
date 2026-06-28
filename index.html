@@ -127,11 +127,11 @@
 }
 
 .product img {
-  width: 100%;
-  aspect-ratio: 1/1; 
-  object-fit: cover;
+  width: 100% !important;       /* Paksa lebar 100% kotak */
+  height: 180px !important;     /* Paksa tinggi kotak. Jangan pakai aspect-ratio */
+  object-fit: cover;              /* Crop biar nggak gepeng */
   display: block;
-  border-radius: 0; /* Buang tumpulnya */
+  border-radius: 12px 12px 0 0; /* Biar sudutnya ikut kotak */
 }
 
 .product h3, .product h4, .product p {
