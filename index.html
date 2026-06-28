@@ -105,45 +105,40 @@
       position: relative;
     }
     
-    /* === LAYOUT 2 KOLOM SHOPEE === */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: Arial, sans-serif; background:#f5f5f5; }
+
+/* === INI KUNCI UTAMA === */
 .container {
-  display: grid;
-  grid-template-columns: 1fr 1fr; 
-  gap: 8px; 
-  padding: 8px;
-  background: #f5f5f5; 
-  max-width: 600px;
+  display: grid !important; /* !important = PAKSA */
+  grid-template-columns: repeat(2, 1fr) !important; /* 2 KOLOM MATI */
+  gap: 10px !important;
+  padding: 10px !important;
+  max-width: 600px; /* Biar di desktop nggak melebar */
   margin: 0 auto;
 }
 
 .product {
-  background: #fff; 
-  border-radius: 8px; 
-  overflow: hidden; 
-  box-shadow: 0 1px 2px rgba(0,0,0,.05); 
-  text-decoration: none; 
-  color: inherit;
-  padding: 0; 
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  text-decoration: none;
+  color: #000;
+  box-shadow: 0 1px 3px rgba(0,0,0,.1);
+  display: block !important;
 }
 
 .product img {
-  width: 100% !important;       /* Paksa lebar 100% kotak */
-  height: 180px !important;     /* Paksa tinggi kotak. Jangan pakai aspect-ratio */
-  object-fit: cover;              /* Crop biar nggak gepeng */
-  display: block;
-  border-radius: 12px 12px 0 0; /* Biar sudutnya ikut kotak */
+  width: 100% !important;
+  height: 160px !important; /* KUNCI KOTAK */
+  object-fit: cover !important;
+  display: block !important;
 }
 
-.product h3, .product h4, .product p {
-  padding: 0 8px; 
-  margin: 4px 0; 
-}
+.product h4 { padding: 8px 8px 0; font-size: 14px; }
+.product .harga { padding: 0 8px; color: #ee4d2d; font-weight: 700; }
+.product .terjual { padding: 0 8px 8px; font-size: 12px; color: #777; }
 
-.product h4 { font-size: 14px; font-weight: 500; height: 36px; overflow: hidden; }
-.harga { color: #ee4d2d; font-weight: 700; font-size: 16px; }
-.terjual { font-size: 12px; color: #757575; margin-bottom: 8px; }
-.btn-wa { display: none; } /* TOMBOLNYA KITA BUANG */
-    
     /* TOMBOL INFO DI POJOK GAMBAR */
     .btn-info {
       position: absolute;
@@ -445,10 +440,10 @@
     <button class="btn-wa" style="width:100%; background:#25D366; color:#fff; border:none; padding:10px; border-radius:8px; font-weight:bold;">
       Beli via WA 🛒
     </button>
-  </div>
+  </a>
 </div>
-
-  </div>
+</div>
+  
   
   <!-- PRODUK 2 -->
 <a href="produk.html?id=2" class="product">
@@ -459,10 +454,9 @@
   <button class="btn-wa" style="width:100%; background:#25D366; color:#fff; border:none; padding:10px; border-radius:8px; font-weight:bold;">
       Beli via WA 🛒
   </button>
- </div>
+</a>
 </div>
-
-</div>
+  </div>
 
 <!-- PRODUK 3 -->
 <a href="produk.html?id=3" class="product">
@@ -473,9 +467,8 @@
 <button class="btn-wa" style="width:100%; background:#25D366; color:#fff; border:none; padding:10px; border-radius:8px; font-weight:bold;">
       Beli via WA 🛒
     </button>
-  </div>
+  </a>
  </div>
-
   </div>
 
 <!-- PRODUK 4 -->
@@ -487,9 +480,8 @@
 <button class="btn-wa" style="width:100%; background:#25D366; color:#fff; border:none; padding:10px; border-radius:8px; font-weight:bold;">
       Beli via WA 🛒
     </button>
-  </div>
+</a>
 </div>
-
   </div>
 
 <!-- PRODUK 5 -->
@@ -501,8 +493,22 @@
 <button class="btn-wa" style="width:100%; background:#25D366; color:#fff; border:none; padding:10px; border-radius:8px; font-weight:bold;">
       Beli via WA 🛒
     </button>
+  </a>
+</div>
   </div>
-</a>
+
+  <!-- PRODUK 6 -->
+<a href="produk.html?id=5" class="product">
+  <img src="produk5.jpg" alt="Produk 5">
+  <h4>Nama Produk 5</h4>
+  <p class="harga">Rp75.000</p>
+  <p class="terjual">33 terjual</p>
+<button class="btn-wa" style="width:100%; background:#25D366; color:#fff; border:none; padding:10px; border-radius:8px; font-weight:bold;">
+      Beli via WA 🛒
+    </button>
+   </a>
+  </div>
+  </div>
   
   </div> <!-- PENUTUP .container -->
 
