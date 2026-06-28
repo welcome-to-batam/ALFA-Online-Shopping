@@ -52,8 +52,9 @@
   <p id="productDesc" class="desc">Loading...</p>
 </div>
 
-<div class="wa-bar">
-  <button id="waBtn" class="btn-wa">Beli via WhatsApp</button>
+<div class="wa-bar" style="display:flex; gap:10px;">
+  <button id="tambahKeranjangBtn" class="btn-wa" style="flex:1; background:#0052cc;">+ Keranjang</button>
+  <button id="waBtn" class="btn-wa" style="flex:1;">Beli Semua</button>
 </div>
 
 <script>
@@ -157,10 +158,42 @@ if (produk) {
     document.getElementById('productDiscount').textContent = `-${diskonPersen}%`;
   }
 
+// AMBIL DATA KERANJANG DARI TRUK
+let keranjang = JSON.parse(localStorage.getItem('keranjang')) || [];
+
+// TOMBOL BIRU: MASUKIN BARANG YANG LAGI DILIHAT KE KERANJANG
+document.getElementById('tambahKeranjangBtn').onclick = () => {
+  keranjang.push({nama: produk.nama, harga: produk.harga, gambar: produk.gambar});
+  localStorage.setItem('keranjang', JSON.stringify(keranjang));
+  alert(produk.nama + ' masuk keranjang! Total: ' + keranjang.length);
+};
+
+// TOMBOL IJO: CHECKOUT SEMUA ISI KERANJANG
+function updateTombolBeliSemua() {
+  if(keranjang.length === 0){
+    document.getElementById('waBtn').innerText = 'Keranjang Kosong';
+    document.getElementById('waBtn').style.background = '#ccc';
+    document.getElementById('waBtn').onclick = () => alert('Isi keranjang dulu bro');
+    return;
+  }
+
+  let pesan = `Halo ALFA Shop, saya mau order:\n\n`;
+  let total = 0;
+  keranjang.forEach((item, index) => {
+    pesan += `${index+1}. ${item.nama} - Rp${item.harga.toLocaleString('id-ID')}\n`;
+    total += item.harga;
+  });
+  pesan += `\nTotal: Rp${total.toLocaleString('id-ID')}`;
+  
+  document.getElementById('waBtn').innerText = `Beli Semua (${keranjang.length})`;
   document.getElementById('waBtn').onclick = () => {
-    const pesan = `Halo ALFA Shop, saya mau order ${produk.nama} harga Rp${produk.harga.toLocaleString('id-ID')}`;
     window.open(`https://wa.me/${nomorWA}?text=${encodeURIComponent(pesan)}`, '_blank');
   };
+}
+
+// JALANIN PAS HALAMAN BUKA
+updateTombolBeliSemua();
+  
 } else {
   document.body.innerHTML = '<h1 style="text-align:center;padding:50px">Produk tidak ditemukan</h1>';
 }
