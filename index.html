@@ -705,6 +705,16 @@ function tutupLightbox() {
   document.body.style.overflow = 'auto';
 }
 
+  // DATA SEMUA PRODUK - INI OTAKNYA KERANJANG
+const dataProduk = {
+  "1": {nama: "TWS Warna Hitam", harga: 55000, gambar: "produkhitam.jpg"},
+  "2": {nama: "TWS Warna Putih", harga: 55000, gambar: "produkputih.jpg"},
+  "3": {nama: "TWS Warna Ungu", harga: 55000, gambar: "produkungu.jpg"},
+  "4": {nama: "TWS Warna Pink", harga: 55000, gambar: "produkpink.jpg"},
+  "5": {nama: "TWS Warna Coklat", harga: 55000, gambar: "produkcoklat.jpg"},
+  "6": {nama: "TWS Warna Biru", harga: 55000, gambar: "produkbiru.jpg"}
+};  
+    
     // Ambil keranjang dari localStorage, kalau kosong bikin array []
 let keranjang = JSON.parse(localStorage.getItem('keranjang')) || [];
 
@@ -754,6 +764,22 @@ function hapusItem(index) {
   updateJumlahKeranjang();
   bukaKeranjang(); // refresh popup
 }
+
+// PASANG TOMBOL + KERANJANG OTOMATIS DI SETIAP PRODUK
+document.querySelectorAll('.product').forEach(p => {
+  const id = p.href.split('id=')[1]; // Ambil angka "3" dari link id=3
+  const produk = dataProduk[id]; // Cari data lengkap dari baris 708
+
+  const btn = document.createElement('button');
+  btn.innerText = '🛒 + Keranjang';
+  btn.style = 'width:100%; margin-top:8px; padding:8px; background:#0052cc; color:white; border:none; border-radius:8px; font-weight:bold;';
+  
+  btn.onclick = (e) => {
+    e.preventDefault(); // BIAR GAK PINDAH HALAMAN PAS DIKLIK
+    tambahKeranjang(produk.nama, produk.harga, produk.gambar); // PANGGIL FUNCTION BARIS 720
+  }
+  p.appendChild(btn); // TEMPEL TOMBOLNYA KE CARD PRODUK
+});
 
     function checkoutWhatsApp() {
   let keranjang = JSON.parse(localStorage.getItem('keranjang')) || [];
@@ -1000,6 +1026,15 @@ function tutupModalInfo(idModal) {
           wadahUlasan.innerHTML = `<p style="color: #888; font-size: 13px; text-align: center; font-style: italic;">Belum ada ulasan. Jadilah yang pertama memberikan ulasan! ✨</p>`;
       }
   });
+
+  <div id="popup-keranjang" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:999; justify-content:center; align-items:center;">
+  <div style="background:white; width:90%; max-width:400px; padding:15px; border-radius:10px;">
+    <h3>Keranjang Belanja <span onclick="tutupKeranjang()" style="float:right; cursor:pointer;">X</span></h3>
+    <div id="isi-keranjang"></div>
+    <b id="total-keranjang"></b>
+    <button onclick="checkoutWhatsApp()" style="width:100%; padding:12px; background:#25D366; color:white; border:none; border-radius:8px; margin-top:10px;">Checkout WA</button>
+  </div>
+</div>
 
 </script>
   
