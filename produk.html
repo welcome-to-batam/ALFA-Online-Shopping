@@ -173,7 +173,7 @@ document.getElementById('tambahKeranjangBtn').onclick = () => {
 // TOMBOL IJO: CHECKOUT SEMUA ISI KERANJANG
 function updateTombolBeliSemua() {
   if(keranjang.length === 0){
-    document.getElementById('waBtn').innerText = 'Beli Via WhatsApp';
+    document.getElementById('waBtn').innerText = 'Keranjang Kosong';
     document.getElementById('waBtn').style.background = '#ccc';
     document.getElementById('waBtn').onclick = () => alert('Isi keranjang dulu bro');
     return;
@@ -187,7 +187,7 @@ function updateTombolBeliSemua() {
   });
   pesan += `\nTotal: Rp${total.toLocaleString('id-ID')}`;
   
-  document.getElementById('waBtn').innerText = `Beli Semua (${keranjang.length})`;
+  document.getElementById('waBtn').innerText =  WhatsApp (${keranjang.length})`;
   document.getElementById('waBtn').onclick = () => {
     window.open(`https://wa.me/${nomorWA}?text=${encodeURIComponent(pesan)}`, '_blank');
   };
