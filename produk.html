@@ -186,8 +186,8 @@ function updateTombolBeliSemua() {
     total += item.harga;
   });
   pesan += `\nTotal: Rp${total.toLocaleString('id-ID')}`;
-  
-  document.getElementById('waBtn').innerText =  WhatsApp (${keranjang.length})`;
+
+  document.getElementById('waBtn').innerText = `Beli Semua (${keranjang.length})`;
   document.getElementById('waBtn').onclick = () => {
     window.open(`https://wa.me/${nomorWA}?text=${encodeURIComponent(pesan)}`, '_blank');
   }
