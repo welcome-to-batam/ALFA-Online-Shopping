@@ -129,7 +129,6 @@ const dataProduk = {
     gambar: "produk8.jpg",
     rating: "4.8",
     terjual: "00 pcs",
-    stok: "00 pcs",
     deskripsi: "TWS Earbuds terbaru dengan kualitas suara jernih, baterai tahan lama, dan koneksi super stabil. Cocok buat musik, game, dan telpon."
   },
 };
@@ -174,7 +173,7 @@ document.getElementById('tambahKeranjangBtn').onclick = () => {
 // TOMBOL IJO: CHECKOUT SEMUA ISI KERANJANG
 function updateTombolBeliSemua() {
   if(keranjang.length === 0){
-    document.getElementById('waBtn').innerText = 'Keranjang Kosong';
+    document.getElementById('waBtn').innerText = 'Beli Via WhatsApp';
     document.getElementById('waBtn').style.background = '#ccc';
     document.getElementById('waBtn').onclick = () => alert('Isi keranjang dulu bro');
     return;
