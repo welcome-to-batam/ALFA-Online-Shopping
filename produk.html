@@ -21,6 +21,12 @@
  .desc{font-size:14px;line-height:1.6;color:#555}
  .wa-bar{position:fixed;bottom:0;left:0;right:0;background:#fff;padding:12px 16px;border-top:1px solid #eee;box-shadow:0 -2px 8px rgba(0,0,0,0.1)}
  .btn-wa{width:100%;background:#25D366;color:#fff;border:none;padding:14px;border-radius:8px;font-size:16px;font-weight:700;cursor:pointer}
+.slider{position:relative;width:100%;aspect-ratio:1/1;overflow:hidden;background:#fff}
+.slides{display:flex;transition:transform.3s ease}
+.slides img{width:100%;flex-shrink:0;object-fit:cover}
+.dots{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);display:flex;gap:6px}
+.dot{width:8px;height:8px;border-radius:50%;background:#fff5;transition:.3s}
+.dot.active{background:#fff}
 </style>
 </head>
 <body>
@@ -30,7 +36,10 @@
   <h1>Detail Produk</h1>
 </header>
 
-<img id="productImage" src="" alt="Produk" class="product-img">
+  <div class="slider">
+  <div class="slides" id="slides"></div>
+  <div class="dots" id="dots"></div>
+  </div>
 
 <div class="card">
   <h2 id="productName" class="title">Loading...</h2>
@@ -72,7 +81,7 @@ const dataProduk = {
     nama: "Stok Kosong",
     harga: 55000,
     hargaCoret: 60000,
-    gambar: "produkputih.jpg",
+    gambar: ["produkputih.jpg", "produkputih.jpg", "produkputih.jpg", "produkputih.jpg", "produkputih.jpg"],
     rating: "4.8",
     terjual: "1 pcs",
     deskripsi: "TWS Earbuds terbaru dengan kualitas suara jernih, baterai tahan lama, dan koneksi super stabil. Cocok buat musik, game, dan telpon."
@@ -147,7 +156,25 @@ const produk = dataProduk[id];
 if (produk) {
   document.getElementById('productName').textContent = produk.nama;
   document.getElementById('productPrice').textContent = `Rp${produk.harga.toLocaleString('id-ID')}`;
-  document.getElementById('productImage').src = produk.gambar;
+  const slides = document.getElementById('slides');
+const dots = document.getElementById('dots');
+slides.innerHTML = '';
+dots.innerHTML = '';
+produk.gambar.forEach((img, i) => {
+  slides.innerHTML += `<img src="${img}">`;
+  dots.innerHTML += `<span class="dot ${i===0?'active':''}"></span>`;
+});
+
+let index = 0;
+let startX = 0;
+slides.addEventListener('touchstart', e => startX = e.touches[0].clientX);
+slides.addEventListener('touchend', e => {
+  let diff = e.changedTouches[0].clientX - startX;
+  if(diff < -50 && index < produk.gambar.length-1) index++;
+  if(diff > 50 && index > 0) index--;
+  slides.style.transform = `translateX(-${index*100}%)`;
+  document.querySelectorAll('.dot').forEach((d,i)=>d.classList.toggle('active', i===index));
+});
   document.getElementById('productRating').textContent = produk.rating;
   document.getElementById('productSold').textContent = `${produk.terjual} Terjual`;
   document.getElementById('productDesc').textContent = produk.deskripsi;
