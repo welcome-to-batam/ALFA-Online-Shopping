@@ -195,6 +195,14 @@ let keranjang = JSON.parse(localStorage.getItem('keranjang')) || [];
 document.getElementById('tambahKeranjangBtn').onclick = () => {
   keranjang.push({nama: produk.nama, harga: produk.harga, gambar: produk.gambar});
   localStorage.setItem('keranjang', JSON.stringify(keranjang));
+  function tambahKeKeranjang(id) {
+  // ... kode lu nambah barang ke keranjang ...
+  localStorage.setItem('keranjang', JSON.stringify(keranjang)); 
+  
+  updateBadgeKeranjang(); // <-- TAMBAHIN BARIS INI BRO
+
+  alert(`${produk.nama} masuk keranjang! Total: ${totalQty}`);
+  }
   alert(produk.nama + ' masuk keranjang! Total: ' + keranjang.length);
   
   updateTombolBeliSemua();
@@ -228,6 +236,19 @@ updateTombolBeliSemua();
   
 } else {
   document.body.innerHTML = '<h1 style="text-align:center;padding:50px">Produk tidak ditemukan</h1>';
+}
+  // FUNGSI OTAK BUAT UPDATE ANGKA KERANJANG KUNING
+function updateBadgeKeranjang() {
+  const keranjang = JSON.parse(localStorage.getItem('keranjang')) || [];
+  const totalQty = keranjang.reduce((sum, item) => sum + item.qty, 0);
+  
+  // INI PENTING: Cari elemen angkanya di pojok kanan atas
+  const badge = document.querySelector('#cartCount'); // <-- GANTI INI KALO ID NYA BEDA
+  
+  if (badge) {
+    badge.textContent = totalQty;
+    badge.style.display = totalQty > 0 ? 'block' : 'none'; 
+  }
 }
 </script>
 
