@@ -265,7 +265,7 @@ function bukaZoom(src) {
 
   zoomGambar.forEach((img, i) => {
     zoomSlides.innerHTML += `<img src="${img}" style="width:100%; height:100%; object-fit:contain; flex-shrink:0;">`;
-    zoomDots.innerHTML += `<span class="dot ${i==zoomIndex?'active':''}" style="width:8px; height:8px; border-radius:50%; background:${i==zoomIndex?'#fff':'#555'};"></span>`;
+    zoomDots.innerHTML += `<span class="dot" style="width:8px; height:8px; border-radius:50%; background:${i==zoomIndex?'#fff':'#555'}; display:inline-block;"></span>`;
   });
 
   updateZoomSlider();
