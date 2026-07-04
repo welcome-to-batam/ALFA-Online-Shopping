@@ -164,7 +164,7 @@ const dots = document.getElementById('dots');
 slides.innerHTML = '';
 dots.innerHTML = '';
 arrGambar.forEach((img, i) => {
-  slides.innerHTML += `<img src="${img}">`;
+  slides.innerHTML += `<img src="${img}" onclick="bukaZoom(this.src)" style="cursor:zoom-in;">`;
   dots.innerHTML += `<span class="dot ${i===0?'active':''}"></span>`;
 });
 
@@ -250,7 +250,22 @@ function updateBadgeKeranjang() {
     badge.style.display = totalQty > 0 ? 'block' : 'none'; 
   }
 }
+
+  // FUNGSI OTAK BUAT ZOOM FOTO
+function bukaZoom(src) {
+  document.getElementById('zoomImg').src = src;
+  document.getElementById('zoomPopup').style.display = 'flex';
+}
+function tutupZoom() {
+  document.getElementById('zoomPopup').style.display = 'none';
+}
 </script>
+  
+  <!-- POPUP ZOOM FOTO -->
+<div id="zoomPopup" onclick="tutupZoom()" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:9999; justify-content:center; align-items:center;">
+  <span onclick="tutupZoom()" style="position:absolute; top:20px; right:30px; color:white; font-size:40px; cursor:pointer;">&times;</span>
+  <img id="zoomImg" style="max-width:90%; max-height:90%; object-fit:contain;">
+</div>
 
 </body>
 </html>
