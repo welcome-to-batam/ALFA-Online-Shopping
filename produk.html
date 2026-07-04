@@ -279,7 +279,7 @@ function tutupZoom() {
 
 function updateZoomSlider() {
   document.getElementById('zoomSlides').style.transform = `translateX(-${zoomIndex*100}%)`;
-  document.querySelectorAll('#zoomDots .dot').forEach((d,i)=>
+  document.querySelectorAll('#zoomDots .dot').forEach((d,i)=>{ d.style.background = i==zoomIndex?'#fff':'#555' });
 }
 
 function aktifinGeserZoom() {
