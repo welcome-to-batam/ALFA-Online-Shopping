@@ -251,14 +251,60 @@ function updateBadgeKeranjang() {
   }
 }
 
-  // FUNGSI OTAK BUAT ZOOM FOTO
+  let zoomIndex = 0;
+let zoomGambar = [];
+
 function bukaZoom(src) {
-  document.getElementById('zoomImg').src = src;
+  zoomGambar = [...arrGambar]; 
+  zoomIndex = zoomGambar.indexOf(src);
+  
+  const zoomSlides = document.getElementById('zoomSlides');
+  const zoomDots = document.getElementById('zoomDots');
+  zoomSlides.innerHTML = '';
+  zoomDots.innerHTML = '';
+
+  zoomGambar.forEach((img, i) => {
+    zoomSlides.innerHTML += `<img src="${img}" style="width:100%; height:100%; object-fit:contain; flex-shrink:0;">`;
+    zoomDots.innerHTML += `<span class="dot ${i==zoomIndex?'active':''}" style="width:8px; height:8px; border-radius:50%; background:${i==zoomIndex?'#fff':'#555'};"></span>`;
+  });
+
+  updateZoomSlider();
   document.getElementById('zoomPopup').style.display = 'flex';
+  aktifinGeserZoom();
 }
+
 function tutupZoom() {
   document.getElementById('zoomPopup').style.display = 'none';
 }
+
+function updateZoomSlider() {
+  document.getElementById('zoomSlides').style.transform = `translateX(-${zoomIndex*100}%)`;
+  document.querySelectorAll('#zoomDots.dot').forEach((d,i)=>d.style.background = i==zoomIndex?'#fff':'#555');
+}
+
+function aktifinGeserZoom() {
+  let startX = 0;
+  const slides = document.getElementById('zoomSlides');
+  slides.ontouchstart = e => startX = e.touches[0].clientX;
+  slides.ontouchend = e => {
+    let diff = e.changedTouches[0].clientX - startX;
+    if(diff < -50 && zoomIndex < zoomGambar.length-1) zoomIndex++;
+    if(diff > 50 && zoomIndex > 0) zoomIndex--;
+    updateZoomSlider();
+  }
+}
+
+  <!-- POPUP ZOOM FOTO + SLIDER -->
+<div id="zoomPopup" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.95); z-index:9999; justify-content:center; align-items:center; flex-direction:column;">
+  <span onclick="tutupZoom()" style="position:absolute; top:20px; right:30px; color:white; font-size:40px; cursor:pointer; z-index:10000;">&times;</span>
+  
+  <div class="zoom-slider" style="width:100%; height:90%; overflow:hidden; position:relative;">
+    <div id="zoomSlides" style="display:flex; height:100%; transition:transform 0.3s ease;"></div>
+  </div>
+  
+  <div id="zoomDots" style="display:flex; gap:6px; margin-top:10px;"></div>
+</div>
+  
 </script>
   
   <!-- POPUP ZOOM FOTO -->
