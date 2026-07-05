@@ -13,17 +13,16 @@
 <link rel="manifest" href="/ALFA-Online-Shopping/manifest.json">
 <meta name="theme-color" content="#000000">
 
-<!-- Daftarkan Service Worker -->
-<script>
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('/ALFA-Online-Shopping/sw.js')
-        .then(reg => console.log('Service Worker ALFA Terdaftar!', reg))
-        .catch(err => console.log('Gagal Daftar Service Worker:', err));
-    });
-  }
-</script>
-
+      <!-- SEMENTARA DIMATIKAN DULU
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/ALFA-Online-Shopping/sw.js')
+          .then(reg => console.log('Service Worker Registered'))
+          .catch(err => console.log('Gagal Daftar SW', err));
+        });
+      }
+    </script>
   <style>
     .hero {
   position: relative;
