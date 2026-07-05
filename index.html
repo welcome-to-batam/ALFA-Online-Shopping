@@ -1063,7 +1063,7 @@ function tutupModalInfo(idModal) {
   let keranjang = JSON.parse(localStorage.getItem('keranjang')) || [];
 
 // Fungsi tambah barang
-function tambahKeKeranjang(nama, harga) {
+function tambahKeranjang(nama, harga) {
   keranjang.push({nama: nama, harga: harga});
   localStorage.setItem('keranjang', JSON.stringify(keranjang));
   updateBadge();
@@ -1072,7 +1072,7 @@ function tambahKeKeranjang(nama, harga) {
 
 // Update angka di tombol keranjang
 function updateBadge() {
-  document.getElementById('cartCount').textContent = keranjang.length;
+  document.getElementById('jumlah-keranjang').textContent = keranjang.length;
   
   // Tombol WA muncul kalau ada isi
   const btnWA = document.getElementById('btnWaBorongan');
