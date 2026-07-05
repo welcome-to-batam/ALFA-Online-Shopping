@@ -813,31 +813,6 @@ function tutupLightbox() {
   document.getElementById('lightbox').style.display = 'none';
   document.body.style.overflow = 'auto';
 }
-
-    function checkoutWhatsApp() {
-  let keranjang = JSON.parse(localStorage.getItem('keranjang')) || [];
-  
-  if(keranjang.length === 0) {
-    alert('Keranjang masih kosong bro! Isi dulu 😅');
-    return;
-  }
-  
-  let pesan = 'Halo ALFA Shop, saya mau Memesan:\n\n';
-  let total = 0;
-  
-  keranjang.forEach((item, index) => {
-    pesan += (index + 1) + '. ' + item.nama + ' - Rp' + item.harga.toLocaleString('id-ID') + '\n';
-    total += item.harga;
-  });
-  
-  pesan += '\nTotal: Rp' + total.toLocaleString('id-ID');
-  pesan += '\n\nMohon info cara bayar & ongkir ya 🙏';
-  
-  let noWA = '+6283879387000'; // GANTI DENGAN NOMOR WA KAMU +62
-  let url = 'https://wa.me/' + noWA + '?text=' + encodeURIComponent(pesan);
-  
-  window.open(url, '_blank');
-    }
     
     </script>
   
@@ -1051,7 +1026,8 @@ function tutupModalInfo(idModal) {
       }
   });
 
-  let keranjang = JSON.parse(localStorage.getItem('keranjang')) || [];
+  // Variabel keranjang GLOBAL
+let keranjang = JSON.parse(localStorage.getItem('keranjang')) || [];
 
 // Fungsi tambah barang
 function tambahKeKeranjang(nama, harga) {
