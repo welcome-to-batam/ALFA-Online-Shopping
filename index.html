@@ -484,7 +484,7 @@ body { font-family: Arial, sans-serif; background:#f5f5f5; }
 
   <div class="floating-bar">
   <button class="btn-floating btn-keranjang" onclick="bukaKeranjang()">
-    🛒 Keranjang <span id="cartCount" class="badge">0</span>
+    🛒 Keranjang <span id="jumlah-keranjang" class="badge">0</span>
   </button>
   
   <button id="btnWaBorongan" class="btn-floating btn-wa" onclick="checkoutWA()">
@@ -1063,7 +1063,7 @@ function tutupModalInfo(idModal) {
   let keranjang = JSON.parse(localStorage.getItem('keranjang')) || [];
 
 // Fungsi tambah barang
-function tambahKeranjang(nama, harga) {
+function tambahKeKeranjang(nama, harga) {
   keranjang.push({nama: nama, harga: harga});
   localStorage.setItem('keranjang', JSON.stringify(keranjang));
   updateBadge();
