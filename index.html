@@ -135,6 +135,20 @@ body { font-family: Arial, sans-serif; background:#f5f5f5; }
   display: block !important;
 }
 
+.product-item {
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+    
+.product {
+  text-decoration: none;
+  color: #000;
+  display: block;
+  padding: 8px;
+}
+
 .product h4 { padding: 8px 8px 0; font-size: 14px; }
 .product .harga { padding: 0 8px; color: #ee4d2d; font-weight: 700; }
 .product .terjual { padding: 0 8px 8px; font-size: 12px; color: #777; }
@@ -472,16 +486,29 @@ body { font-family: Arial, sans-serif; background:#f5f5f5; }
 
 <div class="container">
   
-<!-- PRODUK 1 -->
-<a href="produk.html?id=1" class="product">
-  <img src="img/foto-index/fotoproduk1.jpg" alt="TWS Warna Hitam">
-  <h4>TWS Warna Hitam</h4>
-</a>
-<!-- PRODUK 2 -->
-<a href="produk.html?id=2" class="product">
-  <img src="img/foto-index/fotoproduk2.jpg" alt="Hand Rest Grip">
-  <h4>Hand Rest Grip</h4>
+  <!-- PRODUK 1 -->
+<div class="product-item">
+  <a href="produk.html?id=1" class="product">
+    <img src="img/foto-index/fotoproduk1.jpg" alt="TWS Warna Hitam">
+    <h4>TWS Warna Hitam</h4>
   </a>
+  
+  <button class="btn-tambah" onclick="tambahKeKeranjang('TWS Warna Hitam', 150000)">
+    + Tambah ke Keranjang
+  </button>
+</div>
+  
+  <!-- PRODUK 2 -->
+<div class="product-item">
+  <a href="produk.html?id=2" class="product">
+    <img src="img/foto-index/fotoproduk2.jpg" alt="Hand Rest Grip">
+    <h4>Hand Rest Grip</h4>
+  </a>
+  
+  <button class="btn-tambah" onclick="tambahKeKeranjang('Hand Rest Grip', 150000)">
+    + Tambah ke Keranjang
+  </button>
+</div>
 
 <!-- PRODUK 3 -->
 <a href="produk.html?id=3" class="product">
