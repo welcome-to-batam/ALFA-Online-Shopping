@@ -1140,16 +1140,55 @@ function tutupModalInfo(idModal) {
 
   let keranjang = JSON.parse(localStorage.getItem('keranjang')) || [];
 
-function updateBadge() {
-  document.getElementById('cartCount').textContent = keranjang.length;
-  document.getElementById('btnWaBorongan').style.display = keranjang.length > 0 ? 'flex' : 'none';
+// Fungsi tambah barang
+function tambahKeKeranjang(nama, harga) {
+  keranjang.push({nama: nama, harga: harga});
+  localStorage.setItem('keranjang', JSON.stringify(keranjang));
+  updateBadge();
+  alert(nama + ' masuk keranjang!');
 }
 
+// Update angka di tombol keranjang
+function updateBadge() {
+  document.getElementById('cartCount').textContent = keranjang.length;
+  
+  // Tombol WA muncul kalau ada isi
+  const btnWA = document.getElementById('btnWaBorongan');
+  if(btnWA) btnWA.style.display = keranjang.length > 0 ? 'flex' : 'none';
+}
+
+// Buka popup keranjang
+function bukaKeranjang() {
+  renderKeranjang();
+  document.getElementById('popup-keranjang').style.display = 'flex';
+}
+
+// Isi popup keranjang
+function renderKeranjang() {
+  const list = document.getElementById('list-keranjang');
+  const totalEl = document.getElementById('total-keranjang');
+  
+  if(keranjang.length === 0) {
+    list.innerHTML = '<p>Keranjang kosong bro 😅</p>';
+    totalEl.textContent = 'Rp0';
+    return;
+  }
+  
+  let html = '';
+  let total = 0;
+  keranjang.forEach((item, i) => {
+    html += `<p>${i+1}. ${item.nama} - Rp${item.harga.toLocaleString('id-ID')}</p>`;
+    total += item.harga;
+  });
+  list.innerHTML = html;
+  totalEl.textContent = 'Rp' + total.toLocaleString('id-ID');
+}
+
+// Checkout WA Borongan
 function checkoutWA() {
   if(keranjang.length === 0) return alert('Keranjang masih kosong bro');
   
-  let pesan = `Halo ALFA Online Shopping 🙏%0A%0A` +
-              `Saya mau order:%0A%0A`;
+  let pesan = `Halo ALFA Online Shopping 🙏%0A%0ASaya mau order:%0A%0A`;
   let total = 0;
   
   keranjang.forEach((item, i) => {
@@ -1163,26 +1202,20 @@ function checkoutWA() {
   window.open(urlWA, '_blank');
 }
 
-function bukaKeranjang() {
-  document.getElementById('popup-keranjang').style.display = 'flex';
+// Tutup popup
+function tutupKeranjang() {
+  document.getElementById('popup-keranjang').style.display = 'none';
 }
-
-  function tambahKeKeranjang(nama, harga) {
-  keranjang.push({nama: nama, harga: harga});
-  localStorage.setItem('keranjang', JSON.stringify(keranjang));
-  updateBadge();
-  alert(nama + ' ditambah ke keranjang!');
-  }
 
 // Jalanin pas buka halaman
 updateBadge();
 
-  <div id="popup-keranjang" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:999; justify-content:center; align-items:center;">
-  <div style="background:white; width:90%; max-width:400px; padding:15px; border-radius:10px;">
-    <h3>Keranjang Belanja <span onclick="tutupKeranjang()" style="float:right; cursor:pointer;">X</span></h3>
-    <div id="isi-keranjang"></div>
-    <b id="total-keranjang"></b>
-    <button onclick="checkoutWhatsApp()" style="width:100%; padding:12px; background:#25D366; color:white; border:none; border-radius:8px; margin-top:10px;">Checkout WA</button>
+<div id="popup-keranjang" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:1000; justify-content:center; align-items:center;">
+  <div style="background:#fff; padding:20px; border-radius:10px; width:90%;">
+    <h3>🛒 Keranjang Kamu</h3>
+    <div id="list-keranjang"></div>
+    <h4>Total: <span id="total-keranjang">Rp0</span></h4>
+    <button onclick="tutupKeranjang()" style="width:100%; background:red; color:#fff; border:none; padding:10px; border-radius:5px;">Tutup</button>
   </div>
 </div>
 
