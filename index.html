@@ -179,6 +179,7 @@ body { font-family: Arial, sans-serif; background:#f5f5f5; }
   z-index: 999;
   pointer-events: none;
 }
+    
 .btn-floating {
   pointer-events: auto;
   background: #fff;
@@ -193,6 +194,7 @@ body { font-family: Arial, sans-serif; background:#f5f5f5; }
   gap: 6px;
   cursor: pointer;
 }
+    
 .btn-keranjang { color: #0052cc; }
 .btn-wa { background: #25D366; color: #fff; border: none; }
 .badge {
@@ -202,6 +204,22 @@ body { font-family: Arial, sans-serif; background:#f5f5f5; }
   font-size: 12px;
   padding: 2px 6px;
   margin-left: 4px;
+}
+
+.btn-tambah {
+  width: 100%;
+  background: #0052cc;
+  color: white;
+  border: none;
+  padding: 8px;
+  border-radius: 6px;
+  font-weight: bold;
+  margin-top: 8px;
+  cursor: pointer;
+}
+    
+.btn-tambah:active {
+  background: #003d99;
 }
     
     /* JENDELA MODAL DESKRIPSI */
@@ -1109,6 +1127,13 @@ function checkoutWA() {
 function bukaKeranjang() {
   document.getElementById('popup-keranjang').style.display = 'flex';
 }
+
+  function tambahKeKeranjang(nama, harga) {
+  keranjang.push({nama: nama, harga: harga});
+  localStorage.setItem('keranjang', JSON.stringify(keranjang));
+  updateBadge();
+  alert(nama + ' ditambah ke keranjang!');
+  }
 
 // Jalanin pas buka halaman
 updateBadge();
