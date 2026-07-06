@@ -14,33 +14,30 @@
 <meta name="theme-color" content="#000000">
       
       <script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/ALFA-Online-Shopping/sw.js')
-          .then(reg => {
-            console.log('Service Worker Registered');
-            
-            // Tambahkan ini agar langsung mendeteksi update baru jika ada perubahan kode
-            reg.onupdatefound = () => {
-              const installingWorker = reg.installing;
-              if (installingWorker) {
-                installingWorker.onstatechange = () => {
-                  if (installingWorker.state === 'installed') {
-                    if (navigator.serviceWorker.controller) {
-                      // Ada update baru! Paksa reload agar pembeli langsung dapet kode terbaru
-                      console.log('Konten baru tersedia, memuat ulang halaman...');
-                      window.location.reload();
-                    }
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/ALFA-Online-Shopping/sw.js')
+        .then(reg => {
+          console.log('Service Worker Registered');
+          
+          reg.onupdatefound = () => {
+            const installingWorker = reg.installing;
+            if (installingWorker) {
+              installingWorker.onstatechange = () => {
+                if (installingWorker.state === 'installed') {
+                  if (navigator.serviceWorker.controller) {
+                    console.log('Konten baru tersedia, memuat ulang...');
+                    window.location.reload();
                   }
-                };
-              }
-            };
-
-          })
-          .catch(err => console.log('Gagal Daftar SW', err));
-      });
-    }
-      </script>
+                }
+              };
+            }
+          };
+        })
+        .catch(err => console.log('Gagal Daftar SW', err));
+    });
+  }
+</script>
   
   <style>
     .hero {
