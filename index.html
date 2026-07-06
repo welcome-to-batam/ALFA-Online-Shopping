@@ -13,18 +13,35 @@
 <link rel="manifest" href="/ALFA-Online-Shopping/manifest.json">
 <meta name="theme-color" content="#000000">
       
-    <script>
-      // SEMENTARA DIMATIKAN DULU  
-      /*
-      if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-          navigator.serviceWorker.register('/ALFA-Online-Shopping/sw.js')
-          .then(reg => console.log('Service Worker Registered'))
+      <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/ALFA-Online-Shopping/sw.js')
+          .then(reg => {
+            console.log('Service Worker Registered');
+            
+            // Tambahkan ini agar langsung mendeteksi update baru jika ada perubahan kode
+            reg.onupdatefound = () => {
+              const installingWorker = reg.installing;
+              if (installingWorker) {
+                installingWorker.onstatechange = () => {
+                  if (installingWorker.state === 'installed') {
+                    if (navigator.serviceWorker.controller) {
+                      // Ada update baru! Paksa reload agar pembeli langsung dapet kode terbaru
+                      console.log('Konten baru tersedia, memuat ulang halaman...');
+                      window.location.reload();
+                    }
+                  }
+                };
+              }
+            };
+
+          })
           .catch(err => console.log('Gagal Daftar SW', err));
-        });
-      }
-      */
-    </script>
+      });
+    }
+      </script>
+  
   <style>
     .hero {
   position: relative;
