@@ -1038,8 +1038,11 @@ function tambahKeKeranjang(nama, harga) {
 }
 
 // Update angka di tombol keranjang
-function updateBadge() {
-  document.getElementById('jumlah-keranjang').textContent = keranjang.length;
+  function updateBadge() {
+  const badge = document.getElementById('jumlah-keranjang');
+  if (badge) {
+    badge.textContent = keranjang.length;
+  }
   
   // Tombol WA muncul kalau ada isi
   const btnWA = document.getElementById('btnWaBorongan');
@@ -1056,6 +1059,7 @@ function bukaKeranjang() {
 function renderKeranjang() {
   const list = document.getElementById('list-keranjang');
   const totalEl = document.getElementById('total-keranjang');
+  }
   
   if(keranjang.length === 0) {
     list.innerHTML = '<p>Keranjang kosong bro 😅</p>';
