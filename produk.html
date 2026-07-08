@@ -145,6 +145,9 @@ const dataProduk = {
 // GANTI NOMOR WA LU DI SINI BRO
 const nomorWA = "6283879387000"; // tanpa +
 
+// Pindahkan arrGambar ke sini agar bisa diakses oleh fungsi zoom
+let arrGambar = []; 
+
 function getId() {
   const params = new URLSearchParams(window.location.search);
   return params.get('id');
@@ -157,18 +160,20 @@ if (produk) {
   document.getElementById('productName').textContent = produk.nama;
   document.getElementById('productPrice').textContent = `Rp${produk.harga.toLocaleString('id-ID')}`;
 
-  let arrGambar = produk.gambar;
+  // Masukkan data gambar ke variabel global tadi
+  arrGambar = produk.gambar;
   if(!Array.isArray(arrGambar)) arrGambar = [arrGambar];
 
   const slides = document.getElementById('slides');
   const dots = document.getElementById('dots');
   slides.innerHTML = '';
   dots.innerHTML = '';
-    arrGambar.forEach((img, i) => {
+  
+  arrGambar.forEach((img, i) => {
     slides.innerHTML += `<img src="${img}" style="width:100%; height:400px; object-fit:cover; flex-shrink:0; cursor:zoom-in;" onclick="bukaZoom(${i})">`;
     dots.innerHTML += `<span class="dot ${i===0?'active':''}"></span>`;
   });
-    
+
   let index = 0;
   let startX = 0;
   slides.addEventListener('touchstart', e => startX = e.touches[0].clientX);
@@ -206,45 +211,75 @@ if (produk) {
   document.body.innerHTML = '<h1 style="text-align:center;padding:50px">Produk tidak ditemukan</h1>';
 }
 
-      // Tambahkan fungsi Swipe di dalam overlay zoom
+// ============ FITUR ZOOM GALERI ============
+
+let zoomIndex = 0; 
+
+function bukaZoom(idx) {
+  zoomIndex = idx;
+  tampilkanGambarZoom();
+  document.getElementById('overlayZoom').style.display = 'flex';
+  
+  // Pasang event listener swipe HANYA saat overlay dibuka
   const overlayEl = document.getElementById('overlayZoom');
-  let zoomStartX = 0;
-  let isSwiping = false;
-
-  overlayEl.addEventListener('touchstart', e => {
-    // Kalau cuma 1 jari, siapkan untuk geser (swipe)
+  overlayEl.ontouchstart = (e) => {
     if (e.touches.length === 1) {
-      zoomStartX = e.touches[0].clientX;
-      isSwiping = true;
+      overlayEl.dataset.startX = e.touches[0].clientX;
+      overlayEl.dataset.isSwiping = "true";
     } else {
-      // Kalau 2 jari (pinch zoom), batalkan geser agar zoom bawaan berjalan
-      isSwiping = false; 
+      overlayEl.dataset.isSwiping = "false";
     }
-  });
-
-  overlayEl.addEventListener('touchmove', e => {
-    // Kalau selama geser muncul jari kedua, batalkan swipe
-    if (e.touches.length > 1) {
-      isSwiping = false;
-    }
-  }, {passive: true});
-
-  overlayEl.addEventListener('touchend', e => {
-    // Proses geser hanya jika terdeteksi 1 jari dari awal
-    if (isSwiping && e.changedTouches.length === 1) {
-      let diff = e.changedTouches[0].clientX - zoomStartX;
-      // Geser kiri (swipe left) -> next
+  };
+  
+  overlayEl.ontouchmove = (e) => {
+    if (e.touches.length > 1) overlayEl.dataset.isSwiping = "false";
+  };
+  
+  overlayEl.ontouchend = (e) => {
+    if (overlayEl.dataset.isSwiping === "true" && e.changedTouches.length === 1) {
+      let diff = e.changedTouches[0].clientX - parseFloat(overlayEl.dataset.startX);
       if(diff < -50) nextZoom();
-      // Geser kanan (swipe right) -> prev
       if(diff > 50) prevZoom();
     }
-    isSwiping = false;
-  }, {passive: true});
+    overlayEl.dataset.isSwiping = "false";
+  };
+}
+
+function tampilkanGambarZoom() {
+  const imgZoom = document.getElementById('gambarZoom');
+  imgZoom.src = arrGambar[zoomIndex]; 
   
+  document.getElementById('prevZoom').style.display = zoomIndex === 0 ? 'none' : 'block';
+  document.getElementById('nextZoom').style.display = zoomIndex === arrGambar.length - 1 ? 'none' : 'block';
+  document.getElementById('zoomIndicator').textContent = `${zoomIndex + 1} / ${arrGambar.length}`;
+}
+
+function nextZoom() {
+  if (zoomIndex < arrGambar.length - 1) {
+    zoomIndex++;
+    tampilkanGambarZoom();
+  }
+}
+
+function prevZoom() {
+  if (zoomIndex > 0) {
+    zoomIndex--;
+    tampilkanGambarZoom();
+  }
+}
+
+function tutupZoom() {
+  document.getElementById('overlayZoom').style.display = 'none';
+  // Bersihkan event listener saat ditutup agar tidak mengganggu pinch zoom browser
+  const overlayEl = document.getElementById('overlayZoom');
+  overlayEl.ontouchstart = null;
+  overlayEl.ontouchmove = null;
+  overlayEl.ontouchend = null;
+    }
 </script>
 
   <!-- Overlay Zoom Gambar -->
-  <div id="overlayZoom" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.95); z-index:9999; justify-content:center; align-items:center; flex-direction:column; touch-action: pan-y pinch-zoom;">
+<div id="overlayZoom" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.95); z-index:9999; justify-content:center; align-items:center; flex-direction:column; touch-action:pan-y pinch-zoom;">
   
   <!-- Tombol Tutup (X) -->
   <span onclick="tutupZoom()" style="position:absolute; top:20px; right:25px; color:white; font-size:35px; font-weight:bold; cursor:pointer; z-index:10;">&times;</span>
@@ -258,7 +293,7 @@ if (produk) {
   <!-- Tombol Kanan (>) -->
   <span id="nextZoom" onclick="nextZoom()" style="position:absolute; right:15px; top:50%; transform:translateY(-50%); font-size:40px; color:white; cursor:pointer; user-select:none; background:rgba(0,0,0,0.4); padding:5px 15px; border-radius:50%; z-index:10;">&#10095;</span>
   
-  <!-- Indikator Halaman (1/5) -->
+  <!-- Indikator Halaman -->
   <div id="zoomIndicator" style="position:absolute; bottom:30px; color:white; font-size:16px; background:rgba(0,0,0,0.5); padding:5px 15px; border-radius:15px;"></div>
 
 </div>
