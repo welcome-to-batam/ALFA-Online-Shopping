@@ -165,10 +165,10 @@ if (produk) {
   slides.innerHTML = '';
   dots.innerHTML = '';
     arrGambar.forEach((img, i) => {
-    slides.innerHTML += `<img src="${img}" style="width:100%; height:400px; object-fit:cover; flex-shrink:0; cursor:zoom-in;" onclick="bukaZoom(this.src)">`; // <- SUDAH DITAMBAHKAN
+    slides.innerHTML += `<img src="${img}" style="width:100%; height:400px; object-fit:cover; flex-shrink:0; cursor:zoom-in;" onclick="bukaZoom(${i})">`;
     dots.innerHTML += `<span class="dot ${i===0?'active':''}"></span>`;
   });
-  
+    
   let index = 0;
   let startX = 0;
   slides.addEventListener('touchstart', e => startX = e.touches[0].clientX);
@@ -206,24 +206,84 @@ if (produk) {
   document.body.innerHTML = '<h1 style="text-align:center;padding:50px">Produk tidak ditemukan</h1>';
 }
 
-  // Fungsi buka zoom
-function bukaZoom(srcGambar) {
-  document.getElementById('gambarZoom').src = srcGambar;
-  document.getElementById('overlayZoom').style.display = 'flex';
-}
+    let zoomIndex = 0; // Variabel untuk melacak gambar ke berapa yang sedang di-zoom
 
-// Fungsi tutup zoom
-function tutupZoom() {
-  document.getElementById('overlayZoom').style.display = 'none';
-}
+  // Fungsi buka zoom
+  function bukaZoom(idx) {
+    zoomIndex = idx;
+    tampilkanGambarZoom();
+    document.getElementById('overlayZoom').style.display = 'flex';
+  }
+
+  // Fungsi untuk menampilkan gambar ke overlay
+  function tampilkanGambarZoom() {
+    const imgZoom = document.getElementById('gambarZoom');
+    imgZoom.src = arrGambar[zoomIndex]; // Ambil gambar berdasarkan index
+    
+    // Sembunyikan tombol prev/next jika di awal/akhir
+    document.getElementById('prevZoom').style.display = zoomIndex === 0 ? 'none' : 'block';
+    document.getElementById('nextZoom').style.display = zoomIndex === arrGambar.length - 1 ? 'none' : 'block';
+    
+    // Update indikator (misal: 2 / 5)
+    document.getElementById('zoomIndicator').textContent = `${zoomIndex + 1} / ${arrGambar.length}`;
+  }
+
+  // Fungsi geser ke gambar selanjutnya
+  function nextZoom() {
+    if (zoomIndex < arrGambar.length - 1) {
+      zoomIndex++;
+      tampilkanGambarZoom();
+    }
+  }
+
+  // Fungsi geser ke gambar sebelumnya
+  function prevZoom() {
+    if (zoomIndex > 0) {
+      zoomIndex--;
+      tampilkanGambarZoom();
+    }
+  }
+
+  // Fungsi tutup zoom
+  function tutupZoom() {
+    document.getElementById('overlayZoom').style.display = 'none';
+  }
+
+  // Tambahkan fungsi Swipe di dalam overlay zoom
+  const overlayEl = document.getElementById('overlayZoom');
+  let zoomStartX = 0;
+  overlayEl.addEventListener('touchstart', e => {
+    zoomStartX = e.touches[0].clientX;
+  });
+  overlayEl.addEventListener('touchend', e => {
+    let diff = e.changedTouches[0].clientX - zoomStartX;
+    // Geser kiri (swipe left) -> next
+    if(diff < -50) nextZoom();
+    // Geser kanan (swipe right) -> prev
+    if(diff > 50) prevZoom();
+  });
   
 </script>
-  
-  <!-- Overlay Zoom Gambar -->
-<div id="overlayZoom" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.95); z-index:9999; justify-content:center; align-items:center; cursor:zoom-out;" onclick="tutupZoom()">
-  <span style="position:absolute; top:20px; right:25px; color:white; font-size:35px; font-weight:bold; cursor:pointer;">&times;</span>
-  <img id="gambarZoom" src="" style="max-width:90%; max-height:90%; object-fit:contain;">
-</div>
 
+  <!-- Overlay Zoom Gambar -->
+<div id="overlayZoom" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.95); z-index:9999; justify-content:center; align-items:center; flex-direction:column;">
+  
+  <!-- Tombol Tutup (X) -->
+  <span onclick="tutupZoom()" style="position:absolute; top:20px; right:25px; color:white; font-size:35px; font-weight:bold; cursor:pointer; z-index:10;">&times;</span>
+  
+  <!-- Tombol Kiri (<) -->
+  <span id="prevZoom" onclick="prevZoom()" style="position:absolute; left:15px; top:50%; transform:translateY(-50%); font-size:40px; color:white; cursor:pointer; user-select:none; background:rgba(0,0,0,0.4); padding:5px 15px; border-radius:50%; z-index:10;">&#10094;</span>
+  
+  <!-- Gambar Zoom -->
+  <img id="gambarZoom" src="" style="max-width:90%; max-height:80%; object-fit:contain;">
+  
+  <!-- Tombol Kanan (>) -->
+  <span id="nextZoom" onclick="nextZoom()" style="position:absolute; right:15px; top:50%; transform:translateY(-50%); font-size:40px; color:white; cursor:pointer; user-select:none; background:rgba(0,0,0,0.4); padding:5px 15px; border-radius:50%; z-index:10;">&#10095;</span>
+  
+  <!-- Indikator Halaman (1/5) -->
+  <div id="zoomIndicator" style="position:absolute; bottom:30px; color:white; font-size:16px; background:rgba(0,0,0,0.5); padding:5px 15px; border-radius:15px;"></div>
+
+</div>
+  
 </body>
 </html>
