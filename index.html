@@ -984,9 +984,10 @@ function tutupModalInfo(idModal) {
       const bintang = document.getElementById('reviewer-rating').value;
       const ulasan = document.getElementById('reviewer-text').value.trim();
 
-      if (nama === "" || ulasan === "") {
-          alert("Silakan isi nama dan ulasan Anda terlebih dahulu ya! 😊");
-      }
+    if (nama === "" || ulasan === "") {
+  alert("Silakan isi nama dan ulasan Anda terlebih dahulu ya! 😊");
+  return; // <-- TAMBAHIN INI
+    }
 
       const dataUlasanBaru = {
           namaPembeli: nama,
