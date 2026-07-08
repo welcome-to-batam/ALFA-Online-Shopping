@@ -206,67 +206,45 @@ if (produk) {
   document.body.innerHTML = '<h1 style="text-align:center;padding:50px">Produk tidak ditemukan</h1>';
 }
 
-    let zoomIndex = 0; // Variabel untuk melacak gambar ke berapa yang sedang di-zoom
-
-  // Fungsi buka zoom
-  function bukaZoom(idx) {
-    zoomIndex = idx;
-    tampilkanGambarZoom();
-    document.getElementById('overlayZoom').style.display = 'flex';
-  }
-
-  // Fungsi untuk menampilkan gambar ke overlay
-  function tampilkanGambarZoom() {
-    const imgZoom = document.getElementById('gambarZoom');
-    imgZoom.src = arrGambar[zoomIndex]; // Ambil gambar berdasarkan index
-    
-    // Sembunyikan tombol prev/next jika di awal/akhir
-    document.getElementById('prevZoom').style.display = zoomIndex === 0 ? 'none' : 'block';
-    document.getElementById('nextZoom').style.display = zoomIndex === arrGambar.length - 1 ? 'none' : 'block';
-    
-    // Update indikator (misal: 2 / 5)
-    document.getElementById('zoomIndicator').textContent = `${zoomIndex + 1} / ${arrGambar.length}`;
-  }
-
-  // Fungsi geser ke gambar selanjutnya
-  function nextZoom() {
-    if (zoomIndex < arrGambar.length - 1) {
-      zoomIndex++;
-      tampilkanGambarZoom();
-    }
-  }
-
-  // Fungsi geser ke gambar sebelumnya
-  function prevZoom() {
-    if (zoomIndex > 0) {
-      zoomIndex--;
-      tampilkanGambarZoom();
-    }
-  }
-
-  // Fungsi tutup zoom
-  function tutupZoom() {
-    document.getElementById('overlayZoom').style.display = 'none';
-  }
-
-  // Tambahkan fungsi Swipe di dalam overlay zoom
+      // Tambahkan fungsi Swipe di dalam overlay zoom
   const overlayEl = document.getElementById('overlayZoom');
   let zoomStartX = 0;
+  let isSwiping = false;
+
   overlayEl.addEventListener('touchstart', e => {
-    zoomStartX = e.touches[0].clientX;
+    // Kalau cuma 1 jari, siapkan untuk geser (swipe)
+    if (e.touches.length === 1) {
+      zoomStartX = e.touches[0].clientX;
+      isSwiping = true;
+    } else {
+      // Kalau 2 jari (pinch zoom), batalkan geser agar zoom bawaan berjalan
+      isSwiping = false; 
+    }
   });
+
+  overlayEl.addEventListener('touchmove', e => {
+    // Kalau selama geser muncul jari kedua, batalkan swipe
+    if (e.touches.length > 1) {
+      isSwiping = false;
+    }
+  }, {passive: true});
+
   overlayEl.addEventListener('touchend', e => {
-    let diff = e.changedTouches[0].clientX - zoomStartX;
-    // Geser kiri (swipe left) -> next
-    if(diff < -50) nextZoom();
-    // Geser kanan (swipe right) -> prev
-    if(diff > 50) prevZoom();
-  });
+    // Proses geser hanya jika terdeteksi 1 jari dari awal
+    if (isSwiping && e.changedTouches.length === 1) {
+      let diff = e.changedTouches[0].clientX - zoomStartX;
+      // Geser kiri (swipe left) -> next
+      if(diff < -50) nextZoom();
+      // Geser kanan (swipe right) -> prev
+      if(diff > 50) prevZoom();
+    }
+    isSwiping = false;
+  }, {passive: true});
   
 </script>
 
   <!-- Overlay Zoom Gambar -->
-<div id="overlayZoom" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.95); z-index:9999; justify-content:center; align-items:center; flex-direction:column;">
+  <div id="overlayZoom" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.95); z-index:9999; justify-content:center; align-items:center; flex-direction:column; touch-action: pan-y pinch-zoom;">
   
   <!-- Tombol Tutup (X) -->
   <span onclick="tutupZoom()" style="position:absolute; top:20px; right:25px; color:white; font-size:35px; font-weight:bold; cursor:pointer; z-index:10;">&times;</span>
