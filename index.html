@@ -986,7 +986,6 @@ function tutupModalInfo(idModal) {
 
       if (nama === "" || ulasan === "") {
           alert("Silakan isi nama dan ulasan Anda terlebih dahulu ya! 😊");
-          return;
       }
 
       const dataUlasanBaru = {
@@ -1082,25 +1081,27 @@ function renderKeranjang() {
   
   let html = '';
   let total = 0;
-  keranjang.forEach((item, i) => {
-    .toLocaleString('id-ID')
-    total += item.harga;
-  });
+    keranjang.forEach((item, i) => {
+  html += `<div>${item.nama} - Rp${item.harga.toLocaleString('id-ID')}</div>`; // baris 1086
+  total += item.harga;
+});
   list.innerHTML = html;
   totalEl.textContent = 'Rp' + total.toLocaleString('id-ID');
 }
 
 // Checkout WA Borongan
-function checkoutWA() {
-  if(keranjang.length === 0) return alert('Keranjang masih kosong bro');
+  if(keranjang.length === 0) {
+  alert('Keranjang masih kosong bro');
+  return; // return nya dipisah ke bawah
+  }
   
   let pesan = `Halo ALFA Online Shopping 🙏%0A%0ASaya mau order:%0A%0A`;
   let total = 0;
-  
+
   keranjang.forEach((item, i) => {
-    .toLocaleString('id-ID')
-    total += item.harga;
-  });
+  html += `<div>${item.nama} - Rp${item.harga.toLocaleString('id-ID')}</div>`; // baris 1086
+  total += item.harga;
+});
   
   pesan += `%0ATotal: Rp${total.toLocaleString('id-ID')}`;
   
