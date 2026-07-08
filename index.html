@@ -1068,11 +1068,10 @@ function bukaKeranjang() {
   document.getElementById('popup-keranjang').style.display = 'flex';
 }
 
-// Isi popup keranjang
+// Isi popup keranjang (Dengan tombol Hapus)
 function renderKeranjang() {
   const list = document.getElementById('list-keranjang');
   const totalEl = document.getElementById('total-keranjang');
-  // <- Kurung kurawal yang salah di sini sudah dihapus
   
   if(keranjang.length === 0) {
     list.innerHTML = '<p>Keranjang kosong bro 😅</p>';
@@ -1083,15 +1082,19 @@ function renderKeranjang() {
   let html = '';
   let total = 0;
   keranjang.forEach((item, i) => {
-    html += `<div>${item.nama} - Rp${item.harga.toLocaleString('id-ID')}</div>`;
+    // Ditambahkan flexbox dan tombol X berwarna merah
+    html += `<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; padding-bottom:5px; border-bottom:1px solid #eee;">
+               <span style="flex:1; font-size:14px;">${item.nama} - Rp${item.harga.toLocaleString('id-ID')}</span>
+               <button onclick="hapusDariKeranjang(${i})" style="background:#ff4757; color:white; border:none; border-radius:50%; width:25px; height:25px; cursor:pointer; font-weight:bold; margin-left:10px; display:flex; align-items:center; justify-content:center;">X</button>
+             </div>`;
     total += item.harga;
   });
   
   list.innerHTML = html;
   totalEl.textContent = 'Rp' + total.toLocaleString('id-ID');
-} // <- Kurung kurawang penutup renderKeranjang yang benar
+}
 
-// Checkout WA Borongan (Sudah dibungkus fungsi)
+// Checkout WA Borongan (Auto clear keranjang setelah kirim)
 function checkoutWA() {
   if(keranjang.length === 0) {
     alert('Keranjang masih kosong bro');
@@ -1102,7 +1105,7 @@ function checkoutWA() {
   let total = 0;
 
   keranjang.forEach((item, i) => {
-    pesan += `- ${item.nama} (Rp${item.harga.toLocaleString('id-ID')})%0A`; // Diganti dari html ke pesan
+    pesan += `- ${item.nama} (Rp${item.harga.toLocaleString('id-ID')})%0A`;
     total += item.harga;
   });
   
@@ -1110,12 +1113,26 @@ function checkoutWA() {
   
   const urlWA = `https://wa.me/6283879387000?text=${pesan}`;
   window.open(urlWA, '_blank');
+
+  // OTOMATIS KOSONGKAN KERANJANG SETELAH CHECKOUT
+  keranjang = [];
+  localStorage.setItem('keranjang', JSON.stringify(keranjang));
+  updateBadge();
+  tutupKeranjang(); // Tutup popup setelah checkout
 }
 
 // Tutup popup
 function tutupKeranjang() {
   document.getElementById('popup-keranjang').style.display = 'none';
 }
+
+  // Hapus barang dari keranjang
+function hapusDariKeranjang(index) {
+  keranjang.splice(index, 1); // Hapus 1 item di urutan ke-index
+  localStorage.setItem('keranjang', JSON.stringify(keranjang)); // Update storage
+  updateBadge(); // Update angka di ikon keranjang
+  renderKeranjang(); // Render ulang tampilan popup
+  }
 
 // Jalanin pas buka halaman
 updateBadge();
