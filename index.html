@@ -1051,7 +1051,7 @@ function tambahKeKeranjang(nama, harga) {
 }
 
 // Update angka di tombol keranjang
-  function updateBadge() {
+function updateBadge() {
   const badge = document.getElementById('jumlah-keranjang');
   if (badge) {
     badge.textContent = keranjang.length;
@@ -1072,7 +1072,7 @@ function bukaKeranjang() {
 function renderKeranjang() {
   const list = document.getElementById('list-keranjang');
   const totalEl = document.getElementById('total-keranjang');
-  }
+  // <- Kurung kurawal yang salah di sini sudah dihapus
   
   if(keranjang.length === 0) {
     list.innerHTML = '<p>Keranjang kosong bro 😅</p>';
@@ -1082,27 +1082,29 @@ function renderKeranjang() {
   
   let html = '';
   let total = 0;
-    keranjang.forEach((item, i) => {
-  html += `<div>${item.nama} - Rp${item.harga.toLocaleString('id-ID')}</div>`; // baris 1086
-  total += item.harga;
-});
+  keranjang.forEach((item, i) => {
+    html += `<div>${item.nama} - Rp${item.harga.toLocaleString('id-ID')}</div>`;
+    total += item.harga;
+  });
+  
   list.innerHTML = html;
   totalEl.textContent = 'Rp' + total.toLocaleString('id-ID');
-}
+} // <- Kurung kurawang penutup renderKeranjang yang benar
 
-// Checkout WA Borongan
+// Checkout WA Borongan (Sudah dibungkus fungsi)
+function checkoutWA() {
   if(keranjang.length === 0) {
-  alert('Keranjang masih kosong bro');
-  return; // return nya dipisah ke bawah
+    alert('Keranjang masih kosong bro');
+    return; 
   }
   
   let pesan = `Halo ALFA Online Shopping 🙏%0A%0ASaya mau order:%0A%0A`;
   let total = 0;
 
   keranjang.forEach((item, i) => {
-  html += `<div>${item.nama} - Rp${item.harga.toLocaleString('id-ID')}</div>`; // baris 1086
-  total += item.harga;
-});
+    pesan += `- ${item.nama} (Rp${item.harga.toLocaleString('id-ID')})%0A`; // Diganti dari html ke pesan
+    total += item.harga;
+  });
   
   pesan += `%0ATotal: Rp${total.toLocaleString('id-ID')}`;
   
@@ -1118,6 +1120,8 @@ function tutupKeranjang() {
 // Jalanin pas buka halaman
 updateBadge();
 
+  </script>
+
 <div id="popup-keranjang" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:1000; justify-content:center; align-items:center;">
   <div style="background:#fff; padding:20px; border-radius:10px; width:90%;">
     <h3>🛒 Keranjang Kamu</h3>
@@ -1126,8 +1130,6 @@ updateBadge();
     <button onclick="tutupKeranjang()" style="width:100%; background:red; color:#fff; border:none; padding:10px; border-radius:5px;">Tutup</button>
   </div>
 </div>
-
-</script>
   
  </body>
 </html>
