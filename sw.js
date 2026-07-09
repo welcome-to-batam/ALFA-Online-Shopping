@@ -1,4 +1,4 @@
-const CACHE_NAME = 'alfa-cache-v55'; // Naikkan versi ke v55
+const CACHE_NAME = 'alfa-cache-v56'; // Naikkan versi ke v56
 const assets = [
   '/ALFA-Online-Shopping/',
   '/ALFA-Online-Shopping/index.html',
@@ -9,8 +9,8 @@ const assets = [
   '/ALFA-Online-Shopping/logomerahmuda.jpg',
   '/ALFA-Online-Shopping/jembatanbarelang.jpg',
   '/ALFA-Online-Shopping/qrcode.png',
-  '/ALFA-Online-Shopping/twsproduk1.jpg',
-  '/ALFA-Online-Shopping/twsproduk1.mp4'
+  '/ALFA-Online-Shopping/handgripproduk1.jpg',
+  '/ALFA-Online-Shopping/handgripproduk1.mp4'
 ];
 
 self.addEventListener('install', e => {
