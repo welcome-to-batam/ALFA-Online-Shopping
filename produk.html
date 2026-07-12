@@ -160,7 +160,7 @@ const id = getId();
 const produk = dataProduk[id];
 
 if (produk) {
-  document.getElementById("productName").innerHTML = produk.nama + '<br><span style="font-size:13px; color:#ff6600; font-weight:600;">Varian: ' + produk.varianTersedia + '</span>';
+  document.getElementById("productName").innerHTML = produk.nama + (produk.varianTersedia ? '<br><span style="font-size:13px; color:#ff6600; font-weight:600;">Varian: ' + produk.varianTersedia + '</span>' : '');
   document.getElementById('productPrice').textContent = `Rp${produk.harga.toLocaleString('id-ID')}`;
 
   // Masukkan data gambar ke variabel global tadi
