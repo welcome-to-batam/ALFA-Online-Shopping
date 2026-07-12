@@ -71,6 +71,7 @@ const dataProduk = {
   "1": {
     nama: "TWS Warna Hitam",
     varianTersedia: "Warna Hitam",
+    stok: 10, // ADA STOK
     harga: 55000,
     hargaCoret: 60000,
     gambar: ["img/produk-1/warnahitam1.jpg", "img/produk-1/warnahitam2.jpg", "img/produk-1/warnahitam3.jpg", "img/produk-1/warnahitam4.jpg", "img/produk-1/warnahitam5.jpg", "img/produk-1/warnahitam6.jpg", "img/produk-1/warnahitam7.jpg", "img/produk-1/warnahitam8.jpg", "img/produk-1/warnahitam9.jpg", "img/produk-1/warnahitam10.jpg"],
@@ -81,6 +82,7 @@ const dataProduk = {
   "2": {
     nama: "Hand Rest Grip",
     varianTersedia: "Warna Grey",
+    stok: 10, // ADA STOK
     harga: 20000,
     hargaCoret: 25000,
     gambar: ["img/produk-2honda/honda1.jpg", "img/produk-2honda/honda2.jpg", "img/produk-2honda/honda3.jpg", "img/produk-2honda/honda4.jpg", "img/produk-2honda/honda5.jpg", "img/produk-2honda/honda6.jpg", "img/produk-2honda/honda7.jpg", "img/produk-2honda/honda8.jpg", "img/produk-2honda/honda9.jpg", "img/produk-2honda/honda10.jpg"],
@@ -91,6 +93,7 @@ const dataProduk = {
   "3": {
     nama: "Alat Angkat Galon",
     varianTersedia: "Warna Biru",
+    stok: 10, // ADA STOK
     harga: 17000,
     hargaCoret: 22000,
     gambar: ["img/produk-3/galon1.jpg", "img/produk-3/galon2.jpg", "img/produk-3/galon3.jpg", "img/produk-3/galon4.jpg", "img/produk-3/galon5.jpg", "img/produk-3/galon6.jpg", "img/produk-3/galon7.jpg", "img/produk-3/galon8.jpg", "img/produk-3/galon9.jpg", "img/produk-3/galon10.jpg"],
@@ -100,6 +103,8 @@ const dataProduk = {
   },
   "4": { 
     nama: "TWS Warna Pink (STOK KOSONG)",
+    varianTersedia: "Warna Pink",
+    stok: 0, // STOK KOSONG
     harga: 55000, 
     hargaCoret: 60000, 
     gambar: ["img/produk-4/pink1.jpg", "img/produk-4/pink2.jpg"], 
@@ -109,6 +114,8 @@ const dataProduk = {
   },
   "5": { 
     nama: "TWS Warna Coklat (STOK KOSONG)", 
+    varianTersedia: "Warna Coklat",
+    stok: 0, // STOK KOSONG
     harga: 55000, 
     hargaCoret: 60000, 
     gambar: ["img/produk-5/coklat1.jpg", "img/produk-5/coklat2.jpg"], 
@@ -118,6 +125,8 @@ const dataProduk = {
   },
   "6": { 
     nama: "TWS Warna Biru (STOK KOSONG)", 
+    varianTersedia: "Warna Biru",
+    stok: 0, // STOK KOSONG
     harga: 55000, 
     hargaCoret: 60000, 
     gambar: ["img/produk-6/biru1.jpg", "img/produk-6/biru2.jpg"], 
@@ -127,6 +136,8 @@ const dataProduk = {
   },
   "7": { 
     nama: "TWS Warna Ungu (STOK KOSONG)", 
+    varianTersedia: "Warna Ungu",
+    stok: 0, // STOK KOSONG
     harga: 55000, 
     hargaCoret: 60000, 
     gambar: ["img/produk-7/ungu1.jpg", "img/produk-7/ungu2.jpg"], 
@@ -136,6 +147,8 @@ const dataProduk = {
   },
   "8": { 
     nama: "TWS Warna Putih (STOK KOSONG)", 
+    varianTersedia: "Warna Putih",
+    stok: 0, // STOK KOSONG
     harga: 55000, 
     hargaCoret: 60000, 
     gambar: ["img/produk-8/putih1.jpg"], 
@@ -198,17 +211,23 @@ if (produk) {
     document.getElementById('productDiscount').textContent = `-${diskonPersen}%`;
   }
 
-  // TOMBOL WA SATUAN
-  document.getElementById('waBtn').onclick = () => {
-    const pesan = `Halo ALFA Online Shopping 🙏%0A%0A` +
-                  `Saya mau pesan:%0A` +
-                  `*${produk.nama}*%0A` +
-                  `Harga: Rp ${produk.harga.toLocaleString('id-ID')}%0A` +
-                  `Jumlah: 1 pcs%0A%0A` +
-                  `Terima kasih`;
-    const urlWA = `https://wa.me/${nomorWA}?text=${pesan}`;
-    window.open(urlWA, '_blank');
-  };
+  // TOMBOL WA SATUAN + CEK STOK KOSONG
+document.getElementById('waBtn').onclick = () => {
+  // CEK DULU APAKAH STOK KOSONG
+  if(produk.stok === 0 || produk.nama.includes("STOK KOSONG")){
+    alert("Maaf, produk ini stoknya kosong 😔");
+    return; // berhenti, gak jadi buka WA
+  }
+
+  const pesan = `Halo ALFA Online Shopping 🙏%0A%0A` +
+                `Saya mau pesan:%0A` +
+                `*${produk.nama}*%0A` +
+                `Harga: Rp ${produk.harga.toLocaleString('id-ID')}%0A` +
+                `Jumlah: 1 pcs%0A%0A` +
+                `Terima kasih`;
+  const urlWA = `https://wa.me/${nomorWA}?text=${pesan}`;
+  window.open(urlWA, '_blank');
+};
 
 } else {
   document.body.innerHTML = '<h1 style="text-align:center;padding:50px">Produk tidak ditemukan</h1>';
