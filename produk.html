@@ -77,7 +77,7 @@ const dataProduk = {
     gambar: ["img/produk-1/warnahitam1.jpg", "img/produk-1/warnahitam2.jpg", "img/produk-1/warnahitam3.jpg", "img/produk-1/warnahitam4.jpg", "img/produk-1/warnahitam5.jpg", "img/produk-1/warnahitam6.jpg", "img/produk-1/warnahitam7.jpg", "img/produk-1/warnahitam8.jpg", "img/produk-1/warnahitam9.jpg", "img/produk-1/warnahitam10.jpg"],
     rating: "4.9",
     terjual: "10 pcs",
-    deskripsi: "Earphone tidur nyaman bluetooth nirkabel desain baru, TWS earphone olahraga mini dengan wadah pengisi daya. Headset mini bluetooth dengan tombol kontrol yang mudah. Jangkauan transmisi Bluetooth: 10 meter, dengan tampilan daya digital LED dan Mikrofon HD. Kompatibel: Android, Tablet, Ponsel dengan bluetooth. Suara jernih, waktu siaga 120 jam, sekitar 5 jam mendengarkan musik terus menerus pada satu waktu. Tidur nyaman memakai earphone, natural pas di telinga. Multi-fungsi: panggilan jernih, mendengarkan musik, pengurangan kebisingan, kontrol suara, headphone nyaman untuk tidur yang tak terlihat. Suara surround stereo 360 °, musik bass yang bagus, memberi Anda pengalaman yang mengejutkan. Dengan baterai 240mAh bawaan casing pengisi daya, cukup masukkan earphone ke dalam casing untuk segera mengisi daya. Warna: 1. Hitam. 2. Pink. 3. Coklat. 4. Biru. 5. Ungu. 6. Putih. Kemasan: 1x TWS bluetooth sleep earphone (silakan pilih warna). 1x kabel usb."
+    deskripsi: "Earphone tidur nyaman bluetooth nirkabel desain baru, TWS earphone olahraga mini dengan wadah pengisi daya.\n\nSpesifikasi & Fitur:\n- Jangkauan Transmisi: 10 meter\n- Tampilan Daya: Digital LED & Mikrofon HD",
   },
   "2": {
     nama: "Hand Rest Grip",
@@ -204,6 +204,8 @@ if (produk) {
   document.getElementById('productRating').textContent = produk.rating;
   document.getElementById('productSold').textContent = `${produk.terjual} Terjual`;
   document.getElementById('productDesc').textContent = produk.deskripsi;
+  document.getElementById('productDesc').style.whiteSpace = "pre-line"; // Tambahkan baris ini
+  
 
   if(produk.hargaCoret){
     document.getElementById('productOldPrice').textContent = `Rp${produk.hargaCoret.toLocaleString('id-ID')}`;
