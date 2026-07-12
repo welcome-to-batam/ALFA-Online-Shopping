@@ -212,28 +212,12 @@ if (produk) {
   }
 
  // TOMBOL WA SATUAN + CEK STOK KOSONG
-const btnWA = document.getElementById('waBtn');
-
-if(produk.stok === 0 || produk.nama.includes("STOK KOSONG")){
-  btnWA.innerHTML = "Stok Kosong";
-  btnWA.style.background = "#cccccc";
-  btnWA.onclick = () => {
+document.getElementById('waBtn').onclick = () => {
+  // CEK DULU APAKAH STOK KOSONG
+  if(produk.stok === 0 || produk.nama.includes("STOK KOSONG")){
     alert("Maaf, produk ini stoknya kosong 😔");
+    return; // berhenti, gak jadi buka WA
   }
-} else {
-  btnWA.innerHTML = "Beli via WhatsApp";
-  btnWA.style.background = "#25D366";
-  btnWA.onclick = () => {
-    const pesan = `Halo ALFA Online Shopping 🙏%0A%0A` +
-                  `Saya mau pesan:%0A` +
-                  `*${produk.nama}*%0A` +
-                  `Harga: Rp ${produk.harga.toLocaleString('id-ID')}%0A` +
-                  `Jumlah: 1 pcs%0A%0A` +
-                  `Terima kasih`;
-    const urlWA = `https://wa.me/${nomorWA}?text=${pesan}`;
-    window.open(urlWA, '_blank');
-  }
-}
   
   const pesan = `Halo ALFA Online Shopping 🙏%0A%0A` +
                 `Saya mau pesan:%0A` +
