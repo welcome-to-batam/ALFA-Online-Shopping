@@ -70,6 +70,7 @@
 const dataProduk = {
   "1": {
     nama: "TWS Warna Hitam",
+    varianTersedia: "Warna Hitam",
     harga: 55000,
     hargaCoret: 60000,
     gambar: ["img/produk-1/warnahitam1.jpg", "img/produk-1/warnahitam2.jpg", "img/produk-1/warnahitam3.jpg", "img/produk-1/warnahitam4.jpg", "img/produk-1/warnahitam5.jpg", "img/produk-1/warnahitam6.jpg", "img/produk-1/warnahitam7.jpg", "img/produk-1/warnahitam8.jpg", "img/produk-1/warnahitam9.jpg", "img/produk-1/warnahitam10.jpg"],
@@ -79,6 +80,7 @@ const dataProduk = {
   },
   "2": {
     nama: "Hand Rest Grip",
+    varianTersedia: "Warna Grey",
     harga: 20000,
     hargaCoret: 25000,
     gambar: ["img/produk-2honda/honda1.jpg", "img/produk-2honda/honda2.jpg", "img/produk-2honda/honda3.jpg", "img/produk-2honda/honda4.jpg", "img/produk-2honda/honda5.jpg", "img/produk-2honda/honda6.jpg", "img/produk-2honda/honda7.jpg", "img/produk-2honda/honda8.jpg", "img/produk-2honda/honda9.jpg", "img/produk-2honda/honda10.jpg"],
@@ -88,6 +90,7 @@ const dataProduk = {
   },
   "3": {
     nama: "Alat Angkat Galon",
+    varianTersedia: "Warna Biru",
     harga: 17000,
     hargaCoret: 22000,
     gambar: ["img/produk-3/galon1.jpg", "img/produk-3/galon2.jpg", "img/produk-3/galon3.jpg", "img/produk-3/galon4.jpg", "img/produk-3/galon5.jpg", "img/produk-3/galon6.jpg", "img/produk-3/galon7.jpg", "img/produk-3/galon8.jpg", "img/produk-3/galon9.jpg", "img/produk-3/galon10.jpg"],
@@ -157,7 +160,7 @@ const id = getId();
 const produk = dataProduk[id];
 
 if (produk) {
-  document.getElementById("productName").innerHTML = produk.nama + '<br><span style="font-size:13px; color:#ff6600; font-weight:600;">Varian Tersedia</span>';
+  document.getElementById("productName").innerHTML = produk.nama + '<br><span style="font-size:13px; color:#ff6600; font-weight:600;">Varian: ' + produk.varianTersedia + '</span>';
   document.getElementById('productPrice').textContent = `Rp${produk.harga.toLocaleString('id-ID')}`;
 
   // Masukkan data gambar ke variabel global tadi
