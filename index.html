@@ -700,10 +700,16 @@ Nikmati berbagai penawaran & fitur terbaik:
     
   <h3>Putar Video Musik Dari HP-mu👇</h3>
   
-  <!-- Tombol utama dengan desain gradasi modern -->
-  <button class="btn-music-custom" onclick="triggerUpload()">
-    🎵 Pilih Video Dari HP
-  </button>
+  <!-- Input tersembunyi yang bisa nerima Video dan Audio -->
+<input type="file" id="fileInput" accept="video/*,audio/*" style="display:none;" onchange="putarFile(this)">
+
+<!-- Tombol UI -->
+<button class="btn-tambah" onclick="document.getElementById('fileInput').click()">
+  Pilih Video/Musik Dari HP
+</button>
+
+<!-- Tempat pemutar muncul -->
+<div id="playerContainer" style="margin-top:15px;"></div>
   
   <!-- Hapus display: none, ganti dengan tampilan block agar video terlihat di web -->
 <video id="hidden-video-player" controls style="display: block; width: 100%; max-width: 320px; margin: 15px auto; border-radius: 10px;"></video>
@@ -1199,6 +1205,65 @@ searchInput.addEventListener('keydown', function(e) {
     this.blur(); // Melepas fokus dari kolom pencarian, sehingga keyboard otomatis tutup
   }
 });
+
+  // FITUR PEMUTAR VIDEO & MUSIK MP3
+function putarFile(input) {
+  const file = input.files[0];
+  if (!file) return; // Kalau batal pilih, berhenti
+
+  // Buat URL sementara untuk file dari HP
+  const fileURL = URL.createObjectURL(file);
+  const playerContainer = document.getElementById('playerContainer');
+  
+  // Bersihkan pemutar lama
+  playerContainer.innerHTML = '';
+
+  // Cek apakah file itu Video atau Audio
+  if (file.type.startsWith('video/')) {
+    // Kalau Video
+    playerContainer.innerHTML = `
+      <video controls autoplay style="width:100%; border-radius:10px;">
+        <source src="${fileURL}" type="${file.type}">
+        Browser tidak mendukung.
+      </video>`;
+    setupMediaSession(file.name);
+
+  } else if (file.type.startsWith('audio/')) {
+    // Kalau Audio/MP3
+    playerContainer.innerHTML = `
+      <div style="background:#222; padding:20px; border-radius:10px; color:white; text-align:center;">
+        <h4>🎵 Sedang Memutar</h4>
+        <p style="color:#ddd; font-size:14px; margin-bottom:10px;">${file.name}</p>
+        <audio controls autoplay style="width:100%;">
+          <source src="${fileURL}" type="${file.type}">
+          Browser tidak mendukung.
+        </audio>
+        <p style="font-size:11px; color:#ff4757; margin-top:10px;">💡 Tip: Install ALFA di Home Screen agar musik tetap nyala saat layar mati!</p>
+      </div>`;
+    
+    setupMediaSession(file.name);
+  } else {
+    alert("Format file tidak didukung. Pilih Video atau MP3.");
+  }
+}
+
+// FITUR MAGIC: Biar musik tetap nyala di latar belakang & muncul di layar kunci
+function setupMediaSession(namaFile) {
+  if ('mediaSession' in navigator) {
+    // Bersihin nama file dari ekstensi (.mp3 / .mp4)
+    const judulLagu = namaFile.replace(/\.[^/.]+$/, "");
+
+    navigator.mediaSession.metadata = new MediaMetadata({
+      title: judulLagu,
+      artist: 'ALFA Online Shopping',
+      album: 'Musik Lokal HP'
+    });
+
+    // Tombol play/pause di layar kunci
+    navigator.mediaSession.setActionHandler('play', () => { /* biar default */ });
+    navigator.mediaSession.setActionHandler('pause', () => { /* biar default */ });
+  }
+}
   
   </script>
 
