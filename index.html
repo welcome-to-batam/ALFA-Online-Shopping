@@ -683,44 +683,64 @@ Nikmati berbagai penawaran & fitur terbaik:
     </button>
   </div>
  </div><!-- PENUTUP .container -->
-  
-  <!-- Video Produk - Fitur Pemutar Musik Latar Melayang -->
+
+  <!-- ============================================== -->
+<!-- BAGIAN 1: VIDEO IKLAN PRODUK BAWAAN TOKO (TETAP AMAN) -->
+<!-- ============================================== -->
 <div class="product" style="text-align: center; padding: 15px;">
-  <!-- Tambahkan kata 'multiple' agar bisa pilih banyak video sekaligus -->
-<input type="file" id="video-uploader" accept="video/*" multiple onchange="putarVideoMelayang(event)" style="display: none;">
+  <!-- Input tersembunyi khusus untuk video iklan (Opsional, jika kamu mau ganti MP4 dari HP) -->
+  <input type="file" id="video-uploader" accept="video/*" onchange="gantiVideoIklan(event)" style="display: none;">
   
   <div class="product-img-wrap" style="margin-bottom: 10px;">
-  <!-- SEKARANG DIUBAH: Menjalankan fungsi memutar video produk bawaan -->
-  <img src="handgripproduk1.jpg" alt="TWS" onclick="putarVideoBawaanToko()" style="cursor: pointer; border-radius: 10px; max-width: 100%;">
+    <!-- Gambar sampul video iklan. Klik untuk memutar video bawaan toko -->
+    <img id="sampulIklan" src="handgripproduk1.jpg" alt="Iklan Produk" onclick="putarVideoBawaanToko()" style="cursor: pointer; border-radius: 10px; max-width: 100%;">
   </div>
   <h3>Klik Video☝️ Iklan Produk</h3>
 </div>
 
+<!-- Tempat Munculnya Video Iklan Bawaan (Awalnya tersembunyi) -->
+<div id="videoIklanContainer" style="display:none; text-align:center; margin:10px 0;">
+  <video id="videoIklanPlayer" controls playsinline style="width:100%; border-radius:10px;"></video>
+  <button onclick="tutupVideoIklan()" style="margin-top:5px; background:red; color:white; border:none; padding:8px 15px; border-radius:5px; cursor:pointer;">Tutup Iklan</button>
 </div>
+
+
+<!-- ============================================== -->
+<!-- BAGIAN 2: PEMUTAR VIDEO & MUSIK MP3 DARI HP (FITUR PLAYLIST) -->
+<!-- ============================================== -->
+<div style="text-align:center; padding:15px;">
+  <!-- Input tersembunyi khusus HP (Bisa pilih banyak, Video & MP3) -->
+  <input type="file" id="fileInput" accept="video/*,audio/*" multiple onchange="loadFiles(this)" style="display:none;">
+  
+  <!-- Tombol Pilih File HP -->
+  <button class="btn-tambah" onclick="document.getElementById('fileInput').click()" style="font-size:16px; padding:12px;">
+    📂 Putar Video / MP3 Dari HP-mu
+  </button>
+
+  <!-- Container Pemutar HP (Awalnya tersembunyi) -->
+  <div id="playerContainer" style="background:#111; padding:15px; border-radius:10px; margin-top:15px; color:white; display:none;">
     
-  <h3>Putar Video Musik Dari HP-mu👇</h3>
-  
-  <!-- Input tersembunyi yang bisa nerima Video dan Audio -->
-<input type="file" id="fileInput" accept="video/*,audio/*" style="display:none;" onchange="putarFile(this)">
+    <h4 id="playerTitle" style="margin:0 0 10px 0; color:#fff;">🎵 Media Player</h4>
+    
+    <!-- Area Video HP -->
+    <video id="videoPlayer" controls playsinline style="width:100%; border-radius:8px; display:none;"></video>
+    
+    <!-- Area Audio HP -->
+    <div id="audioWrapper" style="background:#222; padding:15px; border-radius:8px; display:none;">
+      <audio id="audioPlayer" controls style="width:100%;"></audio>
+    </div>
 
-<!-- Tombol UI -->
-<button class="btn-tambah" onclick="document.getElementById('fileInput').click()">
-  Pilih Video/Musik Dari HP
-</button>
-
-<!-- Tempat pemutar muncul -->
-<div id="playerContainer" style="margin-top:15px;"></div>
-  
-  <!-- Hapus display: none, ganti dengan tampilan block agar video terlihat di web -->
-<video id="hidden-video-player" controls style="display: block; width: 100%; max-width: 320px; margin: 15px auto; border-radius: 10px;"></video>
-
-<!-- Tombol Navigasi Antrean Musik -->
-<div style="margin-top: 10px; display: flex; justify-content: center; gap: 15px;">
-  <button onclick="videoSebelumnya()" style="background: #2196f3; color: white; border: none; padding: 8px 15px; border-radius: 15px; font-weight: bold; cursor: pointer;">⏮️ Prev</button>
-  <button onclick="videoBerikutnya()" style="background: #2196f3; color: white; border: none; padding: 8px 15px; border-radius: 15px; font-weight: bold; cursor: pointer;">Next ⏭️</button>
+    <!-- Navigasi Next / Prev -->
+    <div id="playerNav" style="margin-top:15px; display:none; justify-content:center; align-items:center;">
+      <button onclick="prevMedia()" style="padding:8px 15px; border:none; border-radius:5px; background:#555; color:white; cursor:pointer;">⏮ Prev</button>
+      <span id="mediaCounter" style="margin:0 10px; font-size:14px;">1 / 1</span>
+      <button onclick="nextMedia()" style="padding:8px 15px; border:none; border-radius:5px; background:#555; color:white; cursor:pointer;">Next ⏭</button>
+    </div>
+    
+    <p style="font-size:11px; color:#aaa; margin-top:15px; margin-bottom:0;">💡 Tip: Install ALFA di Home Screen agar musik tetap nyala saat layar mati!</p>
+  </div>
 </div>
-</div>
-
+  
   <!-- KOTAK INPUT RATING & TESTIMONI -->
 <div class="testimoni-box" style="background: white; padding: 20px; border-radius: 15px; margin: 20px auto; max-width: 90%; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
   
@@ -1206,65 +1226,122 @@ searchInput.addEventListener('keydown', function(e) {
   }
 });
 
-  // FITUR PEMUTAR VIDEO & MUSIK MP3
-function putarFile(input) {
-  const file = input.files[0];
-  if (!file) return; // Kalau batal pilih, berhenti
-
-  // Buat URL sementara untuk file dari HP
-  const fileURL = URL.createObjectURL(file);
-  const playerContainer = document.getElementById('playerContainer');
-  
-  // Bersihkan pemutar lama
-  playerContainer.innerHTML = '';
-
-  // Cek apakah file itu Video atau Audio
-  if (file.type.startsWith('video/')) {
-    // Kalau Video
-    playerContainer.innerHTML = `
-      <video controls autoplay style="width:100%; border-radius:10px;">
-        <source src="${fileURL}" type="${file.type}">
-        Browser tidak mendukung.
-      </video>`;
-    setupMediaSession(file.name);
-
-  } else if (file.type.startsWith('audio/')) {
-    // Kalau Audio/MP3
-    playerContainer.innerHTML = `
-      <div style="background:#222; padding:20px; border-radius:10px; color:white; text-align:center;">
-        <h4>🎵 Sedang Memutar</h4>
-        <p style="color:#ddd; font-size:14px; margin-bottom:10px;">${file.name}</p>
-        <audio controls autoplay style="width:100%;">
-          <source src="${fileURL}" type="${file.type}">
-          Browser tidak mendukung.
-        </audio>
-        <p style="font-size:11px; color:#ff4757; margin-top:10px;">💡 Tip: Install ALFA di Home Screen agar musik tetap nyala saat layar mati!</p>
-      </div>`;
-    
-    setupMediaSession(file.name);
-  } else {
-    alert("Format file tidak didukung. Pilih Video atau MP3.");
-  }
+  // =============================================
+// 1. KODE VIDEO IKLAN BAWAAN TOKO
+// =============================================
+// Ganti video iklan dari HP (Opsional, kalau kamu mau update iklan langsung dari HP)
+function gantiVideoIklan(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const url = URL.createObjectURL(file);
+  const player = document.getElementById('videoIklanPlayer');
+  player.src = url;
+  document.getElementById('videoIklanContainer').style.display = 'block';
+  player.play();
 }
 
-// FITUR MAGIC: Biar musik tetap nyala di latar belakang & muncul di layar kunci
+// Memutar video bawaan (misal: file di folder website kamu)
+function putarVideoBawaanToko() {
+  const player = document.getElementById('videoIklanPlayer');
+  // GANTI 'video-iklan.mp4' dengan nama file video iklanmu yang di-upload di GitHub
+  player.src = 'video-iklan.mp4'; 
+  document.getElementById('videoIklanContainer').style.display = 'block';
+  player.play().catch(() => {});
+}
+
+function tutupVideoIklan() {
+  const player = document.getElementById('videoIklanPlayer');
+  player.pause();
+  document.getElementById('videoIklanContainer').style.display = 'none';
+}
+
+
+// =============================================
+// 2. KODE PEMUTAR HP (VIDEO & MP3 PLAYLIST)
+// =============================================
+let mediaList = []; 
+let currentIndex = 0; 
+
+function loadFiles(input) {
+  const files = input.files;
+  if (files.length === 0) return;
+
+  mediaList = Array.from(files);
+  currentIndex = 0; 
+  
+  document.getElementById('playerContainer').style.display = 'block';
+  playMedia(currentIndex);
+}
+
+function playMedia(index) {
+  const file = mediaList[index];
+  const fileURL = URL.createObjectURL(file);
+  
+  const videoPlayer = document.getElementById('videoPlayer');
+  const audioPlayer = document.getElementById('audioPlayer');
+  const audioWrapper = document.getElementById('audioWrapper');
+  const playerTitle = document.getElementById('playerTitle');
+  const playerNav = document.getElementById('playerNav');
+  const mediaCounter = document.getElementById('mediaCounter');
+
+  // Reset
+  videoPlayer.pause(); videoPlayer.style.display = 'none';
+  audioPlayer.pause(); audioWrapper.style.display = 'none';
+
+  const judul = file.name.replace(/\.[^/.]+$/, ""); 
+
+  if (file.type.startsWith('video/')) {
+    videoPlayer.src = fileURL;
+    videoPlayer.style.display = 'block';
+    playerTitle.textContent = "🎬 " + judul;
+  } else if (file.type.startsWith('audio/')) {
+    audioPlayer.src = fileURL;
+    audioWrapper.style.display = 'block';
+    playerTitle.textContent = "🎵 " + judul;
+  }
+
+  playerNav.style.display = 'flex';
+  mediaCounter.textContent = `${index + 1} / ${mediaList.length}`;
+
+  setupMediaSession(judul);
+  
+  setTimeout(() => {
+    if (file.type.startsWith('video/')) videoPlayer.play().catch(()=>{});
+    if (file.type.startsWith('audio/')) audioPlayer.play().catch(()=>{});
+  }, 100);
+}
+
+// Otomatis Next
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('audioPlayer').addEventListener('ended', nextMedia);
+  document.getElementById('videoPlayer').addEventListener('ended', nextMedia);
+});
+
+function nextMedia() {
+  if (mediaList.length === 0) return;
+  currentIndex = (currentIndex + 1) % mediaList.length; 
+  playMedia(currentIndex);
+}
+
+function prevMedia() {
+  if (mediaList.length === 0) return;
+  currentIndex = (currentIndex - 1 + mediaList.length) % mediaList.length;
+  playMedia(currentIndex);
+}
+
+// Magic Layar Kunci
 function setupMediaSession(namaFile) {
   if ('mediaSession' in navigator) {
-    // Bersihin nama file dari ekstensi (.mp3 / .mp4)
-    const judulLagu = namaFile.replace(/\.[^/.]+$/, "");
-
     navigator.mediaSession.metadata = new MediaMetadata({
-      title: judulLagu,
+      title: namaFile,
       artist: 'ALFA Online Shopping',
-      album: 'Musik Lokal HP'
+      album: 'Musik & Video Lokal'
     });
-
-    // Tombol play/pause di layar kunci
-    navigator.mediaSession.setActionHandler('play', () => { /* biar default */ });
-    navigator.mediaSession.setActionHandler('pause', () => { /* biar default */ });
+    navigator.mediaSession.setActionHandler('nexttrack', nextMedia);
+    navigator.mediaSession.setActionHandler('previoustrack', prevMedia);
   }
-}
-  
+    }
+    
   </script>
 
 <div id="popup-keranjang" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:1000; justify-content:center; align-items:center;">
