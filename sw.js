@@ -1,11 +1,11 @@
-const CACHE_NAME = 'alfa-cache-v103'; // Naikkan versi ke v103
+const CACHE_NAME = 'alfa-cache-v104'; // Naikkan versi ke v104
 const assets = [
   '/ALFA-Online-Shopping/',
   '/ALFA-Online-Shopping/index.html',
   '/ALFA-Online-Shopping/manifest.json',
   
   // PASTIKAN PATH DI BAWAH INI SAMA PERSIS DENGAN DI INDEX.HTML
-  '/ALFA-Online-Shopping/logoijo.jpg',
+  '/ALFA-Online-Shopping/logoijo.png',
   '/ALFA-Online-Shopping/logomerahmuda.jpg',
   '/ALFA-Online-Shopping/jembatanbarelang.jpg',
   '/ALFA-Online-Shopping/qrcode.jpg',
