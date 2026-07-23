@@ -2,7 +2,7 @@
   "name": "ALFA Online Shopping",
   "short_name": "ALFA",
   "description": "Belanja online tanpa ribet cara order gampang pengiriman sampai ke alamat tujuan!",
-  "start_url": "/ALFA-Online-Shopping/index.html",
+  "start_url": "/ALFA-Online-Shopping/",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#000000",
@@ -12,11 +12,6 @@
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
-    },
-    {
-      "src": "/ALFA-Online-Shopping/logomerahmuda.jpg",
-      "sizes": "512x512",
-      "type": "image/jpeg"
     }
   ]
 }
