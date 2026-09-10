@@ -480,8 +480,19 @@ body { font-family: Arial, sans-serif; background:#f5f5f5; }
 }
     
   </style>
+  
   <style>
-/* Efek saat tombol menu Informasi diklik oleh jempol pembeli */
+    /* --- TOMBOL "IKLAN MAS GONDRONG" BERKILAU & MENONJOL --- */
+    .box {
+    max-width: 400px; /* Lebar maksimal kotak */
+    margin: 30px auto; /* Tengah horizontal dengan jarak atas bawah */
+    padding: 20px 25px; /* Ruang dalam kotak */
+    background-color: #ffffff; /* Warna latar putih */
+    border-radius: 15px; /* Sudut membulat */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1); /* Bayangan lembut */
+    box-sizing: border-box;
+    }
+    
 h3 {
     text-align: center;
     margin-bottom: 10px;
@@ -521,12 +532,14 @@ h3 {
     overflow: hidden;
     transition: transform 0.1s;
 }
-
+    
+/* Efek Membal Saat Ditekan di HP */
 .section-title:active {
     transform: scale(0.96);
     box-shadow: 0 2px 8px rgba(46, 204, 113, 0.4);
 }
-
+    
+/* Animasi Kilatan Cahaya Berjalan (Shimmer) */
 .section-title::after {
     content: '';
     position: absolute;
@@ -577,11 +590,13 @@ h3 {
   <p>1. Klik "Tambah Ke Keranjang" untuk menambahkan produk kekeranjang putih, lalu klik "Beli via WA" untuk membeli.</p>
   <p>2. Klik "Foto" untuk melihat Halaman "Detail Produk", lalu klik "Beli via WhatsApp" untuk membeli satuan produk.</p>
   <h3>Selamat Ber Belanja</h3>
+</div>
+  
+  <div class="box">
   <h3>JASA BIKIN APLIKASI WEBSITE</h3>
 <p class="section-description">
     Aplikasi Custom, Aplikasi Mobile & Aplikasi Website yang bisa di Install di hp dan dirancang Khusus untuk Bisnis Anda.
 </p>
-
 <a href="https://mas-gondrong.github.io/mas-gondrong/" class="section-title" target="_blank" rel="noopener noreferrer">
     Klik Untuk Info Aplikasinya
 </a>
