@@ -483,73 +483,80 @@ body { font-family: Arial, sans-serif; background:#f5f5f5; }
   
   <style>
     /* --- TOMBOL "IKLAN MAS GONDRONG" BERKILAU & MENONJOL --- */
-.box { 
-  max-width: 330px; /* Lebar maksimal kotak */ 
-  margin: 25px auto; /* Tengah horizontal dengan jarak atas bawah */ 
-  padding: 20px 25px; /* Ruang dalam kotak */ 
-  background-color: #ffffff; /* Warna latar putih */ 
-  border-radius: 15px; /* Sudut membulat */ 
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1); /* Bayangan lembut */ 
-  box-sizing: border-box; 
-} 
-    
-  h3 { 
-  text-align: center; 
-  margin-bottom: 10px; 
-  font-weight: bold; 
-  color: #000000; 
-} 
-    
-.section-description { 
-  text-align: center; 
-  font-size: 14px; 
-  color: #333333; 
-  margin: 0 0 20px 0; 
-  line-height: 1.5; 
-  max-width: 90%; 
-  margin-left: auto; 
-  margin-right: auto; 
+    .box {
+    max-width: 330px;
+    margin: 25px auto;
+    padding: 20px 25px;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    box-sizing: border-box;
+
+    /* Background gradient halus dari hijau ke hijau muda */
+    background: linear-gradient(135deg, #00008b, #add8e6);
+    color: white; /* Agar teks terlihat kontras */
+}
+
+h3 {
+    text-align: center;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.section-description {
+    text-align: center;
+    font-size: 14px;
+    margin: 0 0 20px 0;
+    line-height: 1.5;
+    max-width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.section-title {
+    display: block;
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+    color: #ffffff;
+    background: linear-gradient(135deg, #16a085, #27ae60);
+    padding: 8px 20px;
+    margin: 0 auto 20px auto;
+    border-radius: 30px;
+    text-transform: uppercase;
+    text-decoration: none;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    box-sizing: border-box;
+    width: 100%;
+    box-shadow: 0 5px 15px rgba(39, 174, 96, 0.4);
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.1s;
 }
     
-.section-title { 
-  display: block; 
-  text-align: center; 
-  font-size: 14px; 
-  font-weight: bold; 
-  color: #ffffff; background: linear-gradient(135deg, #1abc9c, #2ecc71); 
-  padding: 8px 20px; 
-  margin: 0 auto 20px auto; border-radius: 30px; 
-  text-transform: uppercase; text-decoration: none; 
-  letter-spacing: 0.5px; cursor: pointer; 
-  box-sizing: border-box; width: 100%; 
-  box-shadow: 0 5px 15px rgba(46, 204, 113, 0.4); 
-  position: relative; overflow: hidden; 
-  transition: transform 0.1s; 
-} 
-    
-    /* Efek Membal Saat Ditekan di HP */ 
-.section-title:active { 
-  transform: scale(0.96); 
-  box-shadow: 0 2px 8px rgba(46, 204, 113, 0.4); 
-} 
-    
-    /* Animasi Kilatan Cahaya Berjalan (Shimmer) */ 
-.section-title::after { 
-  content: ''; 
-  position: absolute; 
-  top: 0; 
-  left: -50%; 
-  width: 30%;
-  height: 100%; 
-  background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.5) 50%, rgba(255,255,255,0) 100%); 
-  transform: skewX(-25deg); 
-  animation: kilatCahaya 3s infinite ease-in-out; 
+/* Efek Membal Saat Ditekan di HP */
+.section-title:active {
+    transform: scale(0.96);
+    box-shadow: 0 2px 8px rgba(39, 174, 96, 0.4);
 }
     
-  @keyframes kilatCahaya { 
-    0% { left: -30%; } 
-    100% { left: 130%; } 
-    }
+/* Animasi Kilatan Cahaya Berjalan (Shimmer) */ 
+.section-title::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -50%;
+    width: 30%;
+    height: 100%;
+    background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.5) 50%, rgba(255,255,255,0) 100%);
+    transform: skewX(-25deg);
+    animation: kilatCahaya 3s infinite ease-in-out;
+}
+
+@keyframes kilatCahaya {
+    0% { left: -30%; }
+    100% { left: 130%; }
+}
 </style>
 </head>
   
