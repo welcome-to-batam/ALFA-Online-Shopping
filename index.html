@@ -482,8 +482,8 @@ body { font-family: Arial, sans-serif; background:#f5f5f5; }
   </style>
   
   <style>
-    /* --- TOMBOL "IKLAN MAS GONDRONG" BERKILAU & MENONJOL --- */
-    .box {
+   /* --- TOMBOL "IKLAN MAS GONDRONG" BERKILAU & MENONJOL --- */
+.box {
     max-width: 330px;
     margin: 25px auto;
     padding: 20px 25px;
@@ -491,9 +491,26 @@ body { font-family: Arial, sans-serif; background:#f5f5f5; }
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     box-sizing: border-box;
 
-    /* Background gradient halus dari hijau ke hijau muda */
+    /* Background gradient halus biru tua ke biru muda */
     background: linear-gradient(135deg, #00008b, #add8e6);
     color: white; /* Agar teks terlihat kontras */
+
+    /* Animasi perubahan warna lembut */
+    animation: backgroundShift 8s ease-in-out infinite alternate;
+
+    position: relative; /* Agar emoji bisa diposisikan absolut di dalam box */
+}
+
+@keyframes backgroundShift {
+    0% {
+        background: linear-gradient(135deg, #00008b, #add8e6);
+    }
+    50% {
+        background: linear-gradient(135deg, #001f8a, #9ec1e0);
+    }
+    100% {
+        background: linear-gradient(135deg, #00008b, #add8e6);
+    }
 }
 
 h3 {
@@ -533,14 +550,12 @@ h3 {
     overflow: hidden;
     transition: transform 0.1s;
 }
-    
-/* Efek Membal Saat Ditekan di HP */
+
 .section-title:active {
     transform: scale(0.96);
     box-shadow: 0 2px 8px rgba(39, 174, 96, 0.4);
 }
-    
-/* Animasi Kilatan Cahaya Berjalan (Shimmer) */ 
+
 .section-title::after {
     content: '';
     position: absolute;
@@ -557,6 +572,25 @@ h3 {
     0% { left: -30%; }
     100% { left: 130%; }
 }
+
+/* Emoji bergerak di pojok kanan bawah */
+.emoji-floating {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    font-size: 28px;
+    animation: floatUpDown 3s ease-in-out infinite;
+    pointer-events: none; /* agar tidak mengganggu klik */
+}
+
+@keyframes floatUpDown {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+    }
 </style>
 </head>
   
@@ -595,13 +629,16 @@ h3 {
   
   <div class="box">
   <h3>JASA BIKIN APLIKASI WEBSITE</h3>
-<p class="section-description">
+  <p class="section-description">
     Aplikasi Custom, Aplikasi Mobile & Aplikasi Website yang bisa di Install di hp dan dirancang Khusus untuk Bisnis Anda.
-</p>
-<a href="https://mas-gondrong.github.io/mas-gondrong/" class="section-title" target="_blank" rel="noopener noreferrer">
-    Klik Untuk Info Aplikasinya
-</a>
-</div>
+  </p>
+  <a href="https://eci.co.id/" class="section-title" target="_blank" rel="noopener noreferrer">
+    Klik Untuk Info Lebih Lanjut
+  </a>
+
+  <!-- Emoji bergerak -->
+  <div class="emoji-floating">🙋</div>
+  </div>
   
     <!-- Kolom Pencarian Produk -->
 <div style="padding: 10px 20px; background-color: #f8f9fa; position: sticky; top: 0; z-index: 100;">
