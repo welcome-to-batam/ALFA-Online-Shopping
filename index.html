@@ -483,7 +483,7 @@ body { font-family: Arial, sans-serif; background:#f5f5f5; }
   
   <style>
     /* --- TOMBOL "IKLAN MAS GONDRONG" BERKILAU & MENONJOL --- */
-    .box {
+  .box {
     max-width: 330px; /* Lebar maksimal kotak */
     margin: 25px auto; /* Tengah horizontal dengan jarak atas bawah */
     padding: 20px 25px; /* Ruang dalam kotak */
@@ -492,6 +492,19 @@ body { font-family: Arial, sans-serif; background:#f5f5f5; }
     box-shadow: 0 4px 12px rgba(0,0,0,0.1); /* Bayangan lembut */
     box-sizing: border-box;
     }
+
+    /* Efek blur di tengah pertemuan warna */
+  .box::before {
+    content: '';
+    position: absolute;
+    top: 0; bottom: 0;
+    left: 45%; right: 55%;
+    background: linear-gradient(to right, transparent, rgba(155, 89, 182, 0.5), transparent);
+    filter: blur(10px);
+    z-index: 0;
+    pointer-events: none;
+    border-radius: 15px;
+  }
     
 h3 {
     text-align: center;
