@@ -480,6 +480,70 @@ body { font-family: Arial, sans-serif; background:#f5f5f5; }
 }
     
   </style>
+  <style>
+/* Efek saat tombol menu Informasi diklik oleh jempol pembeli */
+h3 {
+    text-align: center;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: #000000;
+}
+
+.section-description {
+    text-align: center;
+    font-size: 14px;
+    color: #333333;
+    margin: 0 0 20px 0;
+    line-height: 1.5;
+    max-width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.section-title {
+    display: block;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    color: #ffffff;
+    background: linear-gradient(135deg, #1abc9c, #2ecc71);
+    padding: 14px 20px;
+    margin: 0 auto 20px auto;
+    border-radius: 30px;
+    text-transform: uppercase;
+    text-decoration: none;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    box-sizing: border-box;
+    width: 90%;
+    box-shadow: 0 5px 15px rgba(46, 204, 113, 0.4);
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.1s;
+}
+
+.section-title:active {
+    transform: scale(0.96);
+    box-shadow: 0 2px 8px rgba(46, 204, 113, 0.4);
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -50%;
+    width: 30%;
+    height: 100%;
+    background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.5) 50%, rgba(255,255,255,0) 100%);
+    transform: skewX(-25deg);
+    animation: kilatCahaya 3s infinite ease-in-out;
+}
+
+@keyframes kilatCahaya {
+    0% { left: -30%; }
+    100% { left: 130%; }
+}
+  </style>
 </head>
   
   <!-- LIGHTBOX UNTUK ZOOM FOTO -->
