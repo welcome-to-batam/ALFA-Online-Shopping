@@ -591,6 +591,44 @@ h3 {
         transform: translateY(-10px);
     }
     }
+
+    /* Container animasi kecil di pojok bawah */
+  #masGondrongAnimation {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 100px;  /* ukuran kecil */
+    height: 100px;
+    pointer-events: none; /* agar tidak menghalangi klik */
+    background: transparent;
+    z-index: 9999;
+    opacity: 1;
+    transition: opacity 0.5s ease;
+  }
+
+  #fireCanvas {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  #masGondrongAnimation img.photo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 80px;  /* foto lebih kecil */
+    height: 80px;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    object-fit: cover;
+    box-shadow: 0 0 10px 3px rgba(255, 140, 0, 0.8);
+    z-index: 2;
+    pointer-events: auto; /* jika ingin foto bisa diinteraksi */
+  }
 </style>
 </head>
   
@@ -874,6 +912,14 @@ Nikmati berbagai penawaran & fitur terbaik:
     <p id="playerTip" style="font-size:10px; color:#aaa; margin-top:5px; margin-bottom:0;">⚠️ Jangan swipe-close Chrome agar musik tetap nyala</p>
   </div>
 </div>
+
+  <!-- Animasi kecil di pojok bawah -->
+    <a href="https://mas-gondrong.github.io/mas-gondrong/" target="_blank" style="display: inline-block;">
+  <div id="masGondrongAnimation" style="cursor: pointer;">
+    <canvas id="fireCanvas" width="100" height="100"></canvas>
+    <img src="mas_gondrong.png" alt="Mas Gondrong" class="photo" />
+  </div>
+    </a>
   
   <!-- KOTAK INPUT RATING & TESTIMONI -->
 <div class="testimoni-box" style="background: white; padding: 20px; border-radius: 15px; margin: 20px auto; max-width: 90%; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
@@ -1552,7 +1598,85 @@ document.addEventListener('touchend', () => {
     dragHandle.style.background = '#333';
     dragHandle.innerText = '⠿ Geser Pemutar ⠿';
 });
-  
+
+  // --- Logo Mas Gondrong---
+  const canvas = document.getElementById('fireCanvas');
+  const ctx = canvas.getContext('2d');
+  const width = canvas.width;
+  const height = canvas.height;
+  const centerX = width / 2;
+  const centerY = height / 2;
+  const radius = 40;
+
+  class FlameParticle {
+    constructor(angle) {
+      this.angle = angle;
+      this.radius = radius + (Math.random() * 7 - 3);
+      this.size = Math.random() * 4 + 3;
+      this.speedAngle = 0.004 + Math.random() * 0.004;
+      this.flameLength = 10 + Math.random() * 10;
+      this.offset = Math.random() * 1000;
+    }
+
+    update(time) {
+      this.angle += this.speedAngle;
+      this.x = centerX + this.radius * Math.cos(this.angle);
+      this.y = centerY + this.radius * Math.sin(this.angle);
+      this.flameProgress = (Math.sin(time / 300 + this.offset) + 1) / 2;
+    }
+
+    draw(ctx) {
+      const grad = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.size * 2);
+      grad.addColorStop(0, `rgba(255, 200, 0, ${0.8 * this.flameProgress})`);
+      grad.addColorStop(0.5, `rgba(255, 100, 0, ${0.6 * this.flameProgress})`);
+      grad.addColorStop(1, 'rgba(0,0,0,0)');
+
+      ctx.fillStyle = grad;
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.beginPath();
+      ctx.moveTo(this.x, this.y);
+      const tipX = centerX + (this.radius - this.flameLength * this.flameProgress) * Math.cos(this.angle);
+      const tipY = centerY + (this.radius - this.flameLength * this.flameProgress) * Math.sin(this.angle);
+      ctx.lineTo(tipX, tipY);
+      ctx.lineWidth = this.size / 3;
+      ctx.strokeStyle = `rgba(255, 140, 0, ${0.7 * this.flameProgress})`;
+      ctx.shadowColor = `rgba(255, 140, 0, ${0.9 * this.flameProgress})`;
+      ctx.shadowBlur = 5;
+      ctx.stroke();
+      ctx.shadowBlur = 0;
+    }
+  }
+
+  const particles = [];
+  const particleCount = 20;
+  for (let i = 0; i < particleCount; i++) {
+    particles.push(new FlameParticle((i / particleCount) * Math.PI * 2));
+  }
+
+  function animate(time = 0) {
+    ctx.clearRect(0, 0, width, height);
+    particles.forEach(p => {
+      p.update(time);
+      p.draw(ctx);
+    });
+    requestAnimationFrame(animate);
+  }
+  animate();
+
+  // Kontrol muncul/hilang animasi saat scroll
+  const anim = document.getElementById('masGondrongAnimation');
+  let scrollTimeout;
+
+  window.addEventListener('scroll', () => {
+    anim.style.opacity = '0';
+    if (scrollTimeout) clearTimeout(scrollTimeout);
+    scrollTimeout = setTimeout(() => {
+      anim.style.opacity = '1';
+    }, 2000);
+  });
   </script>
 
 <div id="popup-keranjang" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:1000; justify-content:center; align-items:center;">
